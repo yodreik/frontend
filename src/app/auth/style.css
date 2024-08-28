@@ -4,7 +4,7 @@
   --color-b: #5A5A5A;
   --color-c: #89c4b7;
   --color-d: #B5FED9;
-  --color-e: #FCEFF9;
+  --color-e: #efeffc;
 }
 
 
@@ -130,6 +130,7 @@ body {
 .form__input {
   width: 100%;
   padding: 10px;
+  background-color: var(--color-e);
   border: solid 1px #333;
   font-size: inherit;
   border-radius: 10px;
