@@ -34,7 +34,6 @@ body {
   height: 100%;
   background-color: var(--color-c);
   border-radius: 25px;
-  /* box-shadow: 0 5px 45px var(--color-b); */
 
   display: flex;
   align-items: center;
@@ -72,7 +71,6 @@ body {
   height: 100%;
   width: 50%;
   border-radius: 25px;
-  /* box-shadow: 0 5px 25px var(--color-b); */
 
   position: absolute;
   top: 0;
@@ -100,6 +98,7 @@ body {
 
   position: absolute;
   transition: 0.5s;
+  text-align: center;
 }
 
 .form_signin {
@@ -133,6 +132,7 @@ body {
   padding: 10px;
   border: solid 1px #333;
   font-size: inherit;
+  border-radius: 10px;
 }
 
 .form__btn {
@@ -148,6 +148,22 @@ body {
 
 .form__forgot {
   color: #333;
+}
+
+
+
+.form__error {
+  color: red;
+  visibility: hidden;
+}
+
+.error-input {
+  border: solid 1px red;
+  color: red;
+}
+
+.error {
+  visibility: visible;
 }
 
 
