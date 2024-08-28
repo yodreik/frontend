@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useEffect, useState, ChangeEvent, FormEvent, } from 'react';
 import { useRouter } from 'next/navigation';
-import Script from 'next/script';
-import "./style.css";
+import './style.css';
 
 
 const AuthPage = () => {
@@ -11,14 +10,15 @@ const AuthPage = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [retypedPassword, setRetypedPassword] = useState<string>('');
+  const [error, setError] = useState<string>('No error');
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const router = useRouter();
-
+  
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (isLogin) {
-      const endpoint = '';
+      const endpoint = 'http://localhost:6969/api/auth/login';
 
       const res = await fetch(endpoint, {
         method: 'POST',
@@ -29,15 +29,15 @@ const AuthPage = () => {
       });
 
       if (res.ok) {
-        // const { token } = await res.json();
-        // localStorage.setItem('token', token);
+        const { token } = await res.json();
+        localStorage.setItem('token', token);
         router.push('/');
-      } else {
-        alert('Ошибка авторизации');
+      } else if (res.status == 404) {
+        setError('Email or password are not incorrect'); // '404 - Email or password are not incorrect 500 - server'
       }
     } else {
       if (password == retypedPassword) {
-        const endpoint = '';
+        const endpoint = 'http://localhost:6969/api/auth/register';
         
         const res = await fetch(endpoint, {
           method: 'POST',
@@ -50,16 +50,17 @@ const AuthPage = () => {
         if (res.ok) {
           alert('Вы успешно зарегистрировались');
           router.push('/auth');
-        } else {
-          alert('Ошибка регистрации');
+        } else if (res.status == 409) {
+          setError('This email already taken');
         }
       } else {
-        alert('Passwords don\'t match');
+        setError('Passwords don\'t match');
       }
     }
   };
-
+  
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setError('No error');
     const { name, value } = e.target;
     if (name === 'name') setName(value);
     if (name === 'email') setEmail(value);
@@ -67,22 +68,83 @@ const AuthPage = () => {
     if (name === 'retypedPassword') setRetypedPassword(value);
   };
 
+  useEffect(() => {
+    const signInBtn = document.querySelector('.signin-btn');
+    const signUpBtn = document.querySelector('.signup-btn');
+    const formBox = document.querySelector('.form-box');
+
+    const handleSignUpClick = () => {
+      formBox?.classList.add('active');
+      setIsLogin(false);
+    }
+
+    const handleSignInClick = () => {
+      formBox?.classList.remove('active');
+      setIsLogin(true);
+    }
+
+    signUpBtn?.addEventListener('click', handleSignUpClick);
+    signInBtn?.addEventListener('click', handleSignInClick);
+
+    return () => {
+      signUpBtn?.removeEventListener('click', handleSignUpClick);
+      signInBtn?.removeEventListener('click', handleSignInClick);
+    }
+  });
+
+  useEffect(() => {
+    const loginEmailInput = document.getElementsByName('email')[0];
+    const LoginPasswordInput = document.getElementsByName('password')[0];
+    const nameInput = document.getElementsByName('name')[0];
+    const emailInput = document.getElementsByName('email')[1];
+    const passwordInput = document.getElementsByName('password')[1];
+    const retypedPasswordInput = document.getElementsByName('retypedPassword')[0];
+
+    const loginError = document.getElementById('loginError');
+    const registerError = document.getElementById('registerError');
+
+    if (error === 'Email or password are not incorrect') {
+      loginEmailInput.classList.add('error-input');
+      LoginPasswordInput.classList.add('error-input');
+      loginError?.classList.add('error');
+    }
+    else if (error === 'This email already taken'){
+      emailInput.classList.add('error-input');
+      registerError?.classList.add('error');
+    }
+    else if (error === 'Passwords don\'t match'){
+      passwordInput.classList.add('error-input');
+      retypedPasswordInput.classList.add('error-input');
+      registerError?.classList.add('error');
+    }
+    else if (error === 'No error') {
+      loginEmailInput.classList.remove('error-input');
+      LoginPasswordInput.classList.remove('error-input');
+      nameInput.classList.remove('error-input');
+      emailInput.classList.remove('error-input');
+      passwordInput.classList.remove('error-input');
+      retypedPasswordInput.classList.remove('error-input');
+      loginError?.classList.remove('error');
+      registerError?.classList.remove('error');
+    }
+    else {
+      alert(error);
+    }
+    return () => {
+      
+    }
+  });
+
   return (
     <article className="container">
-      <Script
-        src="./script.js"
-        strategy="lazyOnload"
-        defer
-      />
-
       <div className="block">
         <section className="block__item block-item">
           <h2 className="block-item__title">Already have an account?</h2>
-          <button onClick={() => setIsLogin(true)} className="block-item__btn signin-btn">Sign in</button>
+          <button className="block-item__btn signin-btn">Sign in</button>
         </section>
         <section className="block__item block-item">
           <h2 className="block-item__title">Don't have an account?</h2>
-          <button onClick={() => setIsLogin(false)} className="block-item__btn signup-btn">Sign up</button>
+          <button className="block-item__btn signup-btn">Sign up</button>
         </section>
       </div>
 
@@ -97,7 +159,7 @@ const AuthPage = () => {
               onChange={handleInputChange}
               placeholder="Email"
               required
-              className='form__input'
+              className="form__input"
             />
           </p>
           <p>
@@ -108,9 +170,10 @@ const AuthPage = () => {
               onChange={handleInputChange}
               placeholder="Password"
               required
-              className='form__input'
+              className="form__input"
             />
           </p>
+          <small id="loginError" className="form__error">{error}</small>
           <p>
             <button type="submit" className="form__btn">Sign in</button>
           </p>
@@ -129,7 +192,7 @@ const AuthPage = () => {
               onChange={handleInputChange}
               placeholder="Name"
               required
-              className='form__input'
+              className="form__input"
             />
           </p>
           <p>
@@ -140,7 +203,7 @@ const AuthPage = () => {
               onChange={handleInputChange}
               placeholder="Email"
               required
-              className='form__input'
+              className="form__input"
             />
           </p>
           <p>
@@ -151,7 +214,7 @@ const AuthPage = () => {
               onChange={handleInputChange}
               placeholder="Password"
               required
-              className='form__input'
+              className="form__input"
             />
           </p>
           <p>
@@ -162,9 +225,10 @@ const AuthPage = () => {
               onChange={handleInputChange}
               placeholder="Retype password"
               required
-              className='form__input'
+              className="form__input"
             />
           </p>
+          <small id="registerError" className="form__error">{error}</small>
           <p>
             <button type="submit" className="form__btn">Sign up</button>
           </p>
