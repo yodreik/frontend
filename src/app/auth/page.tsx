@@ -33,10 +33,30 @@ const AuthPage = () => {
         localStorage.setItem('token', token);
         router.push('/');
       } else if (res.status == 404) {
-        setError('Email or password are not incorrect'); // '404 - Email or password are not incorrect 500 - server'
+        setError('Email or password are incorrect'); // '404 - Email or password are not incorrect 500 - server'
+      } else if (res.status == 500) {
+        setError('Server error. Try later')
       }
     } else {
-      if (password == retypedPassword) {
+      if (name.length < 1){
+        setError('Name can\'t be empty')
+      }
+      else if (name.length > 50){
+        setError('Name is too long')
+      }
+      else if (password.length < 8){
+        setError('Password is too short')
+      }
+      else if (password.length > 50){
+        setError('Password is too long')
+      }
+      else if (!/^[A-Z]{3}-\d{4}$/.test(email)){
+        setError('Invalid email')
+      } 
+      else if (password !== retypedPassword) {
+        setError('Passwords don\'t match');
+      }
+      else {
         const endpoint = 'http://localhost:6969/api/auth/register';
         
         const res = await fetch(endpoint, {
@@ -52,9 +72,9 @@ const AuthPage = () => {
           router.push('/auth');
         } else if (res.status == 409) {
           setError('This email already taken');
+        } else if (res.status == 500) {
+          setError('Server error. Try later')
         }
-      } else {
-        setError('Passwords don\'t match');
       }
     }
   };
@@ -103,20 +123,32 @@ const AuthPage = () => {
     const loginError = document.getElementById('loginError');
     const registerError = document.getElementById('registerError');
 
-    if (error === 'Email or password are not incorrect') {
+    if (error === 'Email or password are incorrect') {
       loginEmailInput.classList.add('error-input');
       LoginPasswordInput.classList.add('error-input');
       loginError?.classList.add('error');
+    } 
+    else if (error === 'Name can\'t be empty' || error === 'Name is too long'){
+      nameInput.classList.add('error-input');
+      registerError?.classList.add('error');
     }
-    else if (error === 'This email already taken'){
+    else if (error === 'This email already taken' || error === 'Invalid email'){
       emailInput.classList.add('error-input');
+      registerError?.classList.add('error');
+    } 
+    else if (error === 'Password is too short' || error === 'Password is too long'){
+      passwordInput.classList.add('error-input');
       registerError?.classList.add('error');
     }
     else if (error === 'Passwords don\'t match'){
       passwordInput.classList.add('error-input');
       retypedPasswordInput.classList.add('error-input');
       registerError?.classList.add('error');
-    }
+    } 
+    else if (error === 'Server error. Try later'){
+      loginError?.classList.add('error');
+      registerError?.classList.add('error');
+    } 
     else if (error === 'No error') {
       loginEmailInput.classList.remove('error-input');
       LoginPasswordInput.classList.remove('error-input');
@@ -129,9 +161,6 @@ const AuthPage = () => {
     }
     else {
       alert(error);
-    }
-    return () => {
-      
     }
   });
 
