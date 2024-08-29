@@ -153,18 +153,24 @@ body {
 
 
 
-.form__error {
-  color: red;
+.form__info {
+  font-weight: 700;
   visibility: hidden;
+}
+
+.error {
+  color: red;
+  visibility: visible;
+}
+
+.success {
+  color: var(--color-c);
+  visibility: visible;
 }
 
 .error-input {
   border: solid 1px red;
   color: red;
-}
-
-.error {
-  visibility: visible;
 }
 
 
