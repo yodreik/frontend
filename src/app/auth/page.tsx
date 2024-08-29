@@ -10,7 +10,7 @@ const AuthPage = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [retypedPassword, setRetypedPassword] = useState<string>('');
-  const [error, setError] = useState<string>('No error');
+  const [info, setInfo] = useState<string>('No info');
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const router = useRouter();
   
@@ -31,30 +31,31 @@ const AuthPage = () => {
       if (res.ok) {
         const { token } = await res.json();
         localStorage.setItem('token', token);
+        setInfo('Successfully logged in');
         router.push('/');
       } else if (res.status == 404) {
-        setError('Email or password are incorrect'); // '404 - Email or password are not incorrect 500 - server'
+        setInfo('Email or password are incorrect');
       } else if (res.status == 500) {
-        setError('Server error. Try later')
+        setInfo('Server error. Try later')
       }
     } else {
       if (name.length < 1){
-        setError('Name can\'t be empty')
+        setInfo('Name can\'t be empty')
       }
       else if (name.length > 50){
-        setError('Name is too long')
+        setInfo('Name is too long')
       }
       else if (password.length < 8){
-        setError('Password is too short')
+        setInfo('Password is too short')
       }
       else if (password.length > 50){
-        setError('Password is too long')
+        setInfo('Password is too long')
       }
-      else if (!/^[A-Z]{3}-\d{4}$/.test(email)){
-        setError('Invalid email')
+      else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)){
+        setInfo('Invalid email')
       } 
       else if (password !== retypedPassword) {
-        setError('Passwords don\'t match');
+        setInfo('Passwords don\'t match');
       }
       else {
         const endpoint = 'http://localhost:6969/api/auth/register';
@@ -68,19 +69,18 @@ const AuthPage = () => {
         });
 
         if (res.ok) {
-          alert('Вы успешно зарегистрировались');
-          router.push('/auth');
+          setInfo('Successfully registered');
         } else if (res.status == 409) {
-          setError('This email already taken');
+          setInfo('This email already taken');
         } else if (res.status == 500) {
-          setError('Server error. Try later')
+          setInfo('Server error. Try later')
         }
       }
     }
   };
   
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setError('No error');
+    setInfo('No info');
     const { name, value } = e.target;
     if (name === 'name') setName(value);
     if (name === 'email') setEmail(value);
@@ -114,56 +114,65 @@ const AuthPage = () => {
 
   useEffect(() => {
     const loginEmailInput = document.getElementsByName('email')[0];
-    const LoginPasswordInput = document.getElementsByName('password')[0];
+    const loginPasswordInput = document.getElementsByName('password')[0];
     const nameInput = document.getElementsByName('name')[0];
     const emailInput = document.getElementsByName('email')[1];
     const passwordInput = document.getElementsByName('password')[1];
     const retypedPasswordInput = document.getElementsByName('retypedPassword')[0];
 
-    const loginError = document.getElementById('loginError');
-    const registerError = document.getElementById('registerError');
-
-    if (error === 'Email or password are incorrect') {
+    const loginInfo = document.getElementById('loginInfo');
+    const registerInfo = document.getElementById('registerInfo');
+    
+    if (info === 'Successfully logged in') {
+      loginInfo?.classList.add('success');
+    }
+    else if (info === 'Successfully registered') {
+      registerInfo?.classList.add('success');
+    }
+    else if (info === 'Email or password are incorrect') {
       loginEmailInput.classList.add('error-input');
-      LoginPasswordInput.classList.add('error-input');
-      loginError?.classList.add('error');
+      loginPasswordInput.classList.add('error-input');
+      loginInfo?.classList.add('error');
     } 
-    else if (error === 'Name can\'t be empty' || error === 'Name is too long'){
+    else if (info === 'Name can\'t be empty' || info === 'Name is too long'){
       nameInput.classList.add('error-input');
-      registerError?.classList.add('error');
+      registerInfo?.classList.add('error');
     }
-    else if (error === 'This email already taken' || error === 'Invalid email'){
+    else if (info === 'This email already taken' || info === 'Invalid email'){
       emailInput.classList.add('error-input');
-      registerError?.classList.add('error');
+      registerInfo?.classList.add('error');
     } 
-    else if (error === 'Password is too short' || error === 'Password is too long'){
+    else if (info === 'Password is too short' || info === 'Password is too long'){
       passwordInput.classList.add('error-input');
-      registerError?.classList.add('error');
+      registerInfo?.classList.add('error');
     }
-    else if (error === 'Passwords don\'t match'){
+    else if (info === 'Passwords don\'t match'){
       passwordInput.classList.add('error-input');
       retypedPasswordInput.classList.add('error-input');
-      registerError?.classList.add('error');
+      registerInfo?.classList.add('error');
     } 
-    else if (error === 'Server error. Try later'){
-      loginError?.classList.add('error');
-      registerError?.classList.add('error');
+    else if (info === 'Server error. Try later'){
+      loginInfo?.classList.add('error');
+      registerInfo?.classList.add('error');
     } 
-    else if (error === 'No error') {
+    else if (info === 'No info') {
+      loginInfo?.classList.remove('success');
+      registerInfo?.classList.remove('success');
+
       loginEmailInput.classList.remove('error-input');
-      LoginPasswordInput.classList.remove('error-input');
+      loginPasswordInput.classList.remove('error-input');
       nameInput.classList.remove('error-input');
       emailInput.classList.remove('error-input');
       passwordInput.classList.remove('error-input');
       retypedPasswordInput.classList.remove('error-input');
-      loginError?.classList.remove('error');
-      registerError?.classList.remove('error');
+      loginInfo?.classList.remove('error');
+      registerInfo?.classList.remove('error');
     }
     else {
-      alert(error);
+      alert(info);
     }
   });
-
+  
   return (
     <article className="container">
       <div className="block">
@@ -202,7 +211,7 @@ const AuthPage = () => {
               className="form__input"
             />
           </p>
-          <small id="loginError" className="form__error">{error}</small>
+          <small id="loginInfo" className="form__info">{info}</small>
           <p>
             <button type="submit" className="form__btn">Sign in</button>
           </p>
@@ -257,7 +266,7 @@ const AuthPage = () => {
               className="form__input"
             />
           </p>
-          <small id="registerError" className="form__error">{error}</small>
+          <small id="registerInfo" className="form__info">{info}</small>
           <p>
             <button type="submit" className="form__btn">Sign up</button>
           </p>
