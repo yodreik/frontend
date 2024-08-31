@@ -17,6 +17,13 @@
     justify-content: space-between;
 }
 
+.buttons {
+    width: 24vw;
+
+    display: flex;
+    justify-content: space-between;
+}
+
 .logo {
     font-weight: 700;
     font-size: 40px;

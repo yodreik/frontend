@@ -7,7 +7,7 @@ const Header = () => {
       <div className={styles.header}>
         <div className={styles.inner}>
           <div className={styles.logo}>welnex</div>
-          <div>
+          <div className={styles.buttons}>
             <Button
               className={styles.button}
               label="Log In"
