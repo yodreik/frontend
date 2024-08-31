@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
 import { useEffect, useState, FormEvent, ChangeEvent } from 'react';
-import './style.css'
+import Button from '@/components/button/button';
+import styles from './register.module.css';
 
 const Register = () => {
   const [name, setName] = useState<string>('');
@@ -20,9 +21,7 @@ const Register = () => {
 
   const endpoint = 'http://localhost:6969/api/auth/register';
 
-  const handleRegister = async (e: FormEvent) => {
-    e.preventDefault();
-
+  const handleRegister = async () => {
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: {
@@ -72,8 +71,12 @@ const Register = () => {
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
-    
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input)) {
+
+    if (input.length > 254) {
+      setEmailStatus('error');
+      displayMessage('Email is too long');
+    }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input)) {
       setEmailStatus('error');
       displayMessage('Invalid email');
     }
@@ -119,7 +122,7 @@ const Register = () => {
       displayMessage('Passwords don\'t match');
     }
     else {
-      setPasswordStatus('default');
+      if (input.length > 7 && input.length < 51) setPasswordStatus('default');
       setRetypedPasswordStatus('default');
       hideMessage();
     }
@@ -136,7 +139,8 @@ const Register = () => {
       else inputs[i]?.classList.remove('error-input');
     }
 
-    if (nameStatus === 'error' || emailStatus === 'error' || passwordStatus === 'error' || retypedPasswordStatus === 'error'){
+    if (nameStatus === 'error' || emailStatus === 'error' || passwordStatus === 'error' || retypedPasswordStatus === 'error' ||
+        name === '' || email === '' || password === '' || retypedPassword === ''){
       setButtonIsDisabled(true);
     }
     else {
@@ -156,61 +160,61 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleRegister} action="#" className="form form_signup">
-          <h3 className="form__titile">Create your account</h3>
-          <p>
-            <input
-              type="text"
-              name="name"
-              id = "registerName"
-              value={name}
-              onChange={onChangeName}
-              placeholder="Name"
-              required
-              className="form__input"
-            />
-          </p>
-          <p>
-            <input
-              type="text"
-              name="email"
-              id = "registerEmail"
-              value={email}
-              onChange={onChangeEmail}
-              placeholder="Email"
-              required
-              className="form__input"
-            />
-          </p>
-          <p>
-            <input
-              type="password"
-              name="password"
-              id = "registerPassword"
-              value={password}
-              onChange={onChangePassword}
-              placeholder="Password"
-              required
-              className="form__input"
-            />
-          </p>
-          <p>
-            <input
-              type="password"
-              name="retypedPassword"
-              id = "registerRetypedPassword"
-              value={retypedPassword}
-              onChange={onChangeRetypedPassword}
-              placeholder="Retype password"
-              required
-              className="form__input"
-            />
-          </p>
-          <small id="registerInfo" className="form__info">{info}</small>
-          <p>
-            <button id="registerBtn" type="submit" disabled = {buttonIsDisabled} className="form__btn">Sign up</button>
-          </p>
-        </form>
+    <form className={`${styles.form} ${styles.form_signup}`} action="#">
+      <h3 className={styles.form__titile}>Create your account</h3>
+      <p>
+        <input
+          className={styles.form__input}
+          type="text"
+          name="name"
+          id = "registerName"
+          value={name}
+          onChange={onChangeName}
+          placeholder="Name"
+          required
+        />
+      </p>
+      <p>
+        <input
+          className={styles.form__input}
+          type="text"
+          name="email"
+          id = "registerEmail"
+          value={email}
+          onChange={onChangeEmail}
+          placeholder="Email"
+          required
+        />
+      </p>
+      <p>
+        <input
+          className={styles.form__input}
+          type="password"
+          name="password"
+          id = "registerPassword"
+          value={password}
+          onChange={onChangePassword}
+          placeholder="Password"
+          required
+        />
+      </p>
+      <p>
+        <input
+          className={styles.form__input}
+          type="password"
+          name="retypedPassword"
+          id = "registerRetypedPassword"
+          value={retypedPassword}
+          onChange={onChangeRetypedPassword}
+          placeholder="Retype password"
+          required
+        />
+      </p>
+      <p>
+        <Button onClick={handleRegister} disabled={buttonIsDisabled} text="Sign up"/>
+      </p>
+      <small id="registerInfo" className={styles.form__info}>{info}</small>
+    </form>
   );
 };
 
