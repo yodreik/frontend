@@ -2,7 +2,7 @@
 
 import styles from "./button.module.css";
 import "../../styles/fonts.css";
-import { ReactNode } from "react";
+import PropTypes from "prop-types";
 
 // TODO: Pass a color for button through a props, perfectly from globals.css
 interface Props {
@@ -22,4 +22,19 @@ const Button = (props: Props) => {
     </button>
   );
 };
+
+Button.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.string,
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
+};
+
+Button.defaultProps = {
+  className: "",
+  label: "",
+  onClick: () => {},
+  disabled: false,
+};
+
 export default Button;
