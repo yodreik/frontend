@@ -1,0 +1,40 @@
+.header {
+    font-family: "Montserrat", sans-serif;
+
+    width: 100vw;
+    height: 70px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.inner {
+    width: 95vw;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 40px;
+
+    color: var(--green);
+}
+
+.separatorContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.separator {
+    height: 2px;
+    width: 95vw;
+
+    margin: 0;
+    border: none;
+
+    background-color: var(--gray);
+}
