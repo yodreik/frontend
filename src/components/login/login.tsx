@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
 import { useEffect, useState, FormEvent, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import './style.css'
-
+import Button from '@/components/button/button';
+import styles from './login.module.css';
 
 const Login = () => {
   const [email, setEmail] = useState<string>('');
@@ -15,11 +15,9 @@ const Login = () => {
   const [info, setInfo] = useState<string>('No info');
   const router = useRouter();
 
-  const endpoint = 'http://localhost:6969/api/auth/login'
+  const endpoint = 'http://localhost:6969/api/auth/login';
 
-  const handleLogin = async (e: FormEvent) => {
-    e.preventDefault();
-
+  const handleLogin = async () => {
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: {
@@ -95,10 +93,11 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleLogin} action="#" className="form form_signin">
-      <h3 className="form__titile">Login</h3>
+    <form className={`${styles.form} ${styles.form_signin}`} action="#">
+      <h3 className={styles.form__titile}>Login</h3>
       <p>
         <input
+          className={styles.form__input}
           type="text"
           name="email"
           id = "loginEmail"
@@ -106,11 +105,11 @@ const Login = () => {
           onChange={onChangeEmail}
           placeholder="Email"
           required
-          className="form__input"
         />
       </p>
       <p>
         <input
+          className={styles.form__input}
           type="password"
           name="password"
           id = "loginPassword"
@@ -118,16 +117,17 @@ const Login = () => {
           onChange={onChangePassword}
           placeholder="Password"
           required
-          className="form__input"
         />
       </p>
-      <small id="loginInfo" className="form__info">{info}</small>
       <p>
-        <button type="submit" className="form__btn">Sign in</button>
+        <Button onClick={handleLogin} disabled={false} text="Sign in"/>
       </p>
       <p>
-        <a href="" className="form__forgot">Forgot Password?</a>
+        <a href="" className={styles.form__forgot}>Forgot Password?</a>
       </p>
+      <div>
+        <small id="loginInfo" className={styles.form__info}>{info}</small>
+      </div>
     </form>
   );
 };

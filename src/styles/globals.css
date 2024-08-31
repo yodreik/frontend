@@ -1,0 +1,33 @@
+:root{
+  --color-a: #080705;
+  --color-b: #5A5A5A;
+  --color-c: #89c4b7;
+  --color-d: #B5FED9;
+  --color-e: #efeffc;
+
+  --black: #09090B;
+  --dark-grey: #18181B;
+  --grey: #27272A;
+  --light-grey: #434343;
+  --white: #FAFAFA;
+
+  --green: #5DEF8D;
+  --dark-green: #235935;
+  --blue: #366EFE;
+  --red: #EF5D5D;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--color-a);
+}

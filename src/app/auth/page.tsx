@@ -1,48 +1,38 @@
-"use client";
+'use client';
 
-import { useEffect, } from 'react';
+import { useState } from "react";
 import Login from "@/components/login/login";
 import Register from "@/components/register/register";
-import './style.css';
+
+import Button from '@/components/button/button';
+import styles from './page.module.css';
 
 const AuthPage = () => {
-  useEffect(() => {
-    const signInBtn = document.querySelector('.signin-btn');
-    const signUpBtn = document.querySelector('.signup-btn');
-    const formBox = document.querySelector('.form-box');
+  const [isSingIn, setIsSignIn] = useState<boolean>(true);
 
-    const handleSignUpClick = () => {
-      formBox?.classList.add('active');
-    }
+  const handleSignUpClick = () => {
+    setIsSignIn(false);
+  }
 
-    const handleSignInClick = () => {
-      formBox?.classList.remove('active');
-    }
-
-    signUpBtn?.addEventListener('click', handleSignUpClick);
-    signInBtn?.addEventListener('click', handleSignInClick);
-
-    return () => {
-      signUpBtn?.removeEventListener('click', handleSignUpClick);
-      signInBtn?.removeEventListener('click', handleSignInClick);
-    }
-  });
+  const handleSignInClick = () => {
+    setIsSignIn(true);
+  }
 
   return (
-    <article className="container">
-      <div className="block">
-        <section className="block__item block-item">
-          <h2 className="block-item__title">Already have an account?</h2>
-          <button className="block-item__btn signin-btn">Sign in</button>
+    <article className={styles.container}>
+      <div className={styles.block}>
+        <section className={styles.block_item}>
+          <h2 className={styles.block_item__title}>Already have an account?</h2>
+          <Button onClick={handleSignInClick} disabled={false} text='Sign in'/>
         </section>
-        <section className="block__item block-item">
-          <h2 className="block-item__title">Don't have an account?</h2>
-          <button className="block-item__btn signup-btn">Sign up</button>
+        <section className={styles.block_item}>
+          <h2 className={styles.block_item__title}>Don't have an account?</h2>
+          <Button onClick={handleSignUpClick} disabled={false} text='Sign up'/>
         </section>
       </div>
 
-      <div className="form-box">
-
+      <div className={`${styles.form_box} ${isSingIn ? '' : styles.active}`}>
+        
         <Login />
 
         <Register />

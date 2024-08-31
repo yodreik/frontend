@@ -1,0 +1,50 @@
+.form {
+  width: 100%;
+  padding: 50px;
+  font-size: 16px;
+
+  position: absolute;
+  transition: 0.5s;
+}
+
+.form_signin {
+  left: 0;
+  transition-delay: 0.25s;
+}
+
+.form__title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.form__input {
+  width: 100%;
+  padding: 10px;
+  border: solid 1px #333;
+  font-size: inherit;
+}
+
+.form__forgot {
+  color: #333;
+}
+
+.form__info {
+  font-weight: 700;
+  visibility: hidden;
+}
+
+.error {
+  color: red;
+  visibility: visible;
+}
+
+.success {
+  color: var(--color-c);
+  visibility: visible;
+}
+
+.error_input {
+  border: solid 1px red;
+  color: red;
+}
