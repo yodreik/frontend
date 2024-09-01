@@ -1,94 +1,103 @@
+.screen {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
 .container {
-  width: 800px;
-  height: 500px;
-  padding: 40px 0;
-  position: relative;
+    width: 800px;
+    height: 500px;
+    padding: 40px 0;
+    position: relative;
 }
 
 .block {
-  height: 100%;
-  background-color: var(--color-c);
-  border-radius: 25px;
+    height: 100%;
+    background-color: var(--color-c);
+    border-radius: 25px;
 
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .block_item {
-  width: 50%;
-  text-align: center;
+    width: 50%;
+    text-align: center;
 }
 
 .block_item__title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--dark-grey);
-  margin-bottom: 10px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+    margin-bottom: 10px;
 }
 
 .form_box {
-  background-color: var(--dark-grey);
-  height: 100%;
-  width: 50%;
-  border-radius: 25px;
+    background-color: var(--dark-gray);
+    height: 100%;
+    width: 50%;
+    border-radius: 25px;
 
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 
-  transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
 
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .form_box.active {
-  left: 50%;
+    left: 50%;
 }
 
 .form_box.active .form_signin {
-  left: -100%;
-  transition-delay: 0s;
+    left: -100%;
+    transition-delay: 0s;
 }
 
 .form_box.active .form_signup {
-  left: 0;
-  transition-delay: 0.25s;
+    left: 0;
+    transition-delay: 0.25s;
 }
 
-
-
 @media (max-width: 992px) {
-  .container {
-    max-width: 400px;
-    height: 650px;
-    padding: 0;
-    margin: 0 20px;
-  }
+    .container {
+        max-width: 400px;
+        height: 650px;
+        padding: 0;
+        margin: 0 20px;
+    }
 
-  .block {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+    .block {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
-  .block-item {
-    width: 100%;
-    padding: 30px 0;
-  }
+    .block-item {
+        width: 100%;
+        padding: 30px 0;
+    }
 
-  .form-box {
-    width: 100%;
-    height: 500px;
-    
-    top: 0;
-  }
+    .form-box {
+        width: 100%;
+        height: 500px;
 
-  .form-box.active {
-    top: 150px;
-    left: 0;
-  }
-} 
+        top: 0;
+    }
+
+    .form-box.active {
+        top: 150px;
+        left: 0;
+    }
+}
