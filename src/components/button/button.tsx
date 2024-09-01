@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 
 // TODO: Pass a color for button through a props, perfectly from globals.css
 interface Props {
-  label: string;
-  onClick: () => void;
-  disabled: boolean;
+  label?: string;
+  onClick?: () => void;
+  disabled?: boolean;
 }
 
 const Button = (props: Props) => {
@@ -28,13 +28,6 @@ Button.propTypes = {
   label: PropTypes.string,
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
-};
-
-Button.defaultProps = {
-  className: "",
-  label: "",
-  onClick: () => {},
-  disabled: false,
 };
 
 export default Button;
