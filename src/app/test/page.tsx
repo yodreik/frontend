@@ -8,7 +8,7 @@ import { ChangeEvent, useState } from "react";
 
 const AuthenticatePage = () => {
   const [email, setEmail] = useState<string>("sosat@chas.com");
-  const [inputStatus, setInputStatus] = useState<"error" | "">("");
+  const [inputStatus, setInputStatus] = useState<"error" | "default">("default");
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -16,7 +16,7 @@ const AuthenticatePage = () => {
     if (value && !isValidEmail(value)) {
       setInputStatus("error");
     } else {
-      setInputStatus("");
+      setInputStatus("default");
     }
 
     setEmail(e.target.value);
