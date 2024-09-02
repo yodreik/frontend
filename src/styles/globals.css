@@ -1,10 +1,4 @@
 :root {
-    --color-a: #080705;
-    --color-b: #5a5a5a;
-    --color-c: #89c4b7;
-    --color-d: #b5fed9;
-    --color-e: #efeffc;
-
     --black: #09090b;
     --dark-gray: #18181b;
     --gray: #27272a;
@@ -19,6 +13,7 @@
 
 * {
     box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
 }
 
 body {

@@ -8,10 +8,24 @@ import { ChangeEvent, useState } from "react";
 
 const AuthenticatePage = () => {
   const [email, setEmail] = useState<string>("sosat@chas.com");
+  const [inputStatus, setInputStatus] = useState<"error" | "">("");
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+
+    if (value && !isValidEmail(value)) {
+      setInputStatus("error");
+    } else {
+      setInputStatus("");
+    }
+
     setEmail(e.target.value);
   };
+
+  const isValidEmail = (value: string): boolean => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(value);
+  }
   return (
     <>
       <Header />
@@ -34,7 +48,7 @@ const AuthenticatePage = () => {
           value={email}
           onChange={handleEmailChange}
           type="email"
-          status=""
+          status={inputStatus}
           placeholder="Email"
           disabled={true}
         />
@@ -43,7 +57,7 @@ const AuthenticatePage = () => {
           value={email}
           onChange={handleEmailChange}
           type="email"
-          status=""
+          status={inputStatus}
           placeholder="Email"
           disabled={false}
         />
