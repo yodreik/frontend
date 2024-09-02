@@ -9,13 +9,13 @@ const Header = () => {
           <div className={styles.logo}>welnex</div>
           <div className={styles.buttons}>
             <Button
-              className={styles.button}
+              className={styles.loginButton}
               label="Log In"
               onClick={() => console.log("clicked log in")}
               disabled={false}
             />
             <Button
-              className={styles.button}
+              className={styles.registerButton}
               label="Register"
               onClick={() => console.log("clicked register")}
               disabled={false}

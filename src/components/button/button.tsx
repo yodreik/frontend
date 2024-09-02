@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 
 // TODO: Pass a color for button through a props, perfectly from globals.css
 interface Props {
+  className?: string;
   label?: string;
   onClick?: () => void;
   disabled?: boolean;
@@ -14,7 +15,7 @@ interface Props {
 const Button = (props: Props) => {
   return (
     <button
-      className={styles.button}
+      className={`${styles.button} ${props.className}`}
       disabled={props.disabled}
       onClick={props.onClick}
     >
