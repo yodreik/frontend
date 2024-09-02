@@ -24,6 +24,13 @@
     justify-content: space-between;
 }
 
+.buttonsAuthorized {
+    width: 413px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
 .logo {
     font-weight: 700;
     font-size: 40px;
@@ -53,4 +60,25 @@
 
 .loginButton:not([disabled]):hover {
     box-shadow: 0 0 15px var(--white);
+}
+
+.name {
+    color: var(--white);
+    font-weight: 700;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+
+    cursor: default;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+
+    object-fit: cover;
+    border-radius: 50%;
+
+    cursor: pointer;
 }
