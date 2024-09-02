@@ -1,0 +1,30 @@
+.form {
+    display: flex; 
+    flex-direction: column;
+}
+
+.form__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+}
+
+.children > * {
+    margin: 10px 0;
+}
+
+.form__info {
+    margin-top: 20px;
+    font-weight: 500;
+    visibility: hidden;
+}
+
+.error {
+    color: var(--red);
+    visibility: visible;
+}
+
+.success {
+    color: var(--green);
+    visibility: visible;
+}

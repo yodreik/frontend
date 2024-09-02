@@ -40,5 +40,5 @@
 }
 
 .input::placeholder {
-    color: var(--gray);
+    color: var(--light-gray);
 }

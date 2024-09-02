@@ -177,7 +177,7 @@ const Register = () => {
 
   return (
     <form className={`${styles.form} ${styles.form_signup}`} action="#">
-      <h3 className={styles.form__titile}>Create your account</h3>
+      <h3 className={styles.form__title}>Create your account</h3>
       <p>
         <input
           className={styles.form__input}
