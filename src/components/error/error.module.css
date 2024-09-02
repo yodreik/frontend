@@ -1,0 +1,40 @@
+.screen {
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    height: 90%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+
+}
+
+.title_container {
+    font-size: 350px;
+
+    width: 80%;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+.title {
+    color: var(--green);
+}
+
+.icon {
+    color: var(--gray);
+}
+
+.message {
+    font-size: 80px;
+
+    color: var(--gray);
+}
