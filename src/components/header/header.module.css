@@ -24,11 +24,28 @@
     justify-content: space-between;
 }
 
+.buttonsAuthorized {
+    width: 413px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
 .logo {
     font-weight: 700;
     font-size: 40px;
 
+    transition: 0.3s;
+
     color: var(--green);
+}
+
+.logo:hover {
+    transition: 0.3s;
+    /* color: var(--black); */
+    text-shadow: 0 0 10px #5def8d66, 0 0 20px #5def8d66, 0 0 35px #5def8d66;
+
+    cursor: pointer;
 }
 
 .separatorContainer {
@@ -53,4 +70,25 @@
 
 .loginButton:not([disabled]):hover {
     box-shadow: 0 0 15px var(--white);
+}
+
+.name {
+    color: var(--white);
+    font-weight: 700;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+
+    cursor: default;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+
+    object-fit: cover;
+    border-radius: 50%;
+
+    cursor: pointer;
 }
