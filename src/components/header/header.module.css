@@ -45,3 +45,12 @@
 
     background-color: var(--gray);
 }
+
+.loginButton {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.loginButton:not([disabled]):hover {
+    box-shadow: 0 0 15px var(--white);
+}
