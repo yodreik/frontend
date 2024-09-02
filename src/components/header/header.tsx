@@ -1,3 +1,5 @@
+"use client";
+
 import Button from "../button/button";
 import styles from "./header.module.css";
 
