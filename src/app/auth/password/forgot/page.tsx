@@ -8,7 +8,7 @@ import styles from "./page.module.css";
 
 const forgotPasswordPage = () => {
     const [email, setEmail] = useState<string>("");
-    const [emailStatus, setEmailStatus] = useState<"error" | "default">("");
+    const [emailStatus, setEmailStatus] = useState<"error" | "default">("default");
 
     const [info, setInfo] = useState<string>("No info");
     const [infoStatus, setInfoStatus] = useState<"error" | "success" | "default">("default");
@@ -36,7 +36,6 @@ const forgotPasswordPage = () => {
     const handleError = (status: number) => {
 		switch (status) {
 		case 404:
-			setEmailStatus("error");
 			displayMessage("User with this email not found");
 			break;
 		case 500:
@@ -73,7 +72,7 @@ const forgotPasswordPage = () => {
 		else {
 			setButtonIsDisabled(false);
 		}
-  	}, [emailStatus]);
+  	}, [email]);
 
     const displayMessage = (message: string = "", isSuccess: boolean = false) => {
 		if (message !== "") setInfo(message);

@@ -232,7 +232,7 @@ const AuthPage = () => {
 		else {
 			setButtonLoginIsDisabled(false);
 		}
-  	}, [emailLoginStatus, passwordLoginStatus]);
+  	}, [emailLogin, passwordLogin]);
 	
 	useEffect(() => {
 		if (
@@ -250,7 +250,7 @@ const AuthPage = () => {
 		else {
 			setButtonRegisterIsDisabled(false);
 		}
-  	}, [nameRegisterStatus, emailRegisterStatus, passwordRegisterStatus, retypedPasswordRegisterStatus]);
+  	}, [nameRegister, emailRegister, passwordRegister, retypedPasswordRegister]);
 
 	const displayLoginMessage = (message: string = "", isSuccess: boolean = false) => {
 		if (message !== "") setInfoLogin(message);
