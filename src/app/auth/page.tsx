@@ -19,6 +19,7 @@ const AuthPage = () => {
 
 	const [infoLogin, setInfoLogin] = useState<string>("No info");
 	const [infoLoginStatus, setInfoLoginStatus] = useState<"error"  | "success" | "default">("default");
+	const [buttonLoginIsDisabled, setButtonLoginIsDisabled] = useState<boolean>(false);
 
 	const [nameRegister, setNameRegister] = useState<string>("");
   	const [emailRegister, setEmailRegister] = useState<string>("");
@@ -32,7 +33,7 @@ const AuthPage = () => {
 	
 	const [infoRegister, setInfoRegister] = useState<string>("No info");
 	const [infoRegisterStatus, setInfoRegisterStatus] = useState<"error"  | "success" | "default">("default");
-	const [buttonRegisterIsDisabled, setButtonRegisterIsDisabled] = useState(false);
+	const [buttonRegisterIsDisabled, setButtonRegisterIsDisabled] = useState<boolean>(false);
 	
 	const router = useRouter();
   	const endpoint = isSignIn ? "http://localhost:6969/api/auth/login" : "http://localhost:6969/api/auth/register";
@@ -61,8 +62,6 @@ const AuthPage = () => {
 	const handleLoginError = (status: number) => {
 		switch (status) {
 		case 404:
-			setEmailLoginStatus("error");
-			setPasswordLoginStatus("error");
 			displayLoginMessage("Email or password is incorrect");
 			break;
 		case 500:
@@ -106,9 +105,18 @@ const AuthPage = () => {
 	const onChangeEmailLogin = (e: ChangeEvent<HTMLInputElement>) => {
 		const input = e.target.value;
 
-		setEmailLoginStatus("default");
-		setPasswordLoginStatus("default");
-		hideLoginMessage();
+		if (input.length > 254) {
+			setEmailLoginStatus("error");
+			displayLoginMessage("Email is too long");
+		} 
+		else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input)) {
+			setEmailLoginStatus("error");
+			displayLoginMessage("Invalid email");
+		}
+		else {
+			setEmailLoginStatus("default");
+			hideLoginMessage();
+		}
 
 		setEmailLogin(input);
   	};
@@ -116,9 +124,18 @@ const AuthPage = () => {
   	const onChangePasswordLogin = (e: ChangeEvent<HTMLInputElement>) => {
     	const input = e.target.value;
 
-    	setEmailLoginStatus("default");
-    	setPasswordLoginStatus("default");
-    	hideLoginMessage();
+		if (input.length < 8) {
+			setPasswordLoginStatus("error");
+			displayLoginMessage("Password is too short");
+		} 
+		else if (input.length > 50) {
+			setPasswordLoginStatus("error");
+			displayLoginMessage("Password is too long");
+		} 
+		else{
+			setPasswordLoginStatus("default");
+			hideLoginMessage();
+		}
 
     	setPasswordLogin(input);
   	};
@@ -202,26 +219,22 @@ const AuthPage = () => {
 
 		setRetypedPasswordRegister(input);
   	};
+
+	useEffect(() => {
+		if (
+			emailLoginStatus === "error" ||
+			passwordLoginStatus === "error" ||
+			emailLogin === "" ||
+			passwordLogin === "" 
+		) {
+			setButtonLoginIsDisabled(true);
+		} 
+		else {
+			setButtonLoginIsDisabled(false);
+		}
+  	}, [emailLoginStatus, passwordLoginStatus]);
 	
 	useEffect(() => {
-		const statuses: Array<string> = [
-			nameRegisterStatus,
-			emailRegisterStatus,
-			passwordRegisterStatus,
-			retypedPasswordRegisterStatus,
-		];
-		const inputs: Array<HTMLElement | null> = [
-			document.getElementById("registerName"),
-			document.getElementById("registerEmail"),
-			document.getElementById("registerPassword"),
-			document.getElementById("registerRetypedPassword"),
-		];
-
-		for (let i = 0; i < statuses.length; i++) {
-			if (statuses[i] === "error") inputs[i]?.classList.add("error-input");
-			else inputs[i]?.classList.remove("error-input");
-		}
-
 		if (
 			nameRegisterStatus === "error" ||
 			emailRegisterStatus === "error" ||
@@ -313,11 +326,11 @@ const AuthPage = () => {
 						<Button
 							label="Sign In"
 							onClick={handleLogin}
-							disabled={false}
+							disabled={buttonLoginIsDisabled}
 						/>
 						<p>
-							<a href="" className={styles.form__forgot}>
-							Forgot Password?
+							<a href="/auth/password/forgot" className={styles.form__forgot}>
+								Forgot Password?
 							</a>
 						</p>
 					</Form>
