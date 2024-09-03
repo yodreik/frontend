@@ -1,0 +1,1 @@
+const endpoint = "http://localhost:6969/api/auth/password/update";
