@@ -25,7 +25,7 @@ const resetPasswordPage = () => {
 
     const handleResetPassword = async () => {
 		const res = await fetch(endpoint, {
-			method: "POST",
+			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 			},
