@@ -1,0 +1,32 @@
+.screen {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form_box {
+    background-color: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+    height: 350px;
+    width: 450px;
+    border-radius: 25px;
+
+    transition: 0.5s ease-in-out;
+
+    display: flex;
+    align-items: center;
+}
+
+.form {
+    width: 100%;
+    padding: 50px;
+    font-size: 16px;
+
+    transition: 0.5s;
+    text-align: center;
+
+    transition-delay: 0.25s;
+}
