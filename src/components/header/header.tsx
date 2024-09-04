@@ -53,8 +53,6 @@ const Header = () => {
                         }
                     </div>
                 </div>
-            </div>
-            <div className={styles.separatorContainer}>
                 <hr className={styles.separator} />
             </div>
         </>

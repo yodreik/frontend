@@ -26,16 +26,21 @@ const AuthenticatePage = () => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(value);
   }
+
+  const handle = () => {
+    const token = localStorage.getItem('token');
+    console.log(token);
+  }
   return (
     <>
       <Header />
-      <div>
+      <div className={style.test}>
         <h1>Authenticate</h1>
         <Button
           className={style.color}
           label="Dashboard"
-          onClick={() => console.log("clicked")}
-          disabled={true}
+          onClick={handle}
+          disabled={false}
         />
         <Button
           className={style.color}
