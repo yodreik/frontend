@@ -1,11 +1,19 @@
 .header {
     font-family: "Montserrat", sans-serif;
 
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
     width: 100vw;
     height: 70px;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .inner {
@@ -46,11 +54,6 @@
     text-shadow: 0 0 10px #5def8d66, 0 0 20px #5def8d66, 0 0 35px #5def8d66;
 
     cursor: pointer;
-}
-
-.separatorContainer {
-    display: flex;
-    justify-content: center;
 }
 
 .separator {
