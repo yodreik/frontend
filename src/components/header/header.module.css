@@ -94,3 +94,13 @@
 
     cursor: pointer;
 }
+
+.avatarButton {
+    width: 45px;
+    height: 45px;
+
+    background: none;
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+}

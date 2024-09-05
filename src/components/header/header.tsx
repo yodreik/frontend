@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from "@/context/AuthContext";
+import SideMenu from "../sideMenu/sideMenu"
 import Button from "../button/button";
 import styles from "./header.module.css";
 
@@ -15,6 +16,8 @@ interface User {
 const Header = () => {
     const { isAuthorized, isLoading } = useAuth();
 
+    const [isSideMenuActive, setIsSideMenuActive] = useState<boolean>(false);
+
     const router = useRouter();
     const pathname = usePathname();
 
@@ -23,19 +26,6 @@ const Header = () => {
         name: "Donald M. Russel",
         avatarURL: "https://img.freepik.com/free-photo/left-sideways-american-black-person_23-2148749585.jpg",
     }
-
-    // if (isLoading || window.location.pathname === "/auth") {
-    //     return (
-    //         <>
-    //         <div className={styles.header}>
-    //             <div className={styles.inner}>
-    //                 <div className={styles.logo}>welnex</div>
-    //             </div>
-    //             <hr className={styles.separator} />
-    //         </div>
-    //     </>
-    //     )
-    // }
 
     return (
         <>
@@ -56,7 +46,11 @@ const Header = () => {
                                         <div className={styles.name}>
                                             {user.name}
                                         </div>
-                                        <img src={user.avatarURL} className={styles.avatar} />
+                                        <button className={styles.avatarButton} onClick={() => setIsSideMenuActive(true)}>
+                                            <img src={user.avatarURL} className={styles.avatar} />
+                                        </button>
+
+                                        <SideMenu isActive={!isSideMenuActive}/>
                                     </> : <>
                                         <Button
                                             className={styles.loginButton}

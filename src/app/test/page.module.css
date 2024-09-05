@@ -3,5 +3,11 @@
     background-color: blue;
 } */
 .test {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.testb {
     margin-top: 1000px;
 }
