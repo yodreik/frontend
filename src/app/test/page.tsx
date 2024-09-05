@@ -28,12 +28,10 @@ const AuthenticatePage = () => {
   }
 
   const handle = () => {
-    const token = localStorage.getItem('token');
-    console.log(token);
+    const token = localStorage.removeItem('token');
   }
   return (
     <>
-      <Header />
       <div className={style.test}>
         <h1>Authenticate</h1>
         <Button

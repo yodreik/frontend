@@ -2,10 +2,12 @@
 
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from '@/context/AuthContext';
 import Form from "@/components/form/form";
 import Input from "@/components/input/input";
 import Button from "@/components/button/button";
 import styles from "./page.module.css";
+import { isThenable } from "next/dist/client/components/router-reducer/router-reducer-types";
 
 
 const AuthPage = () => {
@@ -35,8 +37,19 @@ const AuthPage = () => {
 	const [infoRegisterStatus, setInfoRegisterStatus] = useState<"error"  | "success" | "default">("default");
 	const [buttonRegisterIsDisabled, setButtonRegisterIsDisabled] = useState<boolean>(false);
 	
+	const { setIsAuthorized } = useAuth();
+
 	const router = useRouter();
   	const endpoint = isSignIn ? "http://localhost:6969/api/auth/login" : "http://localhost:6969/api/auth/register";
+
+	useEffect(() => {
+		const currentUrl: string = window.location.href;
+		const url: URL = new URL(currentUrl);
+		const isRegister: string | null = url.searchParams.get("isRegister");
+		if (isRegister === "true") {
+			setIsSignIn(false);
+		}
+  	}, []);
 
 	const handleLogin = async () => {
 		const res = await fetch(endpoint, {
@@ -50,6 +63,7 @@ const AuthPage = () => {
 		if (res.ok) {
 			const { token } = await res.json();
 			localStorage.setItem("token", token);
+			setIsAuthorized(true);
 
 			displayLoginMessage("Successfully logged in", true);
 			router.push("/");
