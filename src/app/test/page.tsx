@@ -1,6 +1,5 @@
 "use client";
 
-import Header from "@/components/header/header";
 import Button from "@/components/button/button";
 import style from "./page.module.css";
 import Input from "@/components/input/input";
@@ -62,6 +61,36 @@ const AuthenticatePage = () => {
           type="email"
           status={inputStatus}
           placeholder="Email"
+          disabled={false}
+        />
+        <Input
+          value={email}
+          onChange={handleEmailChange}
+          type="email"
+          status={inputStatus}
+          placeholder="Email"
+          disabled={false}
+        />
+        <Input
+          value={email}
+          onChange={handleEmailChange}
+          type="email"
+          status={inputStatus}
+          placeholder="Email"
+          disabled={false}
+        />
+        <Input
+          value={email}
+          onChange={handleEmailChange}
+          type="email"
+          status={inputStatus}
+          placeholder="Email"
+          disabled={false}
+        />
+        <Button
+          className={style.testb}
+          label="Dashboard"
+          onClick={handle}
           disabled={false}
         />
       </div>

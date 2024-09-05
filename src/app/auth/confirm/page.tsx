@@ -30,7 +30,7 @@ const ConfirmPage = () => {
                 setStatus("success");
                 setTimeout(() => {
                     router.push("/auth");
-                }, 3000);
+                }, 1000);
             }
             else {
                 setStatus("error");

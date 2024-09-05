@@ -1,6 +1,7 @@
 "use client"
 
 import { ChangeEvent, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Form from "@/components/form/form";
 import Input from "@/components/input/input";
 import Button from "@/components/button/button"
@@ -21,6 +22,7 @@ const resetPasswordPage = () => {
 	const url: URL = new URL(currentUrl);
 	const token: string | null = url.searchParams.get("token");
 
+	const router = useRouter();
     const endpoint = "http://localhost:6969/api/auth/password/update";
 
     const handleResetPassword = async () => {
@@ -34,6 +36,9 @@ const resetPasswordPage = () => {
 
 		if (res.ok) {
 			displayMessage("Password successfully reseted", true);
+			setTimeout(() => {
+                router.push("/auth");
+            }, 1000);
 		} 
 		else {
 			handleError(res.status);
@@ -42,6 +47,9 @@ const resetPasswordPage = () => {
 
     const handleError = (status: number) => {
 		switch (status) {
+			case 403:
+				displayMessage("Link has been already used");
+				break;
 			case 404:
 				displayMessage("User not found");
 				break;
