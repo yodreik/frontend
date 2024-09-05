@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from '@/context/AuthContext';
 import Button from "../button/button";
 import styles from "./header.module.css";
@@ -16,7 +16,8 @@ const Header = () => {
     const { isAuthorized, isLoading } = useAuth();
 
     const router = useRouter();
-    
+    const pathname = usePathname();
+
     const user: User = {
         id: "69",
         name: "Donald M. Russel",
@@ -42,7 +43,7 @@ const Header = () => {
                 <div className={styles.inner}>
                     <div className={styles.logo}>welnex</div>
                     {
-                        !(isLoading || window.location.pathname === "/auth") ? <>
+                        !(isLoading || pathname === "/auth") ? <>
                             <div className={isAuthorized ? styles.buttonsAuthorized : styles.buttons}>
                                 {
                                     isAuthorized ? <>
