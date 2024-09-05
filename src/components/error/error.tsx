@@ -1,4 +1,5 @@
-import Header from "../header/header";
+"use client"
+
 import styles from "./error.module.css";
 
 interface Props {
@@ -11,7 +12,6 @@ interface Props {
 const ErrorPage: React.FC<Props> = (props: Props) => {
     return <>
         <div className={styles.screen}>
-            <Header />
             <div className={styles.container}>
                 <div className={styles.title_container}>
                     <div className={styles.title}>{props.title}</div>

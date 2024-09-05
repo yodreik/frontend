@@ -7,7 +7,6 @@ import Form from "@/components/form/form";
 import Input from "@/components/input/input";
 import Button from "@/components/button/button";
 import styles from "./page.module.css";
-import { isThenable } from "next/dist/client/components/router-reducer/router-reducer-types";
 
 
 const AuthPage = () => {
@@ -75,6 +74,9 @@ const AuthPage = () => {
 
 	const handleLoginError = (status: number) => {
 		switch (status) {
+		case 403:
+			displayLoginMessage("Confirm your email", true);
+			break;
 		case 404:
 			displayLoginMessage("Email or password is incorrect");
 			break;
@@ -96,7 +98,7 @@ const AuthPage = () => {
     	});
 
 		if (res.ok) {
-			displayRegisterMessage("Successfully registered", true);
+			displayRegisterMessage("Successfully registered. Check your email to confirm", true);
 		} 
 		else {
 			handleRegisterError(res.status);
