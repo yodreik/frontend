@@ -68,7 +68,6 @@
 
 .loginButton {
     background-color: var(--white);
-    color: var(--black);
 }
 
 .loginButton:not([disabled]):hover {
