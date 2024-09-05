@@ -1,0 +1,23 @@
+.screen {
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    height: 90%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+
+}
+
+.title {
+    margin-top: 20px;
+    font-size: 44px;
+    color: var(--white);
+}
