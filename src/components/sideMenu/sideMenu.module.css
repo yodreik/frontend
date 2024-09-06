@@ -25,7 +25,6 @@
     
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
 
     overflow: hidden;
 }
@@ -36,7 +35,10 @@
     transition: 0.5s ease-in-out;
 }
 
+
 .closeButton {
+    cursor: pointer;
+
     position: absolute;
     top: 10px;
     right: 10px;
@@ -84,8 +86,9 @@
     margin-top: 3px;
 }
 
+
 .itemsContainer {
-    margin: 10px 22px 10px 22px;
+    margin: 10px 18px 10px 18px;
 
     display: flex;
     flex-direction: column;
@@ -114,7 +117,7 @@
     font-size: 20;
     font-weight: 500;
     
-    margin-left: 10px;
+    margin-left: 4px;
 }
 
 .item_titleRed {
@@ -135,7 +138,7 @@
 
 .separator {
     height: 1px;
-    width: 291px;
+    width: 290px;
 
     margin: 0 auto;
     border: none;
