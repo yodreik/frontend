@@ -10,6 +10,7 @@ import styles from "./header.module.css";
 interface User {
     id: string;
     name: string;
+    email: string;
     avatarURL: string;
 }
 
@@ -24,6 +25,7 @@ const Header = () => {
     const user: User = {
         id: "69",
         name: "Donald M. Russel",
+        email: "donaldrussell@gmail.com",
         avatarURL: "https://img.freepik.com/free-photo/left-sideways-american-black-person_23-2148749585.jpg",
     }
 
@@ -50,7 +52,13 @@ const Header = () => {
                                             <img src={user.avatarURL} className={styles.avatar} />
                                         </button>
 
-                                        <SideMenu isActive={!isSideMenuActive}/>
+                                        <SideMenu 
+                                            isActive={isSideMenuActive} 
+                                            setInactive={() => {setIsSideMenuActive(false)}}
+                                            name={user.name}
+                                            email={user.email}
+                                            avatarURL={user.avatarURL}
+                                        />
                                     </> : <>
                                         <Button
                                             className={styles.loginButton}
