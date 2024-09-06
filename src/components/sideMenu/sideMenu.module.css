@@ -105,6 +105,8 @@
     border: 0;
     border-radius: 12px;
 
+    padding-left: 12px;
+
     background-color: var(--dark-gray);
 }
 
@@ -117,7 +119,7 @@
     font-size: 20;
     font-weight: 500;
     
-    margin-left: 4px;
+    margin-left: 10px;
 }
 
 .item_titleRed {
