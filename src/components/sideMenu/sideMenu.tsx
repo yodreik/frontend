@@ -21,9 +21,9 @@ const SideMenu = (props: Props) => {
     const router = useRouter();
 
     const handleLogout = () => {
+        props.setInactive();
         localStorage.removeItem("token");
 		setIsAuthorized(false);
-        props.setInactive;
     }
 
     return (
