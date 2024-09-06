@@ -1,6 +1,6 @@
 .container {
     position: fixed;
-    top: 0;
+    top: 0px;
     right: -330px;
 
     width: 330px;
@@ -9,7 +9,7 @@
 
 .menu {
     position: absolute;
-    top: 0;
+    top: 0px;
     right: 0px;
     z-index: 1000;
 
@@ -24,7 +24,8 @@
     transition: 0.5s ease-in-out;
     
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    /* align-items: center; */
 
     overflow: hidden;
 }
@@ -33,4 +34,111 @@
     right: 330px;
 
     transition: 0.5s ease-in-out;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    width: 24px;
+    height: 24px;
+
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.miniProfile {
+    margin: 22px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.userInfo {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.userName {
+    color: var(--white);
+    font-size: 18;
+    font-weight: bold;
+}
+
+.userEmail {
+    color: var(--light-gray);
+    font-size: 16;
+    font-weight: 500;
+
+    margin-top: 3px;
+}
+
+.itemsContainer {
+    margin: 10px 22px 10px 22px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.item {
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: 35px;
+    border: 0;
+    border-radius: 12px;
+
+    background-color: var(--dark-gray);
+}
+
+.item:hover {
+    background-color: var(--gray);
+}
+
+.item_title {
+    color: var(--white);
+    font-size: 20;
+    font-weight: 500;
+    
+    margin-left: 10px;
+}
+
+.item_titleRed {
+    color: var(--red);
+    font-size: 20;
+    font-weight: 500;
+    
+    margin: 0px 0px 1px 10px;
+}
+
+
+.bottom {
+    flex: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    padding-bottom: 8px;
+}
+
+.separator {
+    height: 1px;
+    width: 291px;
+
+    margin: 0 auto;
+    border: none;
+
+    background-color: var(--gray);
 }
