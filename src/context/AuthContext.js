@@ -1,6 +1,7 @@
 "use client"
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import * as Api from "@/api";
 
 const AuthContext = createContext();
 
@@ -9,19 +10,10 @@ export const AuthProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const checkToken = async () => {
-            const token = localStorage.getItem('token');
+        const checkToken = async () => {  
+            const result = await Api.auth.user();
             
-            const endpoint = "http://localhost:6969/api/me";
-
-            const res = await fetch(endpoint, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-            });
-
-            if (res.ok) {
+            if (200 <= result.status && result.status < 300){
                 setIsAuthorized(true);
             }
             else {

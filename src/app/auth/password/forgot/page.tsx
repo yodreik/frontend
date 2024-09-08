@@ -1,6 +1,7 @@
 "use client"
 
 import { ChangeEvent, useEffect, useState } from "react";
+import * as Api from "@/api";
 import Form from "@/components/form/form";
 import Input from "@/components/input/input";
 import Button from "@/components/button/button"
@@ -14,35 +15,29 @@ const forgotPasswordPage = () => {
     const [infoStatus, setInfoStatus] = useState<"error" | "success" | "default">("default");
     const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
 
-    const endpoint = "http://localhost:6969/api/auth/password/reset";
-
     const handleForgotPassword = async () => {
-		const res = await fetch(endpoint, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ email }),
-    	});
+		const result  = await Api.auth.forgotPassword({
+			email: email,
+		});
 
-		if (res.ok) {
+		if (200 <= result.status && result.status < 300){
 			displayMessage("Email with recovery link successfully sent", true);
-		} 
+		}
 		else {
-			handleError(res.status);
+			handleError(result.status);
 		}
  	};
 
     const handleError = (status: number) => {
 		switch (status) {
-		case 404:
-			displayMessage("User with this email not found");
-			break;
-		case 500:
-			displayMessage("Server error. Try later");
-			break;
-		default:
-			displayMessage("An unknown error occurred");
+			case 404:
+				displayMessage("User with this email not found");
+				break;
+			case 500:
+				displayMessage("Server error. Try later");
+				break;
+			default:
+				displayMessage("An unknown error occurred");
 		}
   	};
 

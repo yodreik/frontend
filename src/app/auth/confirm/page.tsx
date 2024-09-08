@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import * as Api from "@/api";
 import Image from "next/image";
 import styles from "./page.module.css";
 
@@ -10,7 +11,6 @@ const ConfirmPage = () => {
     const [status, setStatus] = useState<"error" | "success" | "default">("default");
 
     const router = useRouter();
-    const endpoint = "http://localhost:6969/api/auth/confirm";
 
     useEffect(() => {
         const currentUrl: string = window.location.href;
@@ -18,15 +18,11 @@ const ConfirmPage = () => {
 	    const token: string | null = url.searchParams.get("token");
 
         const handleConfirm = async () => {
-            const res = await fetch(endpoint, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ token }),
+            const result  = await Api.auth.confirmRegistration({
+                token: token,
             });
 
-            if (res.ok) {
+            if (200 <= result.status && result.status < 300){
                 setStatus("success");
                 setTimeout(() => {
                     router.push("/auth");
