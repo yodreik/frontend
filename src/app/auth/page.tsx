@@ -3,7 +3,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from '@/context/AuthContext';
-import * as Api from "@/api"
+import * as Api from "@/api";
 import Form from "@/components/form/form";
 import Input from "@/components/input/input";
 import Button from "@/components/button/button";
@@ -40,7 +40,6 @@ const AuthPage = () => {
 	const { setIsAuthorized } = useAuth();
 
 	const router = useRouter();
-  	const endpoint = isSignIn ? "http://localhost:6969/api/auth/login" : "http://localhost:6969/api/auth/register";
 
 	useEffect(() => {
 		const currentUrl: string = window.location.href;
@@ -52,72 +51,64 @@ const AuthPage = () => {
   	}, []);
 
 	const handleLogin = async () => {
-		const result  = await Api.login({})
+		const result  = await Api.auth.login({
+			email: emailLogin,
+			password: passwordLogin,
+		});
 
-		// const res = await fetch(endpoint, {
-		// 	method: "POST",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	body: JSON.stringify({ email: emailLogin, password: passwordLogin }),
-    	// });
+		if (200 <= result.status && result.status < 300 && result.token){
+			localStorage.setItem("token", result.token);
+			setIsAuthorized(true);
 
-		// if (res.ok) {
-		// 	const { token } = await res.json();
-		// 	localStorage.setItem("token", token);
-		// 	setIsAuthorized(true);
-
-		// 	displayLoginMessage("Successfully logged in", true);
-		// 	router.push("/");
-		// } 
-		// else {
-		// 	handleLoginError(res.status);
-		// }
+			displayLoginMessage("Successfully logged in", true);
+			router.push("/");
+		}
+		else {
+			handleLoginError(result.status);
+		}
  	};
 
 	const handleLoginError = (status: number) => {
 		switch (status) {
-		case 403:
-			displayLoginMessage("Confirm your email", true);
-			break;
-		case 404:
-			displayLoginMessage("Email or password is incorrect");
-			break;
-		case 500:
-			displayLoginMessage("Server error. Try later");
-			break;
-		default:
-			displayLoginMessage("An unknown error occurred");
+			case 403:
+				displayLoginMessage("Confirm your email", true);
+				break;
+			case 404:
+				displayLoginMessage("Email or password is incorrect");
+				break;
+			case 500:
+				displayLoginMessage("Server error. Try later");
+				break;
+			default:
+				displayLoginMessage("An unknown error occurred");
 		}
   	};
 
   	const handleRegister = async () => {
-		const res = await fetch(endpoint, {
-			method: "POST",
-			headers: {
-			"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ name: nameRegister, email: emailRegister, password: passwordRegister }),
-    	});
+		const result  = await Api.auth.register({
+			name: nameRegister,
+			email: emailRegister,
+			password: passwordRegister,
+		});
 
-		if (res.ok) {
+		if (200 <= result.status && result.status < 300){
 			displayRegisterMessage("Successfully registered. Check your email to confirm", true);
-		} 
+		}
 		else {
-			handleRegisterError(res.status);
+			handleRegisterError(result.status);
 		}
   	};
 
 	const handleRegisterError = (status: number) => {
 		switch (status) {
-		case 409:
-			displayRegisterMessage("This email already taken");
-			break;
-		case 500:
-			displayRegisterMessage("Server error. Try later");
-			break;
-		default:
-			displayRegisterMessage("An unknown error occurred");
+			case 409:
+				displayRegisterMessage("This email already taken");
+				break;
+			case 500:
+				displayRegisterMessage("Server error. Try later");
+				break;
+			default:
+				displayRegisterMessage("An unknown error occurred");
 		}
   	};
 

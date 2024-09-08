@@ -1,7 +1,8 @@
 export interface UserDTO {
-    id: string,
-    email: string,
-    username: string,
+    id?: string,
+    name?: string,
+    email?: string,
+    status: number,
 }
 
 export interface LoginRequestDTO {
@@ -10,7 +11,8 @@ export interface LoginRequestDTO {
 }
 
 export interface LoginResponseDTO {
-    token: string,
+    token?: string,
+    status: number,
 }
 
 export interface RegisterRequestDTO {
@@ -20,7 +22,33 @@ export interface RegisterRequestDTO {
 }
 
 export interface RegisterResponseDTO {
-    id: string,
+    id?: string,
+    email?: string,
+    name?: string,
+    status: number,
+}
+
+export interface ConfirmRegistrationRequestDTO {
+    token: string | null,
+}
+
+export interface ConfirmRegistrationResponseDTO {
+    status: number,
+}
+
+export interface ForgotPasswordRequestDTO {
     email: string,
-    name: string,
+}
+
+export interface ForgotPasswordResponseDTO {
+    status: number,
+}
+
+export interface ResetPasswordRequestDTO {
+    password: string,
+    token: string | null,
+}
+
+export interface ResetPasswordResponseDTO {
+    status: number,
 }

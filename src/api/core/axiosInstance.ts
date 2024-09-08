@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:6969/api/"
+    baseURL: "http://localhost:6969/api"
 })
 
 axiosInstance.interceptors.request.use((config) => {
@@ -9,7 +9,7 @@ axiosInstance.interceptors.request.use((config) => {
 
     config.headers.Authorization =  `Bearer: ${token}`;
 
-    return  config;
+    return config;
 });
 
 export default axiosInstance;
