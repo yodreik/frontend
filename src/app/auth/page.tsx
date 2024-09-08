@@ -3,6 +3,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from '@/context/AuthContext';
+import * as Api from "@/api"
 import Form from "@/components/form/form";
 import Input from "@/components/input/input";
 import Button from "@/components/button/button";
@@ -51,25 +52,27 @@ const AuthPage = () => {
   	}, []);
 
 	const handleLogin = async () => {
-		const res = await fetch(endpoint, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ email: emailLogin, password: passwordLogin }),
-    	});
+		const result  = await Api.login({})
 
-		if (res.ok) {
-			const { token } = await res.json();
-			localStorage.setItem("token", token);
-			setIsAuthorized(true);
+		// const res = await fetch(endpoint, {
+		// 	method: "POST",
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 	},
+		// 	body: JSON.stringify({ email: emailLogin, password: passwordLogin }),
+    	// });
 
-			displayLoginMessage("Successfully logged in", true);
-			router.push("/");
-		} 
-		else {
-			handleLoginError(res.status);
-		}
+		// if (res.ok) {
+		// 	const { token } = await res.json();
+		// 	localStorage.setItem("token", token);
+		// 	setIsAuthorized(true);
+
+		// 	displayLoginMessage("Successfully logged in", true);
+		// 	router.push("/");
+		// } 
+		// else {
+		// 	handleLoginError(res.status);
+		// }
  	};
 
 	const handleLoginError = (status: number) => {
