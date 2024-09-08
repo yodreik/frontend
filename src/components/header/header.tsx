@@ -15,7 +15,7 @@ interface User {
 }
 
 const Header = () => {
-    const { isAuthorized, isLoading } = useAuth();
+    const { isAuthorized, isLoading, userdata } = useAuth();
 
     const [isSideMenuActive, setIsSideMenuActive] = useState<boolean>(false);
 
@@ -23,9 +23,9 @@ const Header = () => {
     const pathname = usePathname();
 
     const user: User = {
-        id: "69",
-        name: "Donald M. Russel",
-        email: "donaldrussell@gmail.com",
+        id: userdata?.id || "69",
+        name: userdata?.name || "Donald M. Russel",
+        email: userdata?.email || "donaldrussell@gmail.com",
         avatarURL: "https://img.freepik.com/free-photo/left-sideways-american-black-person_23-2148749585.jpg",
     }
 

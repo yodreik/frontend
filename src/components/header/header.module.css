@@ -33,8 +33,6 @@
 }
 
 .buttonsAuthorized {
-    width: 413px;
-
     display: flex;
     justify-content: space-between;
 }
@@ -81,6 +79,7 @@
 
     display: flex;
     align-items: center;
+    margin: 0px 25px 0px 25px;
 
     cursor: default;
 }
