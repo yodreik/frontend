@@ -2,6 +2,7 @@
 
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import * as Api from "@/api";
 import Form from "@/components/form/form";
 import Input from "@/components/input/input";
 import Button from "@/components/button/button"
@@ -18,30 +19,26 @@ const resetPasswordPage = () => {
     const [infoStatus, setInfoStatus] = useState<"error" | "success" | "default">("default");
     const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
 
-	const currentUrl: string = window.location.href;
-	const url: URL = new URL(currentUrl);
-	const token: string | null = url.searchParams.get("token");
-
 	const router = useRouter();
-    const endpoint = "http://localhost:6969/api/auth/password/update";
 
     const handleResetPassword = async () => {
-		const res = await fetch(endpoint, {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ password, token }),
-    	});
+		const currentUrl: string = window.location.href;
+		const url: URL = new URL(currentUrl);
+		const token: string | null = url.searchParams.get("token");
 
-		if (res.ok) {
+		const result  = await Api.auth.resetPassword({
+			password: password,
+			token: token,
+		});
+
+		if (200 <= result.status && result.status < 300){
 			displayMessage("Password successfully reseted", true);
 			setTimeout(() => {
                 router.push("/auth");
             }, 1000);
-		} 
+		}
 		else {
-			handleError(res.status);
+			handleError(result.status);
 		}
  	};
 
