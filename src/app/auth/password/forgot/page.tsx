@@ -20,7 +20,7 @@ const forgotPasswordPage = () => {
 			email: email,
 		});
 
-		if (200 <= result.status && result.status < 300){
+		if (!("message" in result)){
 			displayMessage("Email with recovery link successfully sent", true);
 		}
 		else {

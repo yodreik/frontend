@@ -56,7 +56,7 @@ const AuthPage = () => {
 			password: passwordLogin,
 		});
 
-		if (200 <= result.status && result.status < 300 && result.token){
+		if (!("message" in result)){
 			localStorage.setItem("token", result.token);
 			setIsAuthorized(true);
 
@@ -91,7 +91,7 @@ const AuthPage = () => {
 			password: passwordRegister,
 		});
 
-		if (200 <= result.status && result.status < 300){
+		if (!("message" in result)){
 			displayRegisterMessage("Successfully registered. Check your email to confirm", true);
 		}
 		else {

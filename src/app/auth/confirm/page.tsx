@@ -22,7 +22,7 @@ const ConfirmPage = () => {
                 token: token,
             });
 
-            if (200 <= result.status && result.status < 300){
+            if (!("message" in result)){
                 setStatus("success");
                 setTimeout(() => {
                     router.push("/auth");

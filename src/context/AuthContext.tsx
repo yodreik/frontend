@@ -31,7 +31,7 @@ export const AuthProvider = (props: Props) => {
         const checkToken = async () => {  
             const result = await Api.auth.user();
             
-            if (200 <= result.status && result.status < 300){
+            if (!("message" in result)){
                 setIsAuthorized(true);
                 setUserdata({id: result.id, name: result.name, email: result.email});
             }
@@ -53,7 +53,7 @@ export const AuthProvider = (props: Props) => {
         return () => {
             window.removeEventListener('storage', handleStorageChange);
         };
-    }, []);
+    }, [isAuthorized]);
 
     return (
         <AuthContext.Provider value={{ isAuthorized, setIsAuthorized, isLoading, userdata }}>
