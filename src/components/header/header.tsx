@@ -33,7 +33,7 @@ const Header = () => {
         <>
             <div className={styles.header}>
                 <div className={styles.inner}>
-                    <div className={styles.logo}>welnex</div>
+                    <div className={styles.logo}>dreik</div>
                     {
                         !(isLoading || pathname === "/auth") ? <>
                             <div className={isAuthorized ? styles.buttonsAuthorized : styles.buttons}>
