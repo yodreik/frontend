@@ -43,13 +43,13 @@
 
     transition: 0.3s;
 
-    color: var(--green);
+    color: var(--accent);
 }
 
 .logo:hover {
     transition: 0.3s;
     /* color: var(--black); */
-    text-shadow: 0 0 10px #5def8d66, 0 0 20px #5def8d66, 0 0 35px #5def8d66;
+    text-shadow: 0 0 15px var(--accent);
 
     cursor: pointer;
 }

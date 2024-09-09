@@ -72,7 +72,7 @@ const SideMenu = (props: Props) => {
                 
                 <div className={styles.bottom}>
                     <div className={styles.itemsContainer}>
-                        <button className={styles.item} onClick={() => {window.open("https://github.com/welnex", "_blank")}}>
+                        <button className={styles.item} onClick={() => {window.open("https://github.com/dreik", "_blank")}}>
                             <Image src="/iconGitHub.svg" alt="GitHub" width={24} height={24} />
                             <div className={styles.item_title}>Project on GitHub</div>
                         </button>
@@ -81,7 +81,7 @@ const SideMenu = (props: Props) => {
                     <hr className={styles.separator} />
 
                     <div className={styles.itemsContainer}>
-                        <button className={styles.item} onClick={() => {window.open("https://github.com/welnex/frontend/issues/new", "_blank")}}>
+                        <button className={styles.item} onClick={() => {window.open("https://github.com/dreik/frontend/issues/new", "_blank")}}>
                             <Image src="/iconBug.svg" alt="Bug" width={24} height={24} />
                             <div className={styles.item_title}>Report a Bug</div>
                         </button>
