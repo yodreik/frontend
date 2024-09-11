@@ -18,7 +18,7 @@ const Toast = (props: Props) => {
     const [isVisible, setIsVisible] = useState<boolean>(true);
 
     return (
-        <div className={`${styles.toast} ${!isVisible ? styles.hidden : ''}`}>
+        <div className={`${styles.toast} ${isVisible ? "" : styles.active}`}>
             <div className={styles.close} onClick={() => setIsVisible(false)}>
                 <Image src="/iconClose.svg" alt="Fire" width={24} height={24} />
             </div>
