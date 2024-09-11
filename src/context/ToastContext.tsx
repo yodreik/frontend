@@ -1,6 +1,6 @@
 "use client";
 
-import ToastContainer from '@/components/toastContainer/ToastContainer';
+import ToastContainer from '@/components/ToastContainer/ToastContainer';
 import React, { createContext, useContext, useState } from 'react';
 
 interface Toast {
