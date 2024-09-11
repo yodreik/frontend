@@ -2,7 +2,7 @@
     position: relative;
     right: 0px;
 
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(15px);
     background-color: rgba(24, 24, 27, 60%);
     height: auto;
     width: 400px;
