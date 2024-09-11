@@ -23,9 +23,7 @@ const ToastContainer: React.FC<ToastContainerProps> = ({ toasts }) => {
     return (
         <div className={styles.container}>
             {toasts.map((toast, index) => (
-                <div className={styles.toast}>
-                    <Toast type={toast.type} title={toast.title} message={toast.message} />
-                </div>
+                <Toast type={toast.type} title={toast.title} message={toast.message} />
             ))}
         </div>
     );

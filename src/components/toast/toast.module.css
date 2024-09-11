@@ -1,6 +1,10 @@
 .toast {
+    position: relative;
+    right: 0px;
+
     backdrop-filter: blur(20px);
     background-color: rgba(24, 24, 27, 60%);
+    height: auto;
     width: 400px;
 
     color: var(--white);
@@ -10,6 +14,16 @@
 
     border: 1px solid var(--light-gray);
     border-radius: 15px;
+
+    margin-top: 20px;
+
+    transition: 0.3s ease-in-out;
+}
+
+.toast.active {
+    right: -200%;
+
+    transition: 0.3s ease-in-out;
 }
 
 .hidden {
