@@ -1,0 +1,10 @@
+.container {
+    top: 20px;
+    right: 20px;
+
+    position: fixed;
+}
+
+.toast {
+    margin-bottom: 20px;
+}
