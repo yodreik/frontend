@@ -1,0 +1,71 @@
+.screen {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar {
+    background-color: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+    height: 380px;
+    width: 600px;
+    border-radius: 25px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.calendar__button {
+    cursor: pointer;
+
+    height: 100%;
+    width: 7%;
+
+    background: none;
+    border: none;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar__button:hover {
+    background-color: var(--gray);
+}
+
+.calendar__main {
+    height: 100%;
+    width: 86%;
+
+    
+}
+
+.calendar__header {
+    height: 10%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar__body {
+    height: 90%;
+    width: 100%;
+
+    display: grid;
+    text-align: center;
+    align-items: center;
+    grid-template-columns: repeat(7, 1fr);
+    
+    gap: 1px 1px;
+}
+
+.test {
+    color: red;
+}
