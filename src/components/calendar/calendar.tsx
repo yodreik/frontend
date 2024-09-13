@@ -5,6 +5,7 @@ import styles from "./calendar.module.css";
 
 interface Day {
     value: number,
+    curMonth: boolean,
     status: "success" | "fail" | "default",
 }
 
@@ -13,51 +14,72 @@ interface Props {
 }
 
 const Calendar = (props: Props) => {
-    const curDate: Date = props.date;
-    const [days, setDays] = useState<Day[]>(new Array<Day>(42).fill({ value: 0, status: "default" }));
+    const [curDate, setCurDate] = useState<Date>(props.date);
+    const [curMonth, setCurMonth] = useState<Date>(new Date(curDate.getFullYear(), curDate.getMonth(), 1)); //selectedMonth
+    const [days, setDays] = useState<Day[]>(new Array<Day>(42));
+    
+    const partOfPreviousMonth = () => {
+        const days: Day[] = new Array<Day>();
 
-    const month = () => {
-        let date: number = curDate.getDate();
-        let day: number = ((curDate.getDay() - 1) + 7) % 7;
-        const daysInMonth: number = new Date(curDate.getFullYear(), curDate.getMonth() + 1, 0).getDate();
-        const daysInLastMonth: number = new Date(curDate.getFullYear(), curDate.getMonth(), 0).getDate();
+        const day: Date = new Date(curMonth.getFullYear(), curMonth.getMonth(), 0);
+        const firstDay = day.getDate() - day.getDay() + 1;
+        const lastDay = day.getDate();
 
-        const newDays: Day[] = new Array<Day>(42).fill({ value: 0, status: "default" });
-        while (date > 1) {
-            date--;
-            day = ((day - 1) + 7) % 7;
+        for (let i = firstDay; i <= lastDay; i++) {
+            days.push({
+                value: i,
+                curMonth: false,
+                status: "default",
+            })
         }
 
-        console.log(day)
-        for (let i = 0; i < 42; i++){
-            if (day > 0) {
-                newDays[i] = {
-                    value: daysInLastMonth - day + 1,
-                    status: "default",
-                }
-                day--;
-            }
-            else if (-day < daysInMonth){
-                newDays[i] = {
-                    value: i + newDays[0].value - daysInLastMonth,
-                    status: "default",
-                }
-                day--;
-            }
-            else {
-                newDays[i] = {
-                    value: i + newDays[0].value - daysInLastMonth - daysInMonth,
-                    status: "default",
-                }
-            }
+        return days;
+    }
+
+    const currentMonth = () => {
+        const days: Day[] = new Array<Day>();
+
+        const day: Date = new Date(curMonth.getFullYear(), curMonth.getMonth() + 1, 0);
+        const lastDay = day.getDate();
+
+        for (let i = 1; i <= lastDay; i++) {
+            days.push({
+                value: i,
+                curMonth: true,
+                status: "default",
+            })
         }
-        setDays(newDays);
-    };
+
+        return days;
+    }
+
+    const partOfNextMonth = () => {
+        const days: Day[] = new Array<Day>();
+
+        const day: Date = new Date(curMonth.getFullYear(), curMonth.getMonth() + 1, 0);
+        const lastDay = 42 - (((curMonth.getDay() - 1) + 7) % 7 + day.getDate());
+
+        for (let i = 1; i <= lastDay; i++) {
+            days.push({
+                value: i,
+                curMonth: false,
+                status: "default",
+            })
+        }
+
+        return days;
+    }
+
+
+    useEffect(() => {
+        const days: Day[] = [...partOfPreviousMonth(), ...currentMonth(), ...partOfNextMonth()];
+        setDays(days);
+    }, [curMonth]);
 
     return (
         <div className={styles.screen}>
             <div className={styles.calendar}>
-                <button className={styles.calendar__button} onClick={month}>
+                <button className={styles.calendar__button} onClick={() => (setCurMonth(new Date(curMonth.getFullYear(), curMonth.getMonth() - 1, curMonth.getDate())))}>
                     Left
                 </button>
                 
@@ -68,8 +90,12 @@ const Calendar = (props: Props) => {
 
                     <div className={styles.calendar__body}>
                         {days.map((day, index) => {
-                            return(
-                                <div key={index} className={styles.test}>
+                            return (
+                                <div
+                                    key={index}
+                                    className={`${styles.day}
+                                    ${curMonth ? "" : styles.dayOutside}`}
+                                >
                                     {day.value}
                                 </div>
                             )
@@ -77,7 +103,7 @@ const Calendar = (props: Props) => {
                     </div>
                 </div>
 
-                <button className={styles.calendar__button}>
+                <button className={styles.calendar__button} onClick={() => (setCurMonth(new Date(curMonth.getFullYear(), curMonth.getMonth() + 1, curMonth.getDate())))}>
                     Right
                 </button>
             </div>
