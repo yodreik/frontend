@@ -11,7 +11,7 @@
     background-color: var(--dark-gray);
     border: 1px solid var(--light-gray);
     height: 380px;
-    width: 600px;
+    width: 550px;
     border-radius: 25px;
 
     display: flex;
@@ -59,13 +59,33 @@
     width: 100%;
 
     display: grid;
-    text-align: center;
-    align-items: center;
     grid-template-columns: repeat(7, 1fr);
-    
     gap: 1px 1px;
+
+    justify-content: center;
+    align-items: center;
 }
 
-.test {
-    color: red;
+.day {
+    cursor: pointer;
+
+    color: var(--white);
+
+    height: 45px;
+    width: 45px;
+
+    background: none;
+    border: none;
+    border-radius: 50%;
+
+    justify-self: center;
+    align-self: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.day:hover {
+    background-color: var(--gray);
 }
