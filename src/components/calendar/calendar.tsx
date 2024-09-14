@@ -4,126 +4,116 @@ import { useEffect, useState } from 'react';
 import * as Workout from "@/api";
 import styles from "./calendar.module.css";
 
-interface Day {
-    date: number,
-    month: number,
-    year: number,
-    curDate: boolean,
-    curMonth: boolean,
-    status: "success" | "fail" | "default",
-}
-
 interface Props {
     date: Date,
 }
 
+interface Day {
+    date: Date,
+    isToday: boolean,
+    isSelectedMonth: boolean,
+    kind: string,
+}
+
+interface Workout {
+    date: Date,
+    kind: string,
+}
+
+const months: string[] = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+];
+
+const weekDays: string[] = [
+    "Mo", 
+    "Tu", 
+    "We", 
+    "Th", 
+    "Fr", 
+    "Sa", 
+    "Su"
+];
+
 const Calendar = (props: Props) => {
-    const months: string[] = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    ];
+    const today = props.date;
 
-    const weekDays: string[] = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+    const [selectedDay, setSelectedDay] = useState<Date>();
+    const [selectedMonth, setSelectedMonth] = useState<Date>(new Date(today.getFullYear(), today.getMonth()));
 
-    const [curDate, setCurDate] = useState<Date>(props.date);
-    const [curMonth, setCurMonth] = useState<Date>(new Date(curDate.getFullYear(), curDate.getMonth(), 1)); //selectedMonth
-    const [days, setDays] = useState<Day[]>(new Array<Day>(42));
+    const [workouts, setWorkouts] = useState<Workout[]>([]);;
     
-    // const handleWorkouts = async () => {
-	// 	const result  = await Workout.workout.workouts({
-	// 		begin: `${getFirstDay()}-${curDate.getMonth}`,
-	// 		end: `${getLastDay()}-${curMonth.getMonth()-1} `
-	// 	});
+    const handleWorkouts = async () => {
+        const firstDay = getFirstCalendarDay();
+        const lastDay = getLastCalendarDay();
 
-	// 	if (!("message" in result)){
-	// 		localStorage.setItem("token", result.token);
-	// 		setIsAuthorized(true);
+        const firstDateDay = String(firstDay.getDate()).padStart(2, '0')
+        const firstDateMonth = String(firstDay.getMonth() + 1).padStart(2, '0');
+        const lastDateDay = String(lastDay.getDate()).padStart(2, '0');
+        const lastDateMonth = String(lastDay.getMonth() + 1).padStart(2, '0');
 
-	// 		displayLoginMessage("Successfully logged in", true);
-	// 		router.push("/");
-	// 	}
-	// 	else {
-	// 		handleLoginError(result.status);
-	// 	}
- 	// };
+		const result  = await Workout.workout.workouts({
+			begin: `${firstDateDay}-${firstDateMonth}-${firstDay.getFullYear()}`,
+			end: `${lastDateDay}-${lastDateMonth}-${lastDay.getFullYear()}`,
+		});
 
-    const getFirstDay = () => {
-        const day: Date = new Date(curMonth.getFullYear(), curMonth.getMonth(), 0);
-        day.setDate(day.getDate() - day.getDay() + 1);
-        return day;
+		if (!("message" in result)){
+            const newWorkouts: Workout[] = [];
+            result.workouts.forEach(workout => {
+                workouts.push({
+                    date: parseDate(workout.date),
+                    kind: workout.kind,
+                });
+            });
+            setWorkouts(newWorkouts);
+		}
+		else {
+			console.log(result.message);
+		}
+ 	};
+
+    const getFirstCalendarDay = () => {
+        const dayOfWeek = selectedMonth.getDay();
+        const firstDay: Date = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), (dayOfWeek === 0) ? -5 : 2 - dayOfWeek);
+        return firstDay;
     }
 
-    const getLastDay = () => {
-        const day: Date = new Date(curMonth.getFullYear(), curMonth.getMonth() + 1, 0);
-        day.setDate(42 - (((curMonth.getDay() - 1) + 7) % 7 + day.getDate()));
-        return day;
+    const getLastCalendarDay = () => {
+        const firstDay = getFirstCalendarDay();
+        const lastDay: Date = new Date(firstDay.getFullYear(), firstDay.getMonth(), firstDay.getDate() + 42);
+        return lastDay;
     }
 
-    const partOfPreviousMonth = () => {
-        const days: Day[] = new Array<Day>();
+    const parseDate = (dateString: string) => {
+        const parts: string[] = dateString.split('-');
+        const day: number = parseInt(parts[0], 10);
+        const month: number = parseInt(parts[1], 10) - 1;
+        const year: number = parseInt(parts[2], 10);
 
-        const day: Date = new Date(curMonth.getFullYear(), curMonth.getMonth(), 0);
-        const firstDay = getFirstDay().getDate();
-        const lastDay = day.getDate();
+        return new Date(year, month, day);
+    }
 
-        for (let i = firstDay; i <= lastDay; i++) {
+    const fillCalendar = () => {
+        const days: Day[] = [];
+
+        let workoutsIndex = 0;
+        for (let day = getFirstCalendarDay(); day.getTime() <= getLastCalendarDay().getTime(); day.setDate(day.getDate() + 1)) {
+            const currentDay = new Date(day);
             days.push({
-                date: i,
-                month: day.getMonth(),
-                year: day.getFullYear(),
-                curDate: i === curDate.getDate() && day.getMonth() === curDate.getMonth() && day.getFullYear() === curDate.getFullYear(),
-                curMonth: false,
-                status: "default",
-            })
-        }
-
-        return days;
-    }
-
-    const currentMonth = () => {
-        const days: Day[] = new Array<Day>();
-
-        const day: Date = new Date(curMonth.getFullYear(), curMonth.getMonth() + 1, 0);
-        const lastDay = day.getDate();
-
-        for (let i = 1; i <= lastDay; i++) {
-            days.push({
-                date: i,
-                month: day.getMonth(),
-                year: day.getFullYear(),
-                curDate: i === curDate.getDate() && day.getMonth() === curDate.getMonth() && day.getFullYear() === curDate.getFullYear(),
-                curMonth: true,
-                status: "default",
-            })
-        }
-
-        return days;
-    }
-
-    const partOfNextMonth = () => {
-        const days: Day[] = new Array<Day>();
-
-        const day: Date = new Date(curMonth.getFullYear(), curMonth.getMonth() + 1, 0);
-        const lastDay = getLastDay().getDate();
-
-        for (let i = 1; i <= lastDay; i++) {
-            days.push({
-                date: i,
-                month: day.getMonth(),
-                year: day.getFullYear(),
-                curDate: i === curDate.getDate() && day.getMonth() === curDate.getMonth() && day.getFullYear() === curDate.getFullYear(),
-                curMonth: false,
-                status: "default",
+                date: currentDay,
+                isToday: currentDay.getTime() === new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime(),
+                isSelectedMonth: currentDay.getMonth() === selectedMonth.getMonth(),
+                kind: workouts[workoutsIndex] && currentDay.getTime() === workouts[workoutsIndex].date.getTime() ? workouts[workoutsIndex++].kind : "",
             })
         }
 
@@ -131,22 +121,23 @@ const Calendar = (props: Props) => {
     }
 
     useEffect(() => {
+        handleWorkouts().then(() => {
+            setDays(fillCalendar());
+        })
+    }, [selectedMonth]);
 
-        
-        const days: Day[] = [...partOfPreviousMonth(), ...currentMonth(), ...partOfNextMonth()];
-        setDays(days);
-    }, [curMonth]);
+    const [days, setDays] = useState<Day[]>(fillCalendar());
 
     return (
         <div className={styles.screen}>
             <div className={styles.calendar}>
-                <button className={styles.calendar__button} onClick={() => (setCurMonth(new Date(curMonth.getFullYear(), curMonth.getMonth() - 1, curMonth.getDate())))}>
+                <button className={styles.calendar__button} onClick={() => (setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() - 1)))}>
                     &lt;
                 </button>
                 
                 <div className={styles.calendar__main}>
                     <div className={styles.calendar__header}>
-                        {`${months[curMonth.getMonth()]}, ${curMonth.getFullYear()}`}
+                        {`${months[selectedMonth.getMonth()]}, ${selectedMonth.getFullYear()}`}
                     </div>
 
                     <div className={styles.calendar__body}>
@@ -166,19 +157,18 @@ const Calendar = (props: Props) => {
                                 <div
                                     key={index}
                                     className={`${styles.day} ` +
-                                    `${day.curDate ? styles.today : ""} ` +
-                                    `${day.curMonth ? "" : styles.dayOutside} ` +
-                                    `${day.status === "success" ? styles.daySuccess : ""} ` +
-                                    `${day.status === "fail" ? styles.daySuccess : ""}`}
+                                    `${day.isToday ? styles.today : ""} ` +
+                                    `${day.isSelectedMonth ? "" : styles.dayOutside} ` +
+                                    `${day.kind ? styles.workout : ""}`}
                                 >
-                                    {day.date}
+                                    {day.date.getDate()}
                                 </div>
                             )
                         })}
                     </div>
                 </div>
 
-                <button className={styles.calendar__button} onClick={() => (setCurMonth(new Date(curMonth.getFullYear(), curMonth.getMonth() + 1, curMonth.getDate())))}>
+                <button className={styles.calendar__button} onClick={() => (setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1)))}>
                     &gt;
                 </button>
             </div>

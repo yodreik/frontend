@@ -124,17 +124,15 @@
 .today {
     color: var(--black);
     font-weight: 700;
-    background-color: var(--accent);
-    height: 35px;
-    width: 35px;
-    transition: font-size 0.1s ease-out, width 0.1s ease-out, height 0.1s ease-out; 
+    background-color: var(--white);
 }
 
 .today:hover {
     color: var(--black);
-    font-size: 21px;
-    background-color: var(--accent);
-    height: 45px;
-    width: 45px;
-    transition: font-size 0.1s ease-in, width 0.1s ease-in, height 0.1s ease-in; 
+    background-color: var(--white);
+}
+
+.workout {
+    padding: 10px;
+    border: 2px solid var(--green);
 }
