@@ -10,8 +10,8 @@
 .calendar {
     background-color: var(--dark-gray);
     border: 1px solid var(--light-gray);
-    height: 380px;
-    width: 550px;
+    height: 400px;
+    width: 500px;
     border-radius: 25px;
 
     display: flex;
@@ -22,6 +22,10 @@
 
 .calendar__button {
     cursor: pointer;
+
+    color: var(--light-gray);
+    font-size: 22px;
+    font-weight: 700;
 
     height: 100%;
     width: 7%;
@@ -41,27 +45,48 @@
 .calendar__main {
     height: 100%;
     width: 86%;
-
-    
 }
 
 .calendar__header {
-    height: 10%;
+    color: var(--accent);
+    font-size: 22px;
+    font-weight: 700;
+
+    height: 15%;
     width: 100%;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    padding-top: 11px;
 }
 
 .calendar__body {
-    height: 90%;
+    height: 85%;
     width: 100%;
 
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 1px 1px;
 
+    justify-content: center;
+    align-items: center;
+    
+    padding-bottom: 15px;
+}
+
+.weekDays {
+    color: var(--white);
+    font-weight: 700;
+
+    height: 45px;
+    width: 45px;
+
+    justify-self: center;
+    align-self: center;
+
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -74,8 +99,6 @@
     height: 45px;
     width: 45px;
 
-    background: none;
-    border: none;
     border-radius: 50%;
 
     justify-self: center;
@@ -88,4 +111,30 @@
 
 .day:hover {
     background-color: var(--gray);
+}
+
+.dayOutside {
+    color: var(--light-gray);
+}
+
+.dayOutside:hover {
+    color: var(--white);
+}
+
+.today {
+    color: var(--black);
+    font-weight: 700;
+    background-color: var(--accent);
+    height: 35px;
+    width: 35px;
+    transition: font-size 0.1s ease-out, width 0.1s ease-out, height 0.1s ease-out; 
+}
+
+.today:hover {
+    color: var(--black);
+    font-size: 21px;
+    background-color: var(--accent);
+    height: 45px;
+    width: 45px;
+    transition: font-size 0.1s ease-in, width 0.1s ease-in, height 0.1s ease-in; 
 }

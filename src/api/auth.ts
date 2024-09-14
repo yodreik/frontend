@@ -2,6 +2,7 @@ import { isAxiosError } from "axios";
 import axiosInstance from "./core/axiosInstance";
 import { UserDTO, LoginRequestDTO, LoginResponseDTO, RegisterRequestDTO, RegisterResponseDTO,  ConfirmRegistrationRequestDTO, ConfirmRegistrationResponseDTO, ForgotPasswordRequestDTO, ForgotPasswordResponseDTO, ResetPasswordRequestDTO, ResetPasswordResponseDTO } from "./dto/auth.dto";
 import { Error } from "./dto/error";
+
 export const user = async (): Promise<UserDTO | Error> => {
     try {
         const { data, status } = await axiosInstance.get("/me");
