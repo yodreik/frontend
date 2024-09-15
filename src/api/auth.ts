@@ -5,7 +5,7 @@ import { Error } from "./dto/error";
 
 export const user = async (): Promise<UserDTO | Error> => {
     try {
-        const { data, status } = await axiosInstance.get("/me");
+        const { data, status } = await axiosInstance.get("/auth/account");
         return {
             ...data,
             status: status,
@@ -20,7 +20,7 @@ export const user = async (): Promise<UserDTO | Error> => {
 
 export const login = async (values: LoginRequestDTO): Promise<LoginResponseDTO | Error> => {
     try {
-        const { data, status } = await axiosInstance.post("/auth/login", values);
+        const { data, status } = await axiosInstance.post("/auth/session", values);
         return {
             ...data,
             status: status,
@@ -35,7 +35,7 @@ export const login = async (values: LoginRequestDTO): Promise<LoginResponseDTO |
 
 export const register = async (values: RegisterRequestDTO): Promise<RegisterResponseDTO | Error> => {
     try {
-        const { data, status } = await axiosInstance.post("/auth/register", values);
+        const { data, status } = await axiosInstance.post("/auth/account", values);
         return {
             ...data,
             status: status,
@@ -50,7 +50,7 @@ export const register = async (values: RegisterRequestDTO): Promise<RegisterResp
 
 export const confirmRegistration = async (values: ConfirmRegistrationRequestDTO): Promise<ConfirmRegistrationResponseDTO | Error> => {
     try {
-        const { data, status } = await axiosInstance.post("/auth/confirm", values);
+        const { data, status } = await axiosInstance.post("/auth/account/confirm", values);
         return {
             ...data,
             status: status,
@@ -80,7 +80,7 @@ export const forgotPassword = async (values: ForgotPasswordRequestDTO): Promise<
 
 export const resetPassword = async (values: ResetPasswordRequestDTO): Promise<ResetPasswordResponseDTO | Error> => {
     try {
-        const { data, status } = await axiosInstance.patch("/auth/password/update", values);
+        const { data, status } = await axiosInstance.patch("/auth/password", values);
         return {
             ...data,
             status: status,
