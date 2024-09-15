@@ -53,7 +53,7 @@ const Calendar = (props: Props) => {
 
     const [workouts, setWorkouts] = useState<Workout[]>([]);;
     
-    const handleWorkouts = async () => {
+    const handleActivity = async () => {
         const firstDay = getFirstCalendarDay();
         const lastDay = getLastCalendarDay();
 
@@ -62,7 +62,7 @@ const Calendar = (props: Props) => {
         const lastDateDay = String(lastDay.getDate()).padStart(2, '0');
         const lastDateMonth = String(lastDay.getMonth() + 1).padStart(2, '0');
 
-		const result  = await Workout.workout.workouts({
+		const result  = await Workout.workout.activity({
 			begin: `${firstDateDay}-${firstDateMonth}-${firstDay.getFullYear()}`,
 			end: `${lastDateDay}-${lastDateMonth}-${lastDay.getFullYear()}`,
 		});
@@ -121,7 +121,7 @@ const Calendar = (props: Props) => {
     }
 
     useEffect(() => {
-        handleWorkouts().then(() => {
+        handleActivity().then(() => {
             setDays(fillCalendar());
         })
     }, [selectedMonth]);
