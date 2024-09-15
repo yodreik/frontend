@@ -10,7 +10,7 @@ import styles from "./sideMenu.module.css";
 interface Props {
     isActive: boolean;
     setInactive: () => void;
-    name: string;
+    username: string;
     email: string;
     avatarURL: string;
 }
@@ -36,7 +36,7 @@ const SideMenu = (props: Props) => {
                 <div className={styles.miniProfile}>
                     <img src={props.avatarURL} className={styles.avatar} />
                     <div className={styles.userInfo}>
-                        <div className={styles.userName}>{props.name}</div>
+                        <div className={styles.userName}>{props.username}</div>
                         <div className={styles.userEmail}>{props.email}</div>
                     </div>
                 </div>

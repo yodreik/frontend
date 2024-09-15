@@ -5,7 +5,8 @@ import * as Api from "@/api";
 
 interface Userdata {
     id?: string,
-    name?: string,
+    username?: string,
+    display_name: string,
     email?: string,
 }
 
@@ -33,7 +34,7 @@ export const AuthProvider = (props: Props) => {
             
             if (!("message" in result)){
                 setIsAuthorized(true);
-                setUserdata({id: result.id, name: result.name, email: result.email});
+                setUserdata({id: result.id, username: result.username, display_name: result.display_name, email: result.email});
             }
             else {
                 setIsAuthorized(false);

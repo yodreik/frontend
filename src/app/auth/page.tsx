@@ -23,12 +23,12 @@ const AuthPage = () => {
 	const [infoLoginStatus, setInfoLoginStatus] = useState<"error"  | "success" | "default">("default");
 	const [buttonLoginIsDisabled, setButtonLoginIsDisabled] = useState<boolean>(false);
 
-	const [nameRegister, setNameRegister] = useState<string>("");
+	const [usernameRegister, setUsernameRegister] = useState<string>("");
   	const [emailRegister, setEmailRegister] = useState<string>("");
   	const [passwordRegister, setPasswordRegister] = useState<string>("");
   	const [retypedPasswordRegister, setRetypedPasswordRegister] = useState<string>("");
 
-	const [nameRegisterStatus, setNameRegisterStatus] = useState<"default" | "error">("default");
+	const [usernameRegisterStatus, setUsernameRegisterStatus] = useState<"default" | "error">("default");
   	const [emailRegisterStatus, setEmailRegisterStatus] = useState<"default" | "error">("default");
   	const [passwordRegisterStatus, setPasswordRegisterStatus] = useState<"default" | "error">("default");
   	const [retypedPasswordRegisterStatus, setRetypedPasswordRegisterStatus] = useState<"default" | "error">("default");
@@ -86,7 +86,7 @@ const AuthPage = () => {
 
   	const handleRegister = async () => {
 		const result  = await Api.auth.register({
-			name: nameRegister,
+			username: usernameRegister,
 			email: emailRegister,
 			password: passwordRegister,
 		});
@@ -102,7 +102,7 @@ const AuthPage = () => {
 	const handleRegisterError = (status: number) => {
 		switch (status) {
 			case 409:
-				displayRegisterMessage("This email already taken");
+				displayRegisterMessage("This email or username already taken");
 				break;
 			case 500:
 				displayRegisterMessage("Server error. Try later");
@@ -150,23 +150,23 @@ const AuthPage = () => {
     	setPasswordLogin(input);
   	};
 
-	const onChangeNameRegister = (e: ChangeEvent<HTMLInputElement>) => {
+	const onChangeUsernameRegister = (e: ChangeEvent<HTMLInputElement>) => {
 		const input = e.target.value;
 
-		if (input.length < 1) {
-			setNameRegisterStatus("error");
-			displayRegisterMessage("Name can't be empty");
+		if (input.length < 5) {
+			setUsernameRegisterStatus("error");
+			displayRegisterMessage("Username is too short");
 		} 
-		else if (input.length > 50) {
-			setNameRegisterStatus("error");
-			displayRegisterMessage("Name is too long");
+		else if (input.length > 32) {
+			setUsernameRegisterStatus("error");
+			displayRegisterMessage("Username is too long");
 		} 
 		else {
-			setNameRegisterStatus("default");
+			setUsernameRegisterStatus("default");
 			hideRegisterMessage();
 		}
 
-		setNameRegister(input);
+		setUsernameRegister(input);
   	};
 
   	const onChangeEmailRegister = (e: ChangeEvent<HTMLInputElement>) => {
@@ -246,11 +246,11 @@ const AuthPage = () => {
 	
 	useEffect(() => {
 		if (
-			nameRegisterStatus === "error" ||
+			usernameRegisterStatus === "error" ||
 			emailRegisterStatus === "error" ||
 			passwordRegisterStatus === "error" ||
 			retypedPasswordRegisterStatus === "error" ||
-			nameRegister === "" ||
+			usernameRegister === "" ||
 			emailRegister === "" ||
 			passwordRegister === "" ||
 			retypedPasswordRegister === ""
@@ -260,7 +260,7 @@ const AuthPage = () => {
 		else {
 			setButtonRegisterIsDisabled(false);
 		}
-  	}, [nameRegister, emailRegister, passwordRegister, retypedPasswordRegister]);
+  	}, [usernameRegister, emailRegister, passwordRegister, retypedPasswordRegister]);
 
 	const displayLoginMessage = (message: string = "", isSuccess: boolean = false) => {
 		if (message !== "") setInfoLogin(message);
@@ -347,11 +347,11 @@ const AuthPage = () => {
 
 					<Form className={styles.form_signup} title="Create an account" info={infoRegister} infoStatus={infoRegisterStatus}>
 						<Input 
-							value={nameRegister} 
-							onChange={onChangeNameRegister}
+							value={usernameRegister} 
+							onChange={onChangeUsernameRegister}
 							type="text"
-							status={nameRegisterStatus}
-							placeholder="Name"
+							status={usernameRegisterStatus}
+							placeholder="Username"
 						/>
 						<Input 
 							value={emailRegister} 

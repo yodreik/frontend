@@ -9,7 +9,7 @@ import styles from "./header.module.css";
 
 interface User {
     id: string;
-    name: string;
+    username: string;
     email: string;
     avatarURL: string;
 }
@@ -24,7 +24,7 @@ const Header = () => {
 
     const user: User = {
         id: userdata?.id || "69",
-        name: userdata?.name || "Donald M. Russel",
+        username: userdata?.username || "Donald M. Russel",
         email: userdata?.email || "donaldrussell@gmail.com",
         avatarURL: "https://img.freepik.com/free-photo/left-sideways-american-black-person_23-2148749585.jpg",
     }
@@ -46,7 +46,7 @@ const Header = () => {
                                             disabled={false}
                                         />
                                         <div className={styles.name}>
-                                            {user.name}
+                                            {user.username}
                                         </div>
                                         <button className={styles.avatarButton} onClick={() => setIsSideMenuActive(true)}>
                                             <img src={user.avatarURL} className={styles.avatar} />
@@ -55,7 +55,7 @@ const Header = () => {
                                         <SideMenu 
                                             isActive={isSideMenuActive} 
                                             setInactive={() => {setIsSideMenuActive(false)}}
-                                            name={user.name}
+                                            username={user.username}
                                             email={user.email}
                                             avatarURL={user.avatarURL}
                                         />
