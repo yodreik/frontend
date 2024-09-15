@@ -1,7 +1,10 @@
 export interface UserDTO {
     id: string,
-    name: string,
+    username: string,
+    display_name: string, 
     email: string,
+    is_confirmed: boolean,
+    is_private: boolean,
     status: number
 }
 
@@ -16,15 +19,18 @@ export interface LoginResponseDTO {
 }
 
 export interface RegisterRequestDTO {
-    name: string,
+    username: string,
     email: string,
     password: string
 }
 
 export interface RegisterResponseDTO {
     id: string,
+    username: string,
+    display_name: string, 
     email: string,
-    name: string,
+    is_confirmed: boolean,
+    is_private: boolean,
     status: number
 }
 
