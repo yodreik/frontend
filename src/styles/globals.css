@@ -5,9 +5,11 @@
     --light-gray: #434343;
     --white: #fafafa;
 
-    --accent: #bdf500;
-    --dark-accent: #516900;
+    --accent: var(--green);
+    --dark-accent: var(--dark-green);
+    --lime: #bdf500;
     --green: #7bff78;
+    --dark-green: #235622;
     --blue: #366efe;
     --red: #ef5d5d;
 }
