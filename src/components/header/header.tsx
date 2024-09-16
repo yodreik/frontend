@@ -42,7 +42,7 @@ const Header = () => {
                                         <Button
                                             className={styles.dashboardButton}
                                             label="Dashboard"
-                                            onClick={() => console.log("clicked dashboard")}
+                                            onClick={() => router.push("/dashboard")}
                                             disabled={false}
                                         />
                                         <div className={styles.name}>
