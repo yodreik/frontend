@@ -1,6 +1,6 @@
 "use client";
 
-import Toast from "../toast/toast";
+import Toast from "../Toast/Toast";
 import styles from "./ToastContainer.module.css";
 
 interface toast {

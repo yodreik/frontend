@@ -1,8 +1,8 @@
 "use client";
 
-import styles from "./input.module.css";
 import "../../styles/fonts.css";
 import { ChangeEvent } from "react";
+import styles from "./Input.module.css";
 
 interface Props {
     value: string;
