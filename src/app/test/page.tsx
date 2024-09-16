@@ -1,99 +1,44 @@
 "use client";
 
+import { useToast } from "@/context/ToastContext";
 import Button from "@/components/button/button";
-import style from "./page.module.css";
-import Input from "@/components/input/input";
-import { ChangeEvent, useState } from "react";
+import React from "react";
 
 const AuthenticatePage = () => {
-    const [email, setEmail] = useState<string>("sosat@chas.com");
-    const [inputStatus, setInputStatus] = useState<"error" | "default">("default");
+    const { success } = useToast();
 
-    const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-        let value = e.target.value;
-
-        if (value && !isValidEmail(value)) {
-            setInputStatus("error");
-        } else {
-            setInputStatus("default");
-        }
-
-        setEmail(e.target.value);
-    };
-
-    const isValidEmail = (value: string): boolean => {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(value);
-    }
-
-    const handle = () => {
-        const token = localStorage.removeItem('token');
-    }
     return (
         <>
-            <div className={style.test}>
-                <h1>Authenticate</h1>
-                <Button
-                className={style.color}
-                label="Dashboard"
-                onClick={handle}
-                disabled={false}
-                />
-                <Button
-                className={style.color}
-                label="Dashboard"
-                onClick={() => console.log("clicked")}
-                disabled={false}
-                />
-
-                <Input
-                value={email}
-                onChange={handleEmailChange}
-                type="email"
-                status={inputStatus}
-                placeholder="Email"
-                disabled={true}
-                />
-
-                <Input
-                value={email}
-                onChange={handleEmailChange}
-                type="email"
-                status={inputStatus}
-                placeholder="Email"
-                disabled={false}
-                />
-                <Input
-                value={email}
-                onChange={handleEmailChange}
-                type="email"
-                status={inputStatus}
-                placeholder="Email"
-                disabled={false}
-                />
-                <Input
-                value={email}
-                onChange={handleEmailChange}
-                type="email"
-                status={inputStatus}
-                placeholder="Email"
-                disabled={false}
-                />
-                <Input
-                value={email}
-                onChange={handleEmailChange}
-                type="email"
-                status={inputStatus}
-                placeholder="Email"
-                disabled={false}
-                />
-                <Button
-                className={style.testb}
-                label="Dashboard"
-                onClick={handle}
-                disabled={false}
-                />
-            </div>
+            <Button
+                label="Success1"
+                onClick={
+                    () => success("HUI1", "hui2")
+                }
+            />
+            <Button
+                label="Success2"
+                onClick={
+                    () => success("HUI2", "hui2")
+                }
+            />
+            <Button
+                label="Success3"
+                onClick={
+                    () => success("HUI3", "hui2")
+                }
+            />
+            <Button
+                label="Success4"
+                onClick={
+                    () => success("HUI4", "hui2")
+                }
+            />
+            <Button
+                label="Success5"
+                onClick={
+                    () => success("HUI5", "hui2")
+                }
+            />
         </>
     );
 };

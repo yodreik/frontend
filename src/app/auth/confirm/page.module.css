@@ -1,9 +1,9 @@
 .screen {
     width: 100vw;
-    height: 100vh;
 }
 
 .container {
+    margin-top: 10%;
     height: 90%;
 
     display: flex;

@@ -1,6 +1,5 @@
 .screen {
     width: 100vw;
-    height: 100vh;
 
     display: flex;
     justify-content: center;
@@ -10,6 +9,8 @@
 }
 
 .container {
+
+    margin-top: 10%;
     width: 800px;
     height: 500px;
     padding: 40px 0;
