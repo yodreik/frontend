@@ -10,6 +10,7 @@ interface toast {
 }
 
 interface ToastProps {
+    id: number;
     type: "success" | "error";
     title: string;
     message: string;
@@ -23,7 +24,7 @@ const ToastContainer: React.FC<ToastContainerProps> = ({ toasts }) => {
     return (
         <div className={styles.container}>
             {toasts.map((toast, index) => (
-                <Toast type={toast.type} title={toast.title} message={toast.message} />
+                <Toast key={index} id={toast.id} type={toast.type} title={toast.title} message={toast.message} />
             ))}
         </div>
     );
