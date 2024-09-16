@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import * as Api from "@/api";
 
 interface Userdata {
@@ -19,11 +19,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-interface Props {
-    children: ReactNode,
-}
-
-export const AuthProvider = (props: Props) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [userdata, setUserdata] = useState<Userdata>();
@@ -58,7 +54,7 @@ export const AuthProvider = (props: Props) => {
 
     return (
         <AuthContext.Provider value={{ isAuthorized, setIsAuthorized, isLoading, userdata }}>
-            {props.children}
+            {children}
         </AuthContext.Provider>
     );
 };
