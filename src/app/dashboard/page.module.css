@@ -66,11 +66,3 @@
     width: 500px;
     border-radius: 25px;
 }
-
-.temporaryQuote {
-    background-color: var(--dark-gray);
-    border: 1px solid var(--light-gray);
-    height: 141px;
-    width: 1030px;
-    border-radius: 25px;
-}
