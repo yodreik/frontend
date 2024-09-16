@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import * as Workout from "@/api";
-import styles from "./calendar.module.css";
+import styles from "./Calendar.module.css";
 
 interface Props {
     date: Date,

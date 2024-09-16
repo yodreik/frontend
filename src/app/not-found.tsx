@@ -1,6 +1,6 @@
 "use client";
 
-import ErrorPage from "@/components/error/error";
+import ErrorPage from "@/components/Error/Error";
 
 export default function Home() {
     return (

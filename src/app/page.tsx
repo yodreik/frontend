@@ -1,4 +1,4 @@
-import Calendar from "@/components/calendar/calendar";
+import Calendar from "@/components/Calendar/Calendar";
 
 export default function Home() {
     const date: Date = new Date();

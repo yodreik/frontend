@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from '@/context/AuthContext';
 import Image from "next/image";
-import styles from "./sideMenu.module.css";
+import styles from "./SideMenu.module.css";
 
 
 interface Props {

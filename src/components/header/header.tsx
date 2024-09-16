@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import SideMenu from "../sideMenu/sideMenu"
-import Button from "../button/button";
-import styles from "./header.module.css";
+import SideMenu from "../SideMenu/SideMenu"
+import Button from "@/components/Button/Button";
+import styles from "./Header.module.css";
 
 interface User {
     id: string;

@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "./form.module.css";
+import styles from "./Form.module.css";
 import React, { ReactNode } from "react";
 
 interface Props {

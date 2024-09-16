@@ -1,8 +1,6 @@
 "use client";
 
-import styles from "./button.module.css";
-import "../../styles/fonts.css";
-import PropTypes from "prop-types";
+import styles from "./Button.module.css";
 
 // TODO: Pass a color for button through a props, perfectly from globals.css
 interface Props {
@@ -22,13 +20,6 @@ const Button = (props: Props) => {
             {props.label}
         </button>
     );
-};
-
-Button.propTypes = {
-    className: PropTypes.string,
-    label: PropTypes.string,
-    onClick: PropTypes.func,
-    disabled: PropTypes.bool,
 };
 
 export default Button;

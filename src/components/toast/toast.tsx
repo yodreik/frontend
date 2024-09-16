@@ -1,12 +1,11 @@
 "use client";
 
-import styles from "./toast.module.css";
-import "../../styles/fonts.css";
 import Image from "next/image";
 import { useState } from "react";
 import { useToast } from "@/context/ToastContext";
 import Success from "@/icons/success";
 import Failure from "@/icons/failure";
+import styles from "./Toast.module.css";
 
 interface Props {
     id: number;
