@@ -10,9 +10,33 @@ const AuthenticatePage = () => {
     return (
         <>
             <Button
-                label="Success"
+                label="Success1"
                 onClick={
-                    () => success("HUI", "hui2")
+                    () => success("HUI1", "hui2")
+                }
+            />
+            <Button
+                label="Success2"
+                onClick={
+                    () => success("HUI2", "hui2")
+                }
+            />
+            <Button
+                label="Success3"
+                onClick={
+                    () => success("HUI3", "hui2")
+                }
+            />
+            <Button
+                label="Success4"
+                onClick={
+                    () => success("HUI4", "hui2")
+                }
+            />
+            <Button
+                label="Success5"
+                onClick={
+                    () => success("HUI5", "hui2")
                 }
             />
         </>
