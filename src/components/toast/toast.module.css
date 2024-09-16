@@ -1,6 +1,6 @@
 .toast {
     position: relative;
-    right: 0px;
+    left: -420px;
 
     backdrop-filter: blur(15px);
     background-color: rgba(24, 24, 27, 60%);
@@ -21,8 +21,8 @@
 }
 
 .toast.active {
-    right: -200%;
-
+    left: 0px;
+    
     transition: 0.3s ease-in-out;
 }
 

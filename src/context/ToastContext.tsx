@@ -27,7 +27,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         console.log("counter" + counter);
         setTimeout(() => {
             removeToast(curIndex);
-        }, 3000)
+        }, 5000)
         setCounter(counter + 1);
     };
 
