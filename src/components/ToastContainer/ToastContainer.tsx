@@ -20,10 +20,10 @@ interface ToastContainerProps {
     toasts: ToastProps[];
 }
 
-const ToastContainer: React.FC<ToastContainerProps> = ({ toasts }) => {
+const ToastContainer = ( toasts: ToastContainerProps ) => {
     return (
         <div className={styles.container}>
-            {toasts.map((toast, index) => (
+            {toasts.toasts.map((toast, index) => (
                 <Toast key={index} id={toast.id} type={toast.type} title={toast.title} message={toast.message} />
             ))}
         </div>
