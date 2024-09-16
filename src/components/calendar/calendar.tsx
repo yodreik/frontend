@@ -129,49 +129,47 @@ const Calendar = (props: Props) => {
     const [days, setDays] = useState<Day[]>(fillCalendar());
 
     return (
-        <div className={styles.screen}>
-            <div className={styles.calendar}>
-                <button className={styles.calendar__button} onClick={() => (setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() - 1)))}>
-                    &lt;
-                </button>
-                
-                <div className={styles.calendar__main}>
-                    <div className={styles.calendar__header}>
-                        {`${months[selectedMonth.getMonth()]}, ${selectedMonth.getFullYear()}`}
-                    </div>
-
-                    <div className={styles.calendar__body}>
-                        {weekDays.map((weekDay, index) => {
-                            return (
-                                <div
-                                    key={index}
-                                    className={styles.weekDays}
-                                >
-                                    {weekDay}
-                                </div>
-                            )
-                        })}
-                        
-                        {days.map((day, index) => {
-                            return (
-                                <div
-                                    key={index}
-                                    className={`${styles.day} ` +
-                                    `${day.isToday ? styles.today : ""} ` +
-                                    `${day.isSelectedMonth ? "" : styles.dayOutside} ` +
-                                    `${day.kind ? styles.workout : ""}`}
-                                >
-                                    {day.date.getDate()}
-                                </div>
-                            )
-                        })}
-                    </div>
+        <div className={styles.calendar}>
+            <button className={styles.calendar__button} onClick={() => (setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() - 1)))}>
+                &lt;
+            </button>
+            
+            <div className={styles.calendar__main}>
+                <div className={styles.calendar__header}>
+                    {`${months[selectedMonth.getMonth()]}, ${selectedMonth.getFullYear()}`}
                 </div>
 
-                <button className={styles.calendar__button} onClick={() => (setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1)))}>
-                    &gt;
-                </button>
+                <div className={styles.calendar__body}>
+                    {weekDays.map((weekDay, index) => {
+                        return (
+                            <div
+                                key={index}
+                                className={styles.weekDays}
+                            >
+                                {weekDay}
+                            </div>
+                        )
+                    })}
+                    
+                    {days.map((day, index) => {
+                        return (
+                            <div
+                                key={index}
+                                className={`${styles.day} ` +
+                                `${day.isToday ? styles.today : ""} ` +
+                                `${day.isSelectedMonth ? "" : styles.dayOutside} ` +
+                                `${day.kind ? styles.workout : ""}`}
+                            >
+                                {day.date.getDate()}
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
+
+            <button className={styles.calendar__button} onClick={() => (setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1)))}>
+                &gt;
+            </button>
         </div>
     )
 }
