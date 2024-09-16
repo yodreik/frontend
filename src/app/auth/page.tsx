@@ -61,7 +61,7 @@ const AuthPage = () => {
 			setIsAuthorized(true);
 
 			displayLoginMessage("Successfully logged in", true);
-			router.push("/");
+			router.push("/dashboard");
 		}
 		else {
 			handleLoginError(result.status);
