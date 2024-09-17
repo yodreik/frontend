@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import * as Workout from "@/api";
+import LeftArrow from '@/icons/leftArrow';
+import RightArrow from '@/icons/rightArrow';
 import styles from "./Calendar.module.css";
 
 interface Props {
@@ -90,7 +92,7 @@ const Calendar = (props: Props) => {
 
     const getLastCalendarDay = () => {
         const firstDay = getFirstCalendarDay();
-        const lastDay: Date = new Date(firstDay.getFullYear(), firstDay.getMonth(), firstDay.getDate() + 42);
+        const lastDay: Date = new Date(firstDay.getFullYear(), firstDay.getMonth(), firstDay.getDate() + 41);
         return lastDay;
     }
 
@@ -131,12 +133,12 @@ const Calendar = (props: Props) => {
     return (
         <div className={styles.calendar}>
             <button className={styles.calendar__button} onClick={() => (setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() - 1)))}>
-                &lt;
+                <LeftArrow className={styles.arrow}/>
             </button>
             
             <div className={styles.calendar__main}>
                 <div className={styles.calendar__header}>
-                    {`${months[selectedMonth.getMonth()]}, ${selectedMonth.getFullYear()}`}
+                    {`${months[selectedMonth.getMonth()]} ${selectedMonth.getFullYear()}`}
                 </div>
 
                 <div className={styles.calendar__body}>
@@ -168,7 +170,7 @@ const Calendar = (props: Props) => {
             </div>
 
             <button className={styles.calendar__button} onClick={() => (setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1)))}>
-                &gt;
+                <RightArrow className={styles.arrow}/>
             </button>
         </div>
     )
