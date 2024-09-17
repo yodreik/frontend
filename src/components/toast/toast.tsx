@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { useToast } from "@/context/ToastContext";
 import Success from "@/icons/success";
 import Failure from "@/icons/failure";
+import Close from "@/icons/close";
 import styles from "./Toast.module.css";
 
 interface Props {
@@ -31,12 +31,12 @@ const Toast = (props: Props) => {
     return (
         <div className={`${styles.toast} ${isVisible ? "" : styles.active}`}>
             <div className={styles.close} onClick={handleClose}>
-                <Image src="/iconClose.svg" alt="Fire" width={24} height={24} />
+                <Close/>
             </div>
 
             <div className={styles.icon}>
                 {
-                    props.type === "success" ? <Success /> : < Failure />
+                    props.type === "success" ? <Success/> : < Failure/>
                 }
             </div>
 

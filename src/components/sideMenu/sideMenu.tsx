@@ -1,9 +1,14 @@
 "use client"
 
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from '@/context/AuthContext';
-import Image from "next/image";
+import Close from "@/icons/close";
+import Profile from "@/icons/profile";
+import Dashboard from "@/icons/dashboard";
+import Settings from "@/icons/settings";
+import Exit from "@/icons/exit";
+import Bug from "@/icons/bug";
+import GitHub from "@/icons/gitHub";
 import styles from "./SideMenu.module.css";
 
 
@@ -30,7 +35,7 @@ const SideMenu = (props: Props) => {
         <div className={styles.container}>
             <div className={`${styles.menu} ${props.isActive ? styles.active : ""}`}>
                 <button className={styles.closeButton} onClick={props.setInactive}>
-                    <Image src="/iconClose.svg" alt="Close" width={24} height={24} />
+                    <Close/>
                 </button>
 
                 <div className={styles.miniProfile}>
@@ -45,17 +50,17 @@ const SideMenu = (props: Props) => {
 
                 <div className={styles.itemsContainer}>
                     <button className={styles.item} onClick={() => {router.push("/")}}>
-                        <Image src="/iconProfile.svg" alt="Profile" width={24} height={24} />
+                        <Profile/>
                         <div className={styles.item_title}>Profile</div>
                     </button>
 
-                    <button className={styles.item} onClick={() => {router.push("/")}}>
-                        <Image src="/iconDashboard.svg" alt="Dashboard" width={24} height={24} />
+                    <button className={styles.item} onClick={() => {router.push("/dashboard")}}>
+                        <Dashboard/>
                         <div className={styles.item_title}>Dashboard</div>
                     </button>
 
                     <button className={styles.item} onClick={() => {router.push("/")}}>
-                        <Image src="/iconSettings.svg" alt="Settings" width={24} height={24} />
+                        <Settings/>
                         <div className={styles.item_title}>Settings</div>
                     </button>
                 </div>
@@ -64,7 +69,7 @@ const SideMenu = (props: Props) => {
 
                 <div className={styles.itemsContainer}>
                     <button className={styles.item} onClick={handleLogout}>
-                        <Image src="/iconExit.svg" alt="Exit" width={24} height={24} />
+                        <Exit/>
                         <div className={styles.item_titleRed}>Sign Out</div>
                     </button>
                 </div>
@@ -73,7 +78,7 @@ const SideMenu = (props: Props) => {
                 <div className={styles.bottom}>
                     <div className={styles.itemsContainer}>
                         <button className={styles.item} onClick={() => {window.open("https://github.com/dreik", "_blank")}}>
-                            <Image src="/iconGitHub.svg" alt="GitHub" width={24} height={24} />
+                            <GitHub/>
                             <div className={styles.item_title}>Project on GitHub</div>
                         </button>
                     </div>
@@ -82,7 +87,7 @@ const SideMenu = (props: Props) => {
 
                     <div className={styles.itemsContainer}>
                         <button className={styles.item} onClick={() => {window.open("https://github.com/dreik/frontend/issues/new", "_blank")}}>
-                            <Image src="/iconBug.svg" alt="Bug" width={24} height={24} />
+                            <Bug/>
                             <div className={styles.item_title}>Report a Bug</div>
                         </button>
                     </div>
