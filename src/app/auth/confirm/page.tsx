@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import * as Api from "@/api";
-import Image from "next/image";
+import Fire from "@/icons/fire";
+import Error from "@/icons/error";
 import styles from "./page.module.css";
 
 
@@ -43,10 +44,10 @@ const ConfirmPage = () => {
                     status !== "default" && (<>
                         {
                             status === "success" ? <>
-                                <Image src="/iconFire.svg" alt="Logo" width={111} height={111} />
+                                <Fire/>
                                 <div className={styles.title}>Your email successfully confirmed</div>
                             </> : <>
-                                <Image src="/iconError.svg" alt="Logo" width={111} height={111} />
+                                <Error/>
                                 <div className={styles.title}>Invalid confirmation link</div>
                             </>
                         }
