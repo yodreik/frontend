@@ -9,6 +9,8 @@
     align-items: center;
     flex-direction: row;
     overflow: hidden;
+
+    padding: 0px 7px 0px 7px;
 }
 
 .calendar__button {
@@ -19,7 +21,7 @@
     font-weight: 700;
 
     height: 100%;
-    width: 7%;
+    width: 8%;
 
     background: none;
     border: none;
@@ -27,15 +29,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
 
-.calendar__button:hover {
-    background-color: var(--gray);
+    padding-top: 43px;
 }
 
 .calendar__main {
     height: 100%;
-    width: 86%;
+    width: 84%;
 }
 
 .calendar__header {
@@ -64,7 +64,7 @@
     justify-content: center;
     align-items: center;
     
-    padding-bottom: 15px;
+    padding-bottom: 25px;
 }
 
 .weekDays {
@@ -126,4 +126,12 @@
 .workout {
     padding: 10px;
     border: 2px solid var(--green);
+}
+
+.arrow {
+    fill: var(--light-gray);
+}
+
+.calendar__button:hover .arrow {
+    fill: var(--white);
 }
