@@ -53,7 +53,7 @@ const Calendar = (props: Props) => {
     const [selectedDay, setSelectedDay] = useState<Date>();
     const [selectedMonth, setSelectedMonth] = useState<Date>(new Date(today.getFullYear(), today.getMonth()));
 
-    const [workouts, setWorkouts] = useState<Workout[]>([]);;
+    const [workouts, setWorkouts] = useState<Workout[]>([]);
     
     const handleActivity = async () => {
         const firstDay = getFirstCalendarDay();
