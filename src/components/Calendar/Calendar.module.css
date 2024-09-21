@@ -16,10 +16,6 @@
 .calendar__button {
     cursor: pointer;
 
-    color: var(--light-gray);
-    font-size: 22px;
-    font-weight: 700;
-
     height: 100%;
     width: 8%;
 
@@ -129,6 +125,8 @@
 }
 
 .arrow {
+    height: 31px;
+    width: 19px; 
     fill: var(--light-gray);
 }
 

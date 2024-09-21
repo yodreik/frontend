@@ -8,12 +8,47 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    overflow: hidden;
 }
 
 .header {
     height: 15%;
     width: 100%;
+    
+    padding-left: 27px;
+
+    display: flex;
+    align-items: end;
+    flex-direction: row;
+}
+
+.dateInterval {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.dateButton {
+    cursor: pointer;
+
+    height: 22px;
+    width: 20px;
+
+    background: none;
+    border: none;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow {
+    height: 12px;
+    width: 7px;
+    fill: var(--light-gray);
+}
+
+.calendar__button:hover .arrow {
+    fill: var(--white);
 }
 
 
