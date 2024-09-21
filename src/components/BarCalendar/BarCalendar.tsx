@@ -235,7 +235,7 @@ const BarCalendar = (props: Props) => {
                                         return (
                                             <div
                                                 key={index}
-                                                style={{ height: `${workout.duration / timeScale.timeMax * 100}%` }}
+                                                style={{ height: `${workout.duration / timeScale.timeMax * 100}%`}}
                                                 className={`${styles.bar} ${index !== 0 && styles.extraBar}`}
                                             />
                                         )
