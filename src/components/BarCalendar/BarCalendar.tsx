@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import * as Workout from "@/api";
+import LeftArrow from '@/icons/leftArrow';
+import RightArrow from '@/icons/rightArrow';
 import styles from "./BarCalendar.module.css";
 
 interface Props {
@@ -35,7 +37,22 @@ const months: string[] = [
     "December"
 ];
 
-const weekDays: string[] = [
+const shortMonths: string[] = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+];
+
+const shortWeekDays: string[] = [
     "Mo", 
     "Tu", 
     "We", 
@@ -48,7 +65,7 @@ const weekDays: string[] = [
 const BarCalendar = (props: Props) => {
     const today = props.date;
 
-    const [selectedWeek, setSelectedWeek] = useState<Date>(new Date(today.getFullYear(), today.getMonth(), today.getDate() + ((today.getDay() === 0) ? -5 : 2 - today.getDay())));
+    const [selectedWeek, setSelectedWeek] = useState<Date>(new Date(today.getFullYear(), today.getMonth(), today.getDate() + ((today.getDay() === 0) ? -6 : 1 - today.getDay())));
     const [selectedMonth, setSelectedMonth] = useState<Date>(new Date(today.getFullYear(), today.getMonth()));
     const [selectedYear, setSelectedYear] = useState<Date>(new Date(today.getFullYear()));
 
@@ -138,7 +155,7 @@ const BarCalendar = (props: Props) => {
                 isToday: currentDay.getTime() === new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime(),
                 workouts: [],
             })
-            while (currentDay.getTime() === workouts[workoutsIndex].date.getTime()) {
+            while (workouts[workoutsIndex] && currentDay.getTime() === workouts[workoutsIndex].date.getTime()) {
                 totalDuration += workouts[workoutsIndex].duration;
                 days[days.length - 1].workouts.push(workouts[workoutsIndex++]);
             }
@@ -152,11 +169,21 @@ const BarCalendar = (props: Props) => {
 
     const changeTimeScale = (maxDuration: number) => {
         if (maxDuration <= 120) {
-            setTimeScale({ time1: 30, time2: 60, time3: 90, timeMax: 120})
+            setTimeScale({ time1: 30, time2: 60, time3: 90, timeMax: 120});
         }
         else if (maxDuration <= 240) {
-            setTimeScale({ time1: 60, time2: 120, time3: 180, timeMax: 240})
+            setTimeScale({ time1: 60, time2: 120, time3: 180, timeMax: 240});
         }
+    }
+
+    const getDateInterval = () => {
+        const begin = getFirstCalendarDay();
+        const end = getLastCalendarDay();
+
+        const firstPart = `${shortMonths[begin.getMonth()]} ${begin.getDate()}` + (begin.getFullYear() !== end.getFullYear() ? `, ${begin.getFullYear()}` : "");
+        const secondPart = `${shortMonths[end.getMonth()]} ${end.getDate()}, ${end.getFullYear()}`;
+
+        return `${firstPart} - ${secondPart}`;
     }
 
     useEffect(() => {
@@ -179,7 +206,15 @@ const BarCalendar = (props: Props) => {
     return (
         <div className={styles.barCalendar}>
             <div className={styles.header}>
+                <button className={styles.dateButton} onClick={() => (setSelectedWeek(new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate() - 7)))}>
+                    <LeftArrow className={styles.arrow}/>
+                </button>
 
+                <div className={styles.dateInterval}>{getDateInterval()}</div>
+                
+                <button className={styles.dateButton} onClick={() => (setSelectedWeek(new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(),  selectedWeek.getDate() + 7)))}>
+                    <RightArrow className={styles.arrow}/>
+                </button>
             </div>
 
             <div className={styles.body}>
@@ -206,11 +241,11 @@ const BarCalendar = (props: Props) => {
                     </div>
                     
                     <div className={styles.time} style={{ bottom: "84px" }}>
-                        {`${String(timeScale.time3 / 60).padStart(2, '0')}:${String(timeScale.time3 % 60).padStart(2, '0')}`}</div>
+                        {`${String(Math.floor(timeScale.time3 / 60)).padStart(2, '0')}:${String(timeScale.time3 % 60).padStart(2, '0')}`}</div>
                     <div className={styles.time} style={{ bottom: "54px" }}>
-                        {`${String(timeScale.time2 / 60).padStart(2, '0')}:${String(timeScale.time2 % 60).padStart(2, '0')}`}</div>
+                        {`${String(Math.floor(timeScale.time2 / 60)).padStart(2, '0')}:${String(timeScale.time2 % 60).padStart(2, '0')}`}</div>
                     <div className={styles.time} style={{ bottom: "24px" }}>
-                        {`${String(timeScale.time1 / 60).padStart(2, '0')}:${String(timeScale.time1 % 60).padStart(2, '0')}`}</div>
+                        {`${String(Math.floor(timeScale.time1 / 60)).padStart(2, '0')}:${String(timeScale.time1 % 60).padStart(2, '0')}`}</div>
                     <hr className={styles.backgroundLine} style={{ bottom: "90px" }}/>
                     <hr className={styles.backgroundLine} style={{ bottom: "60px" }}/>
                     <hr className={styles.backgroundLine} style={{ bottom: "30px" }}/>
@@ -219,7 +254,7 @@ const BarCalendar = (props: Props) => {
 
 
                 <div className={styles.timeDesignations}>
-                    {weekDays.map((weekDay, index) => {
+                    {shortWeekDays.map((weekDay, index) => {
                         return (
                             <div
                                 key={index}
