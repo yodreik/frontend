@@ -70,11 +70,11 @@ const AuthPage = () => {
 
 	const handleLoginError = (status: number) => {
 		switch (status) {
+			case 401:
+				displayLoginMessage("Email or password is incorrect");
+				break;
 			case 403:
 				displayLoginMessage("Confirm your email", true);
-				break;
-			case 404:
-				displayLoginMessage("Email or password is incorrect");
 				break;
 			case 500:
 				displayLoginMessage("Server error. Try later");
