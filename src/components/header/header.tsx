@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import SideMenu from "../SideMenu/SideMenu"
+import SideMenu from "@/components/SideMenu/SideMenu"
 import Button from "@/components/Button/Button";
 import styles from "./Header.module.css";
 
