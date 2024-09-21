@@ -9,14 +9,13 @@ interface Props {
 }
 
 interface Day {
-    date?: Date,
+    date: Date,
     isToday?: boolean,
-    isSelectedMonth?: boolean,
     workouts: Workout[],
 }
 
 interface Workout {
-    date?: Date,
+    date: Date,
     duration: number,
     kind?: string,
 }
@@ -49,9 +48,18 @@ const weekDays: string[] = [
 const BarCalendar = (props: Props) => {
     const today = props.date;
 
+    const [selectedWeek, setSelectedWeek] = useState<Date>(new Date(today.getFullYear(), today.getMonth(), today.getDate() + ((today.getDay() === 0) ? -5 : 2 - today.getDay())));
     const [selectedMonth, setSelectedMonth] = useState<Date>(new Date(today.getFullYear(), today.getMonth()));
+    const [selectedYear, setSelectedYear] = useState<Date>(new Date(today.getFullYear()));
 
     const [workouts, setWorkouts] = useState<Workout[]>([]);;
+
+    const [timeScale, setTimeScale] = useState({
+        time1: 30,
+        time2: 60,
+        time3: 90,
+        timeMax: 120
+      });
 
     const [togglePosition, setTogglePosition] = useState<0 | 1 | 2 | 3>(0);
 
@@ -86,16 +94,27 @@ const BarCalendar = (props: Props) => {
  	};
 
     const getFirstCalendarDay = () => {
-        const dayOfWeek = selectedMonth.getDay();
-        const firstDay: Date = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), (dayOfWeek === 0) ? -5 : 2 - dayOfWeek);
+        const firstDay: Date = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate());
         return firstDay;
     }
 
     const getLastCalendarDay = () => {
         const firstDay = getFirstCalendarDay();
-        const lastDay: Date = new Date(firstDay.getFullYear(), firstDay.getMonth(), firstDay.getDate() + 41);
+        const lastDay: Date = new Date(firstDay.getFullYear(), firstDay.getMonth(), firstDay.getDate() + 6);
         return lastDay;
     }
+
+    // const getFirstCalendarDay = () => {
+    //     const dayOfWeek = selectedMonth.getDay();
+    //     const firstDay: Date = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), (dayOfWeek === 0) ? -5 : 2 - dayOfWeek);
+    //     return firstDay;
+    // }
+
+    // const getLastCalendarDay = () => {
+    //     const firstDay = getFirstCalendarDay();
+    //     const lastDay: Date = new Date(firstDay.getFullYear(), firstDay.getMonth(), firstDay.getDate() + 41);
+    //     return lastDay;
+    // }
 
     const parseDate = (dateString: string) => {
         const parts: string[] = dateString.split('-');
@@ -106,13 +125,56 @@ const BarCalendar = (props: Props) => {
         return new Date(year, month, day);
     }
 
-    const [days, setDays] = useState<Day[]>([{workouts: [{duration: 50}]}, 
-        {workouts: [{duration: 120}]}, 
-        {workouts: [{duration: 30}, {duration: 50}]}, 
-        {workouts: [{duration: 31}]},
-        {workouts: [{duration: 0}]},
-        {workouts: [{duration: 70}, {duration: 30}]},
-        {workouts: [{duration: 120}]},]);
+    const fillCalendar = () => {
+        const days: Day[] = [];
+
+        let workoutsIndex = 0;
+        let maxDuration = 0;
+        for (let day = getFirstCalendarDay(); day.getTime() <= getLastCalendarDay().getTime(); day.setDate(day.getDate() + 1)) {
+            const currentDay = new Date(day);
+            let totalDuration = 0;
+            days.push({
+                date: currentDay,
+                isToday: currentDay.getTime() === new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime(),
+                workouts: [],
+            })
+            while (currentDay.getTime() === workouts[workoutsIndex].date.getTime()) {
+                totalDuration += workouts[workoutsIndex].duration;
+                days[days.length - 1].workouts.push(workouts[workoutsIndex++]);
+            }
+            maxDuration = maxDuration <= totalDuration ? totalDuration : maxDuration;
+        }
+
+        changeTimeScale(maxDuration);
+
+        return days;
+    }
+
+    const changeTimeScale = (maxDuration: number) => {
+        if (maxDuration <= 120) {
+            setTimeScale({ time1: 30, time2: 60, time3: 90, timeMax: 120})
+        }
+        else if (maxDuration <= 240) {
+            setTimeScale({ time1: 60, time2: 120, time3: 180, timeMax: 240})
+        }
+    }
+
+    useEffect(() => {
+        handleActivity().then(() => {
+            setDays(fillCalendar());
+        })
+    }, [selectedWeek, selectedMonth, selectedYear]);
+
+
+    const [days, setDays] = useState<Day[]>([])
+    // const [days, setDays] = useState<Day[]>([{workouts: [{duration: 50}]}, 
+    //     {workouts: [{duration: 121}]}, 
+    //     {workouts: [{duration: 30}, {duration: 50}]}, 
+    //     {workouts: [{duration: 31}]},
+    //     {workouts: [{duration: 0}]},
+    //     {workouts: [{duration: 70}, {duration: 30}]},
+    //     {workouts: [{duration: 120}]},
+    // ]);
 
     return (
         <div className={styles.barCalendar}>
@@ -133,7 +195,7 @@ const BarCalendar = (props: Props) => {
                                         return (
                                             <div
                                                 key={index}
-                                                style={{ height: `${workout.duration / 120 * 100}%` }}
+                                                style={{ height: `${workout.duration / timeScale.timeMax * 100}%` }}
                                                 className={`${styles.bar} ${index !== 0 && styles.extraBar}`}
                                             />
                                         )
@@ -143,9 +205,12 @@ const BarCalendar = (props: Props) => {
                         })}
                     </div>
                     
-                    <div className={styles.time} style={{ bottom: "84px" }}>01:30</div>
-                    <div className={styles.time} style={{ bottom: "54px" }}>01:00</div>
-                    <div className={styles.time} style={{ bottom: "24px" }}>00:30</div>
+                    <div className={styles.time} style={{ bottom: "84px" }}>
+                        {`${String(timeScale.time3 / 60).padStart(2, '0')}:${String(timeScale.time3 % 60).padStart(2, '0')}`}</div>
+                    <div className={styles.time} style={{ bottom: "54px" }}>
+                        {`${String(timeScale.time2 / 60).padStart(2, '0')}:${String(timeScale.time2 % 60).padStart(2, '0')}`}</div>
+                    <div className={styles.time} style={{ bottom: "24px" }}>
+                        {`${String(timeScale.time1 / 60).padStart(2, '0')}:${String(timeScale.time1 % 60).padStart(2, '0')}`}</div>
                     <hr className={styles.backgroundLine} style={{ bottom: "90px" }}/>
                     <hr className={styles.backgroundLine} style={{ bottom: "60px" }}/>
                     <hr className={styles.backgroundLine} style={{ bottom: "30px" }}/>
