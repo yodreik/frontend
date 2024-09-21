@@ -46,7 +46,7 @@
     justify-content: center;
     align-items: center;
 
-    padding-top: 11px;
+    padding-top: 10px;
 }
 
 .calendar__body {
@@ -60,7 +60,7 @@
     justify-content: center;
     align-items: center;
     
-    padding-bottom: 25px;
+    padding-bottom: 20px;
 }
 
 .weekDays {
@@ -109,19 +109,38 @@
 }
 
 .today {
+    height: 31px;
+    width: 31px;
+    
     color: var(--black);
     font-weight: 700;
     background-color: var(--white);
+
+    outline: 2px solid var(--accent);
+    outline-offset: 5px;
+
+    transition: all 10s ease;
 }
 
-.today:hover {
-    color: var(--black);
+.today:hover { 
+    transform: rotate(1000080deg);
+
     background-color: var(--white);
+    
+    /* height: 41px;
+    width: 41px;
+
+    background-color: var(--accent);
+
+    outline: 0px solid var(--accent);
+    outline-offset: 5px; */
+
+    transition: all 10s ease;
 }
 
 .workout {
     padding: 10px;
-    border: 2px solid var(--green);
+    border: 2px solid var(--accent);
 }
 
 .arrow {
