@@ -159,6 +159,11 @@ const BarCalendar = (props: Props) => {
                 totalDuration += workouts[workoutsIndex].duration;
                 days[days.length - 1].workouts.push(workouts[workoutsIndex++]);
             }
+            if (days[days.length - 1].workouts.length == 0) days[days.length - 1].workouts.push({
+                date: currentDay,
+                duration: 0,
+                kind: "gym",
+            })
             maxDuration = maxDuration <= totalDuration ? totalDuration : maxDuration;
         }
 

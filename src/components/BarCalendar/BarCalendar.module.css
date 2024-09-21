@@ -11,7 +11,7 @@
 }
 
 .header {
-    height: 15%;
+    height: 17%;
     width: 100%;
     
     padding-left: 27px;
@@ -47,7 +47,7 @@
     fill: var(--light-gray);
 }
 
-.calendar__button:hover .arrow {
+.dateButton:hover .arrow {
     fill: var(--white);
 }
 
@@ -56,7 +56,7 @@
 
 
 .body {
-    height: 70%;
+    height: 68%;
     width: 100%;
 
     display: flex;
@@ -69,7 +69,7 @@
 .graph {
     position: absolute;
 
-    height: 141px;
+    height: 133px;
     width: 100%;
 
     display: flex;
@@ -109,6 +109,9 @@
     background-color: var(--green);
 
     border-radius: 10px 10px 0px 0px;
+
+    display: flex;
+    transition: width 0.5s ease, height 0.5s ease;
 }
 
 .extraBar {
@@ -117,7 +120,7 @@
 
 .timeDesignations {
     position: absolute;
-    bottom: 0px;
+    bottom: 3px;
 
     width: 80%;
 
