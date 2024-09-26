@@ -13,8 +13,8 @@ export interface workoutResponseDTO {
 }
 
 export interface activityRequestDTO {
-    begin: string,
-    end: string
+    begin?: string,
+    end?: string
 }
 
 export interface activityResponseDTO {

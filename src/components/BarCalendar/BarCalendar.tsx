@@ -67,7 +67,7 @@ const BarCalendar = (props: Props) => {
 
     const [selectedWeek, setSelectedWeek] = useState<Date>(new Date(today.getFullYear(), today.getMonth(), today.getDate() + ((today.getDay() === 0) ? -6 : 1 - today.getDay())));
     const [selectedMonth, setSelectedMonth] = useState<Date>(new Date(today.getFullYear(), today.getMonth()));
-    const [selectedYear, setSelectedYear] = useState<Date>(new Date(today.getFullYear()));
+    const [selectedYear, setSelectedYear] = useState<Date>(new Date(today.getFullYear(), 0));
 
     const [workouts, setWorkouts] = useState<Workout[]>([]);;
 
@@ -84,15 +84,20 @@ const BarCalendar = (props: Props) => {
         const firstDay = getFirstCalendarDay();
         const lastDay = getLastCalendarDay();
 
-        const firstDateDay = String(firstDay.getDate()).padStart(2, '0')
-        const firstDateMonth = String(firstDay.getMonth() + 1).padStart(2, '0');
-        const lastDateDay = String(lastDay.getDate()).padStart(2, '0');
-        const lastDateMonth = String(lastDay.getMonth() + 1).padStart(2, '0');
+        let range = {};
 
-		const result  = await Workout.workout.activity({
-			begin: `${firstDateDay}-${firstDateMonth}-${firstDay.getFullYear()}`,
-			end: `${lastDateDay}-${lastDateMonth}-${lastDay.getFullYear()}`,
-		});
+        if (firstDay) {
+            const firstDateDay = String(firstDay.getDate()).padStart(2, '0')
+            const firstDateMonth = String(firstDay.getMonth() + 1).padStart(2, '0');
+            range = {begin: `${firstDateDay}-${firstDateMonth}-${firstDay.getFullYear()}`};
+        }
+        if (lastDay) {
+            const lastDateDay = String(lastDay.getDate()).padStart(2, '0');
+            const lastDateMonth = String(lastDay.getMonth() + 1).padStart(2, '0');
+            range = {...range, end: `${lastDateDay}-${lastDateMonth}-${lastDay.getFullYear()}`};
+        }
+        
+		const result  = await Workout.workout.activity(range);
 
 		if (!("message" in result)){
             const newWorkouts: Workout[] = [];
@@ -111,27 +116,38 @@ const BarCalendar = (props: Props) => {
  	};
 
     const getFirstCalendarDay = () => {
-        const firstDay: Date = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate());
+        let firstDay: Date;
+        if (togglePosition === 0) firstDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate());
+        else if (togglePosition === 1) firstDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth());
+        else firstDay = new Date(selectedYear.getFullYear(), 0);
         return firstDay;
+
+
+
+        // let firstDay: Date | null;
+        // if (togglePosition === 0) firstDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate());
+        // else if (togglePosition === 1) firstDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth());
+        // else if (togglePosition === 2) firstDay = new Date(selectedYear.getFullYear());
+        // else firstDay = null;
+        // return firstDay;
     }
 
     const getLastCalendarDay = () => {
-        const firstDay = getFirstCalendarDay();
-        const lastDay: Date = new Date(firstDay.getFullYear(), firstDay.getMonth(), firstDay.getDate() + 6);
+        let lastDay: Date;
+        if (togglePosition === 0) lastDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate() + 6);
+        else if (togglePosition === 1) lastDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0);
+        else lastDay = new Date(selectedYear.getFullYear() + 1, 0, 0);
         return lastDay;
+
+
+
+        // let lastDay: Date | null;
+        // if (togglePosition === 0) lastDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate() + 6);
+        // else if (togglePosition === 1) lastDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0);
+        // else if (togglePosition === 2) lastDay = new Date(selectedYear.getFullYear());
+        // else lastDay = null;
+        // return lastDay;
     }
-
-    // const getFirstCalendarDay = () => {
-    //     const dayOfWeek = selectedMonth.getDay();
-    //     const firstDay: Date = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), (dayOfWeek === 0) ? -5 : 2 - dayOfWeek);
-    //     return firstDay;
-    // }
-
-    // const getLastCalendarDay = () => {
-    //     const firstDay = getFirstCalendarDay();
-    //     const lastDay: Date = new Date(firstDay.getFullYear(), firstDay.getMonth(), firstDay.getDate() + 41);
-    //     return lastDay;
-    // }
 
     const parseDate = (dateString: string) => {
         const parts: string[] = dateString.split('-');
@@ -191,11 +207,23 @@ const BarCalendar = (props: Props) => {
         return `${firstPart} - ${secondPart}`;
     }
 
+    const setPreviousDateInterval = () => {
+        if (togglePosition === 0) setSelectedWeek(new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate() - 7));
+        else if (togglePosition === 1) setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() - 1));
+        else if (togglePosition === 2) setSelectedYear(new Date(selectedYear.getFullYear() - 1, 0));
+    }
+
+    const setNextDateInterval = () => {
+        if (togglePosition === 0) setSelectedWeek(new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(),  selectedWeek.getDate() + 7));
+        else if (togglePosition === 1) setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1));
+        else if (togglePosition === 2) setSelectedYear(new Date(selectedYear.getFullYear() + 1, 0));
+    }
+
     useEffect(() => {
         handleActivity().then(() => {
             setDays(fillCalendar());
         })
-    }, [selectedWeek, selectedMonth, selectedYear]);
+    }, [selectedWeek, selectedMonth, selectedYear, togglePosition]);
 
 
     const [days, setDays] = useState<Day[]>([])
@@ -211,13 +239,13 @@ const BarCalendar = (props: Props) => {
     return (
         <div className={styles.barCalendar}>
             <div className={styles.header}>
-                <button className={styles.dateButton} onClick={() => (setSelectedWeek(new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate() - 7)))}>
+                <button className={styles.dateButton} onClick={setPreviousDateInterval}>
                     <LeftArrow className={styles.arrow}/>
                 </button>
 
                 <div className={styles.dateInterval}>{getDateInterval()}</div>
                 
-                <button className={styles.dateButton} onClick={() => (setSelectedWeek(new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(),  selectedWeek.getDate() + 7)))}>
+                <button className={styles.dateButton} onClick={setNextDateInterval}>
                     <RightArrow className={styles.arrow}/>
                 </button>
             </div>
