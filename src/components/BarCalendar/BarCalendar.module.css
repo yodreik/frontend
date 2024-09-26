@@ -80,25 +80,26 @@
 .bars {
     position: absolute;
     bottom: 1px;
+    left: 55px;
 
     height: 120px;
-    width: 80%;
-
-    padding-left: 7px;
+    width: 370px;
 
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: end;
-    gap: 0px 28px;
+    gap: 5px;
 }
 
 .barContainer {
     z-index: 10;
 
     height: 120px;
-    width: 26px;
+    min-width: 7px;
+    max-width: 26px;
 
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column-reverse;
     align-items: center;
 }
