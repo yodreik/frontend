@@ -39,7 +39,7 @@ interface Day {
     date: Date,
     isToday: boolean,
     isSelectedMonth: boolean,
-    workouts?: Workout[],
+    workouts: Workout[],
 }
 
 interface Workout {
@@ -52,6 +52,8 @@ interface Workout {
 
 const Calendar = ({ workouts, getActivity } : Props) => {
     const today = new Date();
+
+    console.log(workouts);
 
     const [selectedDay, setSelectedDay] = useState<Date>();
     const [selectedMonth, setSelectedMonth] = useState<Date>(new Date(today.getFullYear(), today.getMonth()));
@@ -69,43 +71,42 @@ const Calendar = ({ workouts, getActivity } : Props) => {
     }
 
     const createCalendar = () => {
-        const days: Day[] = [];
+        const days = new Map<number, Day>();
 
         for (let day = getFirstCalendarDay(); day.getTime() <= getLastCalendarDay().getTime(); day.setDate(day.getDate() + 1)) {
             const currentDay = new Date(day);
-            days.push({
-                date: currentDay,
-                isToday: currentDay.getTime() === new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime(),
-                isSelectedMonth: currentDay.getMonth() === selectedMonth.getMonth(),
-            })
+            days.set(currentDay.getTime(),
+                {
+                    date: currentDay,
+                    isToday: currentDay.getTime() === new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime(),
+                    isSelectedMonth: currentDay.getMonth() === selectedMonth.getMonth(),
+                    workouts: [],
+                }
+            )
         }
 
         return days;
     }
 
     const fillCalendar = () => {
-        const days: Day[] = [];
+        const day = days;
 
-        let workoutsIndex = 0;
-        for (let day = getFirstCalendarDay(); day.getTime() <= getLastCalendarDay().getTime(); day.setDate(day.getDate() + 1)) {
-            const currentDay = new Date(day);
-            days.push({
-                date: currentDay,
-                isToday: currentDay.getTime() === new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime(),
-                isSelectedMonth: currentDay.getMonth() === selectedMonth.getMonth(),
-            })
-        }
+        workouts.forEach(workout => {
+            day.get(workout.date.getTime())?.workouts.push(workout);
+        });
 
-        return days;
+        return day;
     }
 
     useEffect(() => {
+        setDays(createCalendar());
         getActivity(getFirstCalendarDay(), getLastCalendarDay()).then(() => {
             setDays(fillCalendar());
+            // setDays(days);
         })
     }, [selectedMonth]);
 
-    const [days, setDays] = useState<Day[]>(fillCalendar());
+    const [days, setDays] = useState<Map<number, Day>>(createCalendar());
 
     return (
         <div className={styles.calendar}>
@@ -130,14 +131,14 @@ const Calendar = ({ workouts, getActivity } : Props) => {
                         )
                     })}
                     
-                    {days.map((day, index) => {
+                    {Array.from(days).map(([key, day], index) => {
                         return (
                             <div
                                 key={index}
                                 className={`${styles.day} ` +
                                 `${day.isToday ? styles.today : ""} ` +
-                                `${day.isSelectedMonth ? "" : styles.dayOutside} `}
-                                // `${day.kind ? styles.workout : ""}
+                                `${day.isSelectedMonth ? "" : styles.dayOutside} ` +
+                                `${day.workouts.length > 0 ? styles.workout : ""}`}
                             >
                                 {day.date.getDate()}
                             </div>
