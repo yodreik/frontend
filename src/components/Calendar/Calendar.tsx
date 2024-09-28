@@ -1,26 +1,9 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import * as Workout from "@/api";
 import LeftArrow from '@/icons/leftArrow';
 import RightArrow from '@/icons/rightArrow';
 import styles from "./Calendar.module.css";
-
-interface Props {
-    date: Date,
-}
-
-interface Day {
-    date: Date,
-    isToday: boolean,
-    isSelectedMonth: boolean,
-    kind: string,
-}
-
-interface Workout {
-    date: Date,
-    kind: string,
-}
 
 const months: string[] = [
     "January",
@@ -47,42 +30,31 @@ const weekDays: string[] = [
     "Su"
 ];
 
-const Calendar = (props: Props) => {
-    const today = props.date;
+interface Props {
+    workouts: Workout[],
+    getActivity: (firstDay: Date, lastDay: Date) => Promise<void>,
+}
+
+interface Day {
+    date: Date,
+    isToday: boolean,
+    isSelectedMonth: boolean,
+    workouts?: Workout[],
+}
+
+interface Workout {
+    date: Date,
+    duration: number,
+    kind: string,
+}
+
+
+
+const Calendar = ({ workouts, getActivity } : Props) => {
+    const today = new Date();
 
     const [selectedDay, setSelectedDay] = useState<Date>();
     const [selectedMonth, setSelectedMonth] = useState<Date>(new Date(today.getFullYear(), today.getMonth()));
-
-    const [workouts, setWorkouts] = useState<Workout[]>([]);
-    
-    const handleActivity = async () => {
-        const firstDay = getFirstCalendarDay();
-        const lastDay = getLastCalendarDay();
-
-        const firstDateDay = String(firstDay.getDate()).padStart(2, '0')
-        const firstDateMonth = String(firstDay.getMonth() + 1).padStart(2, '0');
-        const lastDateDay = String(lastDay.getDate()).padStart(2, '0');
-        const lastDateMonth = String(lastDay.getMonth() + 1).padStart(2, '0');
-
-		const result  = await Workout.workout.activity({
-			begin: `${firstDateDay}-${firstDateMonth}-${firstDay.getFullYear()}`,
-			end: `${lastDateDay}-${lastDateMonth}-${lastDay.getFullYear()}`,
-		});
-
-		if (!("message" in result)){
-            const newWorkouts: Workout[] = [];
-            result.workouts.forEach(workout => {
-                workouts.push({
-                    date: parseDate(workout.date),
-                    kind: workout.kind,
-                });
-            });
-            setWorkouts(newWorkouts);
-		}
-		else {
-			console.log(result.message);
-		}
- 	};
 
     const getFirstCalendarDay = () => {
         const dayOfWeek = selectedMonth.getDay();
@@ -96,13 +68,19 @@ const Calendar = (props: Props) => {
         return lastDay;
     }
 
-    const parseDate = (dateString: string) => {
-        const parts: string[] = dateString.split('-');
-        const day: number = parseInt(parts[0], 10);
-        const month: number = parseInt(parts[1], 10) - 1;
-        const year: number = parseInt(parts[2], 10);
+    const createCalendar = () => {
+        const days: Day[] = [];
 
-        return new Date(year, month, day);
+        for (let day = getFirstCalendarDay(); day.getTime() <= getLastCalendarDay().getTime(); day.setDate(day.getDate() + 1)) {
+            const currentDay = new Date(day);
+            days.push({
+                date: currentDay,
+                isToday: currentDay.getTime() === new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime(),
+                isSelectedMonth: currentDay.getMonth() === selectedMonth.getMonth(),
+            })
+        }
+
+        return days;
     }
 
     const fillCalendar = () => {
@@ -115,7 +93,6 @@ const Calendar = (props: Props) => {
                 date: currentDay,
                 isToday: currentDay.getTime() === new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime(),
                 isSelectedMonth: currentDay.getMonth() === selectedMonth.getMonth(),
-                kind: workouts[workoutsIndex] && currentDay.getTime() === workouts[workoutsIndex].date.getTime() ? workouts[workoutsIndex++].kind : "",
             })
         }
 
@@ -123,7 +100,7 @@ const Calendar = (props: Props) => {
     }
 
     useEffect(() => {
-        handleActivity().then(() => {
+        getActivity(getFirstCalendarDay(), getLastCalendarDay()).then(() => {
             setDays(fillCalendar());
         })
     }, [selectedMonth]);
@@ -159,8 +136,8 @@ const Calendar = (props: Props) => {
                                 key={index}
                                 className={`${styles.day} ` +
                                 `${day.isToday ? styles.today : ""} ` +
-                                `${day.isSelectedMonth ? "" : styles.dayOutside} ` +
-                                `${day.kind ? styles.workout : ""}`}
+                                `${day.isSelectedMonth ? "" : styles.dayOutside} `}
+                                // `${day.kind ? styles.workout : ""}
                             >
                                 {day.date.getDate()}
                             </div>
