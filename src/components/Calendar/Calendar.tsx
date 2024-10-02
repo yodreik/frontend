@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react';
+import DonutChart from "@/components/DonutChart/DonutChart";
 import LeftArrow from '@/icons/leftArrow';
 import RightArrow from '@/icons/rightArrow';
 import styles from "./Calendar.module.css";
@@ -31,8 +32,7 @@ const weekDays: string[] = [
 ];
 
 interface Props {
-    workouts: Workout[],
-    getActivity: (firstDay: Date, lastDay: Date) => Promise<void>,
+    getActivity: (firstDay: Date, lastDay: Date) => Promise<Workout[]>,
 }
 
 interface Day {
@@ -50,10 +50,8 @@ interface Workout {
 
 
 
-const Calendar = ({ workouts, getActivity } : Props) => {
+const Calendar = ({ getActivity } : Props) => {
     const today = new Date();
-
-    console.log(workouts);
 
     const [selectedDay, setSelectedDay] = useState<Date>();
     const [selectedMonth, setSelectedMonth] = useState<Date>(new Date(today.getFullYear(), today.getMonth()));
@@ -88,25 +86,35 @@ const Calendar = ({ workouts, getActivity } : Props) => {
         return days;
     }
 
-    const fillCalendar = () => {
-        const day = days;
+    const [days, setDays] = useState<Map<number, Day>>(createCalendar());
+
+    const fillCalendar = (days: Map<number, Day>, workouts: Workout[]) => {
+        
+        // days.forEach(day => {
+        //     day.workouts = [];
+        // });
 
         workouts.forEach(workout => {
-            day.get(workout.date.getTime())?.workouts.push(workout);
+            days.get(workout.date.getTime())?.workouts.push(workout);
         });
+        console.log(days);
 
-        return day;
+        return days;
     }
 
     useEffect(() => {
-        setDays(createCalendar());
-        getActivity(getFirstCalendarDay(), getLastCalendarDay()).then(() => {
-            setDays(fillCalendar());
-            // setDays(days);
-        })
+        const cal = createCalendar();
+        setDays(cal);
+        const firstDay = getFirstCalendarDay();
+        const lastDay = getLastCalendarDay();
+
+        getActivity(firstDay, lastDay).then((workouts) => {
+            setDays(fillCalendar(cal, workouts));
+        });
+
     }, [selectedMonth]);
 
-    const [days, setDays] = useState<Map<number, Day>>(createCalendar());
+    
 
     return (
         <div className={styles.calendar}>
@@ -132,16 +140,19 @@ const Calendar = ({ workouts, getActivity } : Props) => {
                     })}
                     
                     {Array.from(days).map(([key, day], index) => {
+                        // console.log(day.workouts);
                         return (
-                            <div
-                                key={index}
-                                className={`${styles.day} ` +
-                                `${day.isToday ? styles.today : ""} ` +
-                                `${day.isSelectedMonth ? "" : styles.dayOutside} ` +
-                                `${day.workouts.length > 0 ? styles.workout : ""}`}
-                            >
-                                {day.date.getDate()}
-                            </div>
+                            <DonutChart key={index} className={styles.dayContainer} parts={day.workouts.map(workout => ({value: workout.duration, color: "var(--accent)"}))}>
+                                <div
+                                    key={index}
+                                    className={`${styles.day} ` +
+                                    `${day.isToday ? styles.today : ""} ` +
+                                    `${day.isSelectedMonth ? "" : styles.dayOutside}`}
+                                    // `${day.workouts.length > 0 ? styles.workout : ""}`}
+                                >
+                                    {day.date.getDate()}
+                                </div>
+                            </DonutChart>
                         )
                     })}
                 </div>

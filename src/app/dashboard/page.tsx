@@ -29,18 +29,21 @@ const DashboardPage = () => {
 		});
 
 		if (!("message" in result)){
-            const newWorkouts: Workout[] = [];
+            setWorkouts([]);
+
             result.workouts.forEach(workout => {
-                newWorkouts.push({
+                workouts.push({
                     date: parseDate(workout.date),
                     duration: workout.duration,
                     kind: workout.kind,
                 });
             });
-            setWorkouts(newWorkouts);
+            
+            return workouts;
 		}
 		else {
 			console.log(result.message);
+            return [];
 		}
  	};
 
@@ -60,7 +63,7 @@ const DashboardPage = () => {
                 <div className={styles.column}>
                     <div className={styles.chapter}>
                         <div className={styles.title}>Activity history</div>
-                        <Calendar workouts={workouts} getActivity={handleActivity}/>
+                        <Calendar getActivity={handleActivity}/>
                     </div>
                     <div className={styles.chapter}>
                         <BarCalendar date={date}/>
