@@ -78,13 +78,26 @@
     align-items: center;
 }
 
+.dayContainer {
+    position: relative;
+
+    display: flex;
+    justify-self: center;
+    align-self: center;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+}
+
 .day {
     cursor: pointer;
 
     color: var(--white);
 
-    height: 45px;
-    width: 45px;
+    height: 41px;
+    width: 41px;
 
     border-radius: 50%;
 
@@ -96,7 +109,7 @@
     align-items: center;
 }
 
-.day:hover {
+.dayContainer:hover .day {
     background-color: var(--gray);
 }
 
@@ -109,33 +122,19 @@
 }
 
 .today {
-    height: 31px;
-    width: 31px;
+    height: 29px;
+    width: 29px;
     
     color: var(--black);
     font-weight: 700;
     background-color: var(--white);
-
-    outline: 2px solid var(--accent);
-    outline-offset: 5px;
-
-    transition: all 10s ease;
 }
 
-.today:hover { 
-    transform: rotate(1000080deg);
+.dayContainer:hover .today {
+    height: 31px;
+    width: 31px;
 
     background-color: var(--white);
-    
-    /* height: 41px;
-    width: 41px;
-
-    background-color: var(--accent);
-
-    outline: 0px solid var(--accent);
-    outline-offset: 5px; */
-
-    transition: all 10s ease;
 }
 
 .workout {

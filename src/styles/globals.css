@@ -1,16 +1,23 @@
 :root {
+    --accent: var(--green);
+    --dark-accent: var(--dark-green);
+
+
+
     --black: #09090b;
     --dark-gray: #18181b;
     --gray: #27272a;
     --light-gray: #434343;
     --white: #fafafa;
 
-    --accent: var(--green);
-    --dark-accent: var(--dark-green);
+    
+   
     --lime: #bdf500;
     --green: #7bff78;
     --dark-green: #315a31;
     --blue: #366efe;
+    --sexy-blue: #58d8c9;
+    --dark-sexy-blue: #286a62;
     --red: #ef5d5d;
 }
 
