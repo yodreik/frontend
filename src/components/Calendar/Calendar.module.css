@@ -122,12 +122,17 @@
 }
 
 .today {
-    height: 29px;
-    width: 29px;
+    height: 41px;
+    width: 41px;
     
     color: var(--black);
     font-weight: 700;
     background-color: var(--white);
+}
+
+.today.trained {
+    height: 29px;
+    width: 29px;
 }
 
 .dayContainer:hover .today {
