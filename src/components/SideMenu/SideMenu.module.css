@@ -1,10 +1,30 @@
 .container {
     position: fixed;
+    z-index: 1000;
     top: 0px;
     right: -330px;
 
     width: 330px;
     height: 100vh;
+}
+
+.blind {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0);
+    visibility: hidden;
+    transition: 0.3s;
+}
+
+.blind.active {
+    background-color: rgba(0, 0, 0, 0.7);
+    visibility: visible;
+    transition: 0.3s;
 }
 
 .menu {

@@ -39,14 +39,14 @@ const SideMenu = (props: Props) => {
                 </button>
 
                 <div className={styles.miniProfile}>
-                    <img src={props.avatarURL} className={styles.avatar} />
+                    <img src={props.avatarURL} className={styles.avatar}/>
                     <div className={styles.userInfo}>
                         <div className={styles.userName}>{props.username}</div>
                         <div className={styles.userEmail}>{props.email}</div>
                     </div>
                 </div>
                 
-                <hr className={styles.separator} />
+                <hr className={styles.separator}/>
 
                 <div className={styles.itemsContainer}>
                     <button className={styles.item} onClick={() => {router.push("/")}}>
@@ -86,13 +86,14 @@ const SideMenu = (props: Props) => {
                     <hr className={styles.separator} />
 
                     <div className={styles.itemsContainer}>
-                        <button className={styles.item} onClick={() => {window.open("https://github.com/dreik/frontend/issues/new", "_blank")}}>
+                        <button className={styles.item} onClick={() => {window.open("https://github.com/yodreik/frontend/issues/new", "_blank")}}>
                             <Bug/>
                             <div className={styles.item_title}>Report a Bug</div>
                         </button>
                     </div>
                 </div>
             </div>
+            <div className={`${styles.blind} ${props.isActive ? styles.active : ""}`} onClick={props.setInactive}/>
         </div>
     );
 }
