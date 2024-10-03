@@ -79,6 +79,8 @@
 }
 
 .dayContainer {
+    cursor: pointer;
+
     position: relative;
 
     display: flex;
@@ -92,8 +94,6 @@
 }
 
 .day {
-    cursor: pointer;
-
     color: var(--white);
 
     height: 41px;
@@ -131,15 +131,7 @@
 }
 
 .dayContainer:hover .today {
-    height: 31px;
-    width: 31px;
-
-    background-color: var(--white);
-}
-
-.workout {
-    padding: 10px;
-    border: 2px solid var(--accent);
+    background-color: var(--dark-white);
 }
 
 .arrow {

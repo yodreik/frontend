@@ -86,35 +86,30 @@ const Calendar = ({ getActivity } : Props) => {
         return days;
     }
 
-    const [days, setDays] = useState<Map<number, Day>>(createCalendar());
-
     const fillCalendar = (days: Map<number, Day>, workouts: Workout[]) => {
-        
-        // days.forEach(day => {
-        //     day.workouts = [];
-        // });
 
         workouts.forEach(workout => {
             days.get(workout.date.getTime())?.workouts.push(workout);
         });
-        console.log(days);
 
         return days;
     }
 
     useEffect(() => {
-        const cal = createCalendar();
-        setDays(cal);
+        const calendar = createCalendar();
         const firstDay = getFirstCalendarDay();
         const lastDay = getLastCalendarDay();
 
-        getActivity(firstDay, lastDay).then((workouts) => {
-            setDays(fillCalendar(cal, workouts));
-        });
+        setDays(calendar);
 
+        getActivity(firstDay, lastDay).then((workouts) => {
+            if (workouts.length !== 0){
+                setDays(fillCalendar(calendar, workouts));
+            }
+        });
     }, [selectedMonth]);
 
-    
+    const [days, setDays] = useState<Map<number, Day>>(createCalendar());
 
     return (
         <div className={styles.calendar}>
@@ -140,15 +135,13 @@ const Calendar = ({ getActivity } : Props) => {
                     })}
                     
                     {Array.from(days).map(([key, day], index) => {
-                        // console.log(day.workouts);
                         return (
-                            <DonutChart key={index} className={styles.dayContainer} parts={day.workouts.map(workout => ({value: workout.duration, color: "var(--accent)"}))}>
+                            <DonutChart key={index} className={styles.dayContainer} parts={day.workouts.map(workout => ({value: workout.duration, color: `var(--${workout.kind})`}))}>
                                 <div
                                     key={index}
                                     className={`${styles.day} ` +
                                     `${day.isToday ? styles.today : ""} ` +
                                     `${day.isSelectedMonth ? "" : styles.dayOutside}`}
-                                    // `${day.workouts.length > 0 ? styles.workout : ""}`}
                                 >
                                     {day.date.getDate()}
                                 </div>

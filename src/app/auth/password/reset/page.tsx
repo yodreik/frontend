@@ -8,7 +8,7 @@ import Input from "@/components/Input/Input";
 import Button from "@/components/Button/Button"
 import styles from "./page.module.css";
 
-const resetPasswordPage = () => {
+const ResetPasswordPage = () => {
     const [password, setPassword] = useState<string>("");
     const [retypedPassword, setRetypedPassword] = useState<string>("");
 
@@ -152,4 +152,4 @@ const resetPasswordPage = () => {
     );
 }
 
-export default resetPasswordPage;
+export default ResetPasswordPage;

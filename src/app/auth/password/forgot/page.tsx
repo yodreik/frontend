@@ -7,7 +7,7 @@ import Input from "@/components/Input/Input";
 import Button from "@/components/Button/Button"
 import styles from "./page.module.css";
 
-const forgotPasswordPage = () => {
+const ForgotPasswordPage = () => {
     const [email, setEmail] = useState<string>("");
     const [emailStatus, setEmailStatus] = useState<"error" | "default">("default");
 
@@ -103,4 +103,4 @@ const forgotPasswordPage = () => {
     );
 }
 
-export default forgotPasswordPage;
+export default ForgotPasswordPage;
