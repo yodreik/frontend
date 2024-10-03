@@ -307,7 +307,7 @@ const AuthPage = () => {
 						/>
 					</section>
 					<section className={styles.block_item}>
-						<h2 className={styles.block_item__title}>Don't have an account?</h2>
+						<h2 className={styles.block_item__title}>{"Don't have an account?"}</h2>
 						<Button
 							label="Create"
 							onClick={handleSignUpClick}
