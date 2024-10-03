@@ -141,6 +141,7 @@ const Calendar = ({ getActivity } : Props) => {
                                     key={index}
                                     className={`${styles.day} ` +
                                     `${day.isToday ? styles.today : ""} ` +
+                                    `${day.isToday && day.workouts.length > 0 ? styles.trained : ""} ` +
                                     `${day.isSelectedMonth ? "" : styles.dayOutside}`}
                                 >
                                     {day.date.getDate()}

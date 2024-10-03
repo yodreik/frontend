@@ -284,14 +284,6 @@ const AuthPage = () => {
     	setInfoRegisterStatus("default");
   	};
 
-	const handleSignUpClick = () => {
-	  setIsSignIn(false);
-	};
-
-	const handleSignInClick = () => {
-	  setIsSignIn(true);
-	};
-
   	return (
 		<div className={styles.screen}>
 			<article className={styles.container}>
@@ -302,7 +294,7 @@ const AuthPage = () => {
 						</h2>
 						<Button
 							label="Log In"
-							onClick={handleSignInClick}
+							onClick={() => (setIsSignIn(true))}
 							disabled={false}
 						/>
 					</section>
@@ -310,7 +302,7 @@ const AuthPage = () => {
 						<h2 className={styles.block_item__title}>{"Don't have an account?"}</h2>
 						<Button
 							label="Create"
-							onClick={handleSignUpClick}
+							onClick={() => (setIsSignIn(false))}
 							disabled={false}
 						/>
 					</section>
