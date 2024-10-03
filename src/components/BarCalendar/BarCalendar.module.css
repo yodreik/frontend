@@ -92,6 +92,8 @@
 }
 
 .barContainer {
+    z-index: 10;
+
     height: 120px;
     min-width: 6px;
     max-width: 26px;
