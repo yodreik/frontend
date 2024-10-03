@@ -40,17 +40,18 @@ const Header = () => {
                                 {
                                     isAuthorized ? <>
                                         <Button
-                                            className={styles.dashboardButton}
                                             label="Dashboard"
                                             onClick={() => router.push("/dashboard")}
                                             disabled={false}
                                         />
-                                        <div className={styles.name}>
-                                            {user.username}
+                                        <div className={styles.userInfo} onClick={() => setIsSideMenuActive(true)}>
+                                            <div className={styles.name}>
+                                                {user.username}
+                                            </div>
+                                            <button className={styles.avatarButton}>
+                                                <img src={user.avatarURL} className={styles.avatar} />
+                                            </button>
                                         </div>
-                                        <button className={styles.avatarButton} onClick={() => setIsSideMenuActive(true)}>
-                                            <img src={user.avatarURL} className={styles.avatar} />
-                                        </button>
 
                                         <SideMenu 
                                             isActive={isSideMenuActive} 
