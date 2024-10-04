@@ -9,7 +9,7 @@ export interface UserDTO {
 }
 
 export interface LoginRequestDTO {
-    email: string,
+    login: string,
     password: string
 }
 
