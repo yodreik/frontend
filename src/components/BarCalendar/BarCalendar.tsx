@@ -293,17 +293,15 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
                                     key={index}
                                     className={styles.barContainer}
                                 >
-                                    <div>
-                                        {Array.from(bar.workouts).map(([key, workout], index) => {
-                                            return (
-                                                <div
-                                                    key={index}
-                                                    style={{ height: `${workout.duration / timeScale.timeMax * 100}%`, backgroundColor: `var(--${workout.kind})`}}
-                                                    className={`${styles.bar} ${index !== 0 && styles.extraBar}`}
-                                                />
-                                            )
-                                        })}
-                                    </div>
+                                    {Array.from(bar.workouts).map(([key, workout], index) => {
+                                        return (
+                                            <div
+                                                key={index}
+                                                style={{ height: `${workout.duration / timeScale.timeMax * 100}%`, backgroundColor: `var(--${workout.kind})`}}
+                                                className={`${styles.bar} ${index !== 0 && styles.extraBar}`}
+                                            />
+                                        )
+                                    })}
                                 </div>
                             )
                         })}
