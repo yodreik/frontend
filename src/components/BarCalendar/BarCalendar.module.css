@@ -104,6 +104,15 @@
     align-items: center;
 }
 
+@keyframes fadeIn {
+    from {
+        height: 0px;
+    }
+    to {
+        /* height: 0px; */
+    }
+}
+
 .bar {
     width: 100%;
 
@@ -113,10 +122,12 @@
 
     display: flex;
     transition: width 0.5s ease, height 0.5s ease;
+    animation: fadeIn 0.5s ease;
 }
 
 .extraBar {
     border-radius: 10px;
+    animation: fadeIn 0.5s ease;
 }
 
 .timeDesignations {

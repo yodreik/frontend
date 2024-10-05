@@ -1,41 +1,9 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import * as Workout from "@/api";
 import LeftArrow from '@/icons/leftArrow';
 import RightArrow from '@/icons/rightArrow';
 import styles from "./BarCalendar.module.css";
-
-interface Props {
-    date: Date,
-}
-
-interface Day {
-    date: Date,
-    isToday?: boolean,
-    workouts: Workout[],
-}
-
-interface Workout {
-    date: Date,
-    duration: number,
-    kind?: string,
-}
-
-const months: string[] = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-];
 
 const shortMonths: string[] = [
     "Jan",
@@ -62,140 +30,200 @@ const shortWeekDays: string[] = [
     "Su"
 ];
 
-const BarCalendar = (props: Props) => {
-    const today = props.date;
+const monthDays: string[] = [
+    "1",
+    "7",
+    "14",
+    "21",
+    "28"
+];
+
+const yearMonth: string[] = [
+    "Jan",
+    "Mar",
+    "May",
+    "Jul",
+    "Sep",
+    "Nov",
+];
+
+interface Props {
+    getActivity: (firstDay: Date, lastDay: Date) => Promise<Map<string, Workout>>,
+    getCreatedAt: () => Date,
+}
+
+interface Bar {
+    date: Date,
+    isCurrent: boolean,
+    workouts: Map<string, Workout>,
+}
+
+interface Workout {
+    date: Date,
+    duration: number,
+    kind: string,
+}
+
+
+
+const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
+    const today = new Date();
 
     const [selectedWeek, setSelectedWeek] = useState<Date>(new Date(today.getFullYear(), today.getMonth(), today.getDate() + ((today.getDay() === 0) ? -6 : 1 - today.getDay())));
     const [selectedMonth, setSelectedMonth] = useState<Date>(new Date(today.getFullYear(), today.getMonth()));
     const [selectedYear, setSelectedYear] = useState<Date>(new Date(today.getFullYear(), 0));
 
-    const [workouts, setWorkouts] = useState<Workout[]>([]);;
-
-    const [timeScale, setTimeScale] = useState({
-        time1: 30,
-        time2: 60,
-        time3: 90,
-        timeMax: 120
-      });
+    const [timeScale, setTimeScale] = useState({ time1: "00:30", time2: "01:00", time3: "01:30", timeMax: 120});
+    const [timeDesignations, setTimeDesignations] = useState<string[]>(["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]);
 
     const [togglePosition, setTogglePosition] = useState<0 | 1 | 2 | 3>(0);
 
-    const handleActivity = async () => {
-        const firstDay = getFirstCalendarDay();
-        const lastDay = getLastCalendarDay();
-
-        let range = {};
-
-        if (firstDay) {
-            const firstDateDay = String(firstDay.getDate()).padStart(2, '0')
-            const firstDateMonth = String(firstDay.getMonth() + 1).padStart(2, '0');
-            range = {begin: `${firstDateDay}-${firstDateMonth}-${firstDay.getFullYear()}`};
-        }
-        if (lastDay) {
-            const lastDateDay = String(lastDay.getDate()).padStart(2, '0');
-            const lastDateMonth = String(lastDay.getMonth() + 1).padStart(2, '0');
-            range = {...range, end: `${lastDateDay}-${lastDateMonth}-${lastDay.getFullYear()}`};
-        }
-        
-		const result  = await Workout.workout.activity(range);
-
-		if (!("message" in result)){
-            const newWorkouts: Workout[] = [];
-            result.workouts.forEach(workout => {
-                workouts.push({
-                    date: parseDate(workout.date),
-                    duration: workout.duration,
-                    kind: workout.kind,
-                });
-            });
-            setWorkouts(newWorkouts);
-		}
-		else {
-			console.log(result.message);
-		}
- 	};
-
     const getFirstCalendarDay = () => {
         let firstDay: Date;
-        if (togglePosition === 0) firstDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate());
-        else if (togglePosition === 1) firstDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth());
-        else firstDay = new Date(selectedYear.getFullYear(), 0);
+        
+        switch (togglePosition) {
+            case 0: firstDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate()); break;
+            case 1: firstDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth()); break;
+            case 2: firstDay = new Date(selectedYear.getFullYear(), 0); break;
+            default: firstDay = new Date(getCreatedAt().getFullYear(), 0); break;
+        }
+
         return firstDay;
-
-
-
-        // let firstDay: Date | null;
-        // if (togglePosition === 0) firstDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate());
-        // else if (togglePosition === 1) firstDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth());
-        // else if (togglePosition === 2) firstDay = new Date(selectedYear.getFullYear());
-        // else firstDay = null;
-        // return firstDay;
     }
 
     const getLastCalendarDay = () => {
         let lastDay: Date;
-        if (togglePosition === 0) lastDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate() + 6);
-        else if (togglePosition === 1) lastDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0);
-        else lastDay = new Date(selectedYear.getFullYear() + 1, 0, 0);
+
+        switch (togglePosition) {
+            case 0: lastDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate() + 6); break;
+            case 1: lastDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0); break;
+            case 2: lastDay = new Date(selectedYear.getFullYear() + 1, 0, 0); break;
+            default: lastDay = new Date(today.getFullYear() + 1, 0, 0); break;
+        }
+
         return lastDay;
-
-
-
-        // let lastDay: Date | null;
-        // if (togglePosition === 0) lastDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate() + 6);
-        // else if (togglePosition === 1) lastDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0);
-        // else if (togglePosition === 2) lastDay = new Date(selectedYear.getFullYear());
-        // else lastDay = null;
-        // return lastDay;
     }
 
-    const parseDate = (dateString: string) => {
-        const parts: string[] = dateString.split('-');
-        const day: number = parseInt(parts[0], 10);
-        const month: number = parseInt(parts[1], 10) - 1;
-        const year: number = parseInt(parts[2], 10);
+    const createCalendar = () => {
+        const bars = new Map<number, Bar>();
+        const firstDate = getFirstCalendarDay();
+        const lastDate = getLastCalendarDay();
+        let bar = firstDate
 
-        return new Date(year, month, day);
+        if (togglePosition === 1){
+            lastDate.setDate(31);
+        }
+
+        const nextDate = () => {
+            if (togglePosition === 0 || togglePosition === 1) bar.setDate(bar.getDate() + 1);
+            else if (togglePosition === 2) bar.setMonth(bar.getMonth() + 1);
+            else bar.setMonth(bar.getFullYear() + 1, 0);
+        }
+
+        for (bar; bar.getTime() <= lastDate.getTime(); nextDate()) {
+            const currentBar = new Date(bar);
+            bars.set(currentBar.getTime(),
+                {
+                    date: currentBar,
+                    isCurrent: currentBar.getTime() === new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime(),
+                    workouts: new Map<string, Workout>(),
+                }
+            )
+        }
+        
+        return bars;
     }
 
-    const fillCalendar = () => {
-        const days: Day[] = [];
+    const fillCalendar = (bars: Map<number, Bar>, workouts: Map<string, Workout>) => {
 
-        let workoutsIndex = 0;
+        if (togglePosition === 0 || togglePosition === 1) {
+            workouts.forEach((workout, key) => {
+                bars.get(workout.date.getTime())?.workouts.set(key, workout);
+            });
+        }
+        else if (togglePosition === 2) {
+            let isAdded;
+            
+            workouts.forEach((workout, key) => {
+                isAdded = false;
+                const currentBar = bars.get((new Date(workout.date.getFullYear(), workout.date.getMonth()).getTime()));
+
+                currentBar?.workouts.forEach((bar, key) => {
+                    if (workout.kind === bar.kind){
+                        bar.duration += workout.duration;
+                        isAdded = true;
+                    }
+                });
+                if (!isAdded) {
+                    currentBar?.workouts.set(key, ({
+                        date: new Date(workout.date.getFullYear(), workout.date.getMonth()),
+                        duration: workout.duration,
+                        kind: workout.kind,
+                    }));
+                }
+            })
+        }
+        else if (togglePosition === 3) {
+            let isAdded;
+
+            workouts.forEach((workout, key) => {
+                isAdded = false;
+                const currentBar = bars.get((new Date(workout.date.getFullYear(), 0).getTime()));
+                
+                currentBar?.workouts.forEach((bar, key) => {
+                    if (workout.kind === bar.kind){
+                        bar.duration += workout.duration;
+                        isAdded = true;
+                    }
+                });
+                if (!isAdded) {
+                    currentBar?.workouts.set(key, ({
+                        date: new Date(workout.date.getFullYear(), 0),
+                        duration: workout.duration,
+                        kind: workout.kind,
+                    }));
+                }
+            })
+        }
+        
+        changeTimeScale(bars);
+
+        return bars;
+    }
+
+    const changeTimeScale = (bars: Map<number, Bar>) => {
         let maxDuration = 0;
-        for (let day = getFirstCalendarDay(); day.getTime() <= getLastCalendarDay().getTime(); day.setDate(day.getDate() + 1)) {
-            const currentDay = new Date(day);
-            let totalDuration = 0;
-            days.push({
-                date: currentDay,
-                isToday: currentDay.getTime() === new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime(),
-                workouts: [],
+
+        bars.forEach((bar, key) => {
+            let currentDuration = 0;
+
+            bar.workouts.forEach((workout, key) => {
+                currentDuration += workout.duration;
             })
-            while (workouts[workoutsIndex] && currentDay.getTime() === workouts[workoutsIndex].date.getTime()) {
-                totalDuration += workouts[workoutsIndex].duration;
-                days[days.length - 1].workouts.push(workouts[workoutsIndex++]);
-            }
-            if (days[days.length - 1].workouts.length == 0) days[days.length - 1].workouts.push({
-                date: currentDay,
-                duration: 0,
-                kind: "gym",
-            })
-            maxDuration = maxDuration <= totalDuration ? totalDuration : maxDuration;
+
+            maxDuration = maxDuration <= currentDuration ? currentDuration : maxDuration;
+        })
+
+        if (maxDuration <= 1440) {
+            let timeMax = Math.ceil(maxDuration / 120) * 120;
+
+            const time1 = `${String(Math.floor((timeMax / 4 * 1) / 60)).padStart(2, '0')}:${String((timeMax / 4 * 1) % 60).padStart(2, '0')}`
+            const time2 = `${String(Math.floor((timeMax / 4 * 2) / 60)).padStart(2, '0')}:${String((timeMax / 4 * 2) % 60).padStart(2, '0')}`
+            const time3 = `${String(Math.floor((timeMax / 4 * 3) / 60)).padStart(2, '0')}:${String((timeMax / 4 * 3) % 60).padStart(2, '0')}`
+
+            setTimeScale({ time1, time2, time3, timeMax});
         }
+        else {
+            let timeMax = Math.ceil(maxDuration / 1440) * 1440;
 
-        changeTimeScale(maxDuration);
+            const time1 = `${(timeMax / 4 * 1) / 60}h`
+            const time2 = `${(timeMax / 4 * 2) / 60}h`
+            const time3 = `${(timeMax / 4 * 3) / 60}h`
 
-        return days;
+            setTimeScale({ time1, time2, time3, timeMax});
+        }
     }
 
-    const changeTimeScale = (maxDuration: number) => {
-        if (maxDuration <= 120) {
-            setTimeScale({ time1: 30, time2: 60, time3: 90, timeMax: 120});
-        }
-        else if (maxDuration <= 240) {
-            setTimeScale({ time1: 60, time2: 120, time3: 180, timeMax: 240});
-        }
-    }
 
     const getDateInterval = () => {
         const begin = getFirstCalendarDay();
@@ -220,21 +248,27 @@ const BarCalendar = (props: Props) => {
     }
 
     useEffect(() => {
-        handleActivity().then(() => {
-            setDays(fillCalendar());
-        })
+        if (togglePosition === 0) setTimeDesignations(["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]);
+        else if (togglePosition === 1) setTimeDesignations(["1", "7", "14", "21", "28"]);
+        else if (togglePosition === 2) setTimeDesignations(["Jan", "Mar", "May", "Jul", "Sep", "Nov"]);
+    }, [togglePosition])
+
+    useEffect(() => {
+        const calendar = createCalendar();
+        const completedCalendar = createCalendar();
+        const firstDay = getFirstCalendarDay();
+        const lastDay = getLastCalendarDay();
+
+        setBars(calendar);
+
+        getActivity(firstDay, lastDay).then((workouts) => {
+            if (workouts.size !== 0){
+                setBars(fillCalendar(completedCalendar, workouts));
+            }
+        });
     }, [selectedWeek, selectedMonth, selectedYear, togglePosition]);
 
-
-    const [days, setDays] = useState<Day[]>([])
-    // const [days, setDays] = useState<Day[]>([{workouts: [{duration: 50}]}, 
-    //     {workouts: [{duration: 121}]}, 
-    //     {workouts: [{duration: 30}, {duration: 50}]}, 
-    //     {workouts: [{duration: 31}]},
-    //     {workouts: [{duration: 0}]},
-    //     {workouts: [{duration: 70}, {duration: 30}]},
-    //     {workouts: [{duration: 120}]},
-    // ]);
+    const [bars, setBars] = useState<Map<number, Bar>>(createCalendar());
 
     return (
         <div className={styles.barCalendar}>
@@ -253,32 +287,31 @@ const BarCalendar = (props: Props) => {
             <div className={styles.body}>
                 <div className={styles.graph}>
                     <div className={styles.bars}>
-                        {days.map((day, index) => {
+                        {Array.from(bars).map(([key, bar], index) => {
                             return (
                                 <div
                                     key={index}
                                     className={styles.barContainer}
                                 >
-                                    {day.workouts.map((workout, index) => {
-                                        return (
-                                            <div
-                                                key={index}
-                                                style={{ height: `${workout.duration / timeScale.timeMax * 100}%`}}
-                                                className={`${styles.bar} ${index !== 0 && styles.extraBar}`}
-                                            />
-                                        )
-                                    })}
+                                    <div>
+                                        {Array.from(bar.workouts).map(([key, workout], index) => {
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    style={{ height: `${workout.duration / timeScale.timeMax * 100}%`, backgroundColor: `var(--${workout.kind})`}}
+                                                    className={`${styles.bar} ${index !== 0 && styles.extraBar}`}
+                                                />
+                                            )
+                                        })}
+                                    </div>
                                 </div>
                             )
                         })}
                     </div>
                     
-                    <div className={styles.time} style={{ bottom: "84px" }}>
-                        {`${String(Math.floor(timeScale.time3 / 60)).padStart(2, '0')}:${String(timeScale.time3 % 60).padStart(2, '0')}`}</div>
-                    <div className={styles.time} style={{ bottom: "54px" }}>
-                        {`${String(Math.floor(timeScale.time2 / 60)).padStart(2, '0')}:${String(timeScale.time2 % 60).padStart(2, '0')}`}</div>
-                    <div className={styles.time} style={{ bottom: "24px" }}>
-                        {`${String(Math.floor(timeScale.time1 / 60)).padStart(2, '0')}:${String(timeScale.time1 % 60).padStart(2, '0')}`}</div>
+                    <div className={styles.time} style={{ bottom: "84px" }}>{timeScale.time3}</div>
+                    <div className={styles.time} style={{ bottom: "54px" }}>{timeScale.time2}</div>
+                    <div className={styles.time} style={{ bottom: "24px" }}>{timeScale.time1}</div>
                     <hr className={styles.backgroundLine} style={{ bottom: "90px" }}/>
                     <hr className={styles.backgroundLine} style={{ bottom: "60px" }}/>
                     <hr className={styles.backgroundLine} style={{ bottom: "30px" }}/>
@@ -287,7 +320,7 @@ const BarCalendar = (props: Props) => {
 
 
                 <div className={styles.timeDesignations}>
-                    {shortWeekDays.map((weekDay, index) => {
+                    {timeDesignations.map((weekDay, index) => {
                         return (
                             <div
                                 key={index}

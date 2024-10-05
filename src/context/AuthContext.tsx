@@ -4,17 +4,19 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import * as Api from "@/api";
 
 interface Userdata {
-    id?: string,
-    username?: string,
+    id: string,
+    username: string,
     display_name: string,
-    email?: string,
+    email: string,
+    avatar_url: string,
+    created_at: string
 }
 
 interface AuthContextType {
     isAuthorized: boolean;
     setIsAuthorized: React.Dispatch<React.SetStateAction<boolean>>;
     isLoading: boolean;
-    userdata?: Userdata;
+    userdata: Userdata;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -30,7 +32,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             
             if (!("message" in result)){
                 setIsAuthorized(true);
-                setUserdata({id: result.id, username: result.username, display_name: result.display_name, email: result.email});
+                setUserdata({
+                    id: result.id, 
+                    username: result.username, 
+                    display_name: result.display_name, 
+                    email: result.email,
+                    avatar_url: result.avatar_url,
+                    created_at: result.created_at
+                });
             }
             else {
                 setIsAuthorized(false);
