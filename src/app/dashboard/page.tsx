@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 import * as Workout from "@/api";
 import Calendar from "@/components/Calendar/Calendar";
 import BarCalendar from "@/components/BarCalendar/BarCalendar";
@@ -13,39 +14,49 @@ interface Workout {
 }
 
 const DashboardPage = () => {
-    const date: Date = new Date();
+    const { userdata } = useAuth();
 
-    const [workouts, setWorkouts] = useState<Workout[]>([]);
+    // const [workouts, setWorkouts] = useState<Workout[]>([]);
+    const workouts = new Map<string, Workout>();
 
-    const handleActivity = async (firstDay: Date, lastDay: Date) => {
-        const firstDateDay = String(firstDay.getDate()).padStart(2, '0')
-        const firstDateMonth = String(firstDay.getMonth() + 1).padStart(2, '0');
-        const lastDateDay = String(lastDay.getDate()).padStart(2, '0');
-        const lastDateMonth = String(lastDay.getMonth() + 1).padStart(2, '0');
+    const handleActivity = async (firstDay: Date | null, lastDay: Date | null) => {
+        let range = {};
 
-		const result  = await Workout.workout.activity({
-			begin: `${firstDateDay}-${firstDateMonth}-${firstDay.getFullYear()}`,
-			end: `${lastDateDay}-${lastDateMonth}-${lastDay.getFullYear()}`,
-		});
+        if (firstDay) {
+            const firstDateDay = String(firstDay.getDate()).padStart(2, '0')
+            const firstDateMonth = String(firstDay.getMonth() + 1).padStart(2, '0');
+            range = {begin: `${firstDateDay}-${firstDateMonth}-${firstDay.getFullYear()}`};
+        }
+        if (lastDay) {
+            const lastDateDay = String(lastDay.getDate()).padStart(2, '0');
+            const lastDateMonth = String(lastDay.getMonth() + 1).padStart(2, '0');
+            range = {...range, end: `${lastDateDay}-${lastDateMonth}-${lastDay.getFullYear()}`};
+        }
+        
+		const result  = await Workout.workout.activity(range);
 
 		if (!("message" in result)){
-            setWorkouts([]);
+            const workouts = new Map<string, Workout>()
 
             result.workouts.forEach(workout => {
-                workouts.push({
+                workouts.set(workout.id, {
                     date: parseDate(workout.date),
                     duration: workout.duration,
                     kind: workout.kind,
-                });
+                })
             });
             
             return workouts;
 		}
 		else {
 			console.log(result.message);
-            return [];
+            return workouts;
 		}
  	};
+
+    const handleCreatedAt = () => {
+        return new Date(userdata?.created_at);
+    }
 
     const parseDate = (dateString: string) => {
         const parts: string[] = dateString.split('-');
@@ -56,7 +67,6 @@ const DashboardPage = () => {
         return new Date(year, month, day);
     }
 
-
     return (
         <div className={styles.screen}>
             <div className={styles.container}>
@@ -66,7 +76,7 @@ const DashboardPage = () => {
                         <Calendar getActivity={handleActivity}/>
                     </div>
                     <div className={styles.chapter}>
-                        <BarCalendar date={date}/>
+                        <BarCalendar getActivity={handleActivity} getCreatedAt={handleCreatedAt}/>
                     </div>
                 </div>
                 <div className={styles.column}>

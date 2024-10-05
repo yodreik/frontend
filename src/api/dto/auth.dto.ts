@@ -3,6 +3,8 @@ export interface UserDTO {
     username: string,
     display_name: string, 
     email: string,
+    avatar_url: string,
+    created_at: string,
     is_confirmed: boolean,
     is_private: boolean,
     status: number

@@ -32,14 +32,14 @@ const weekDays: string[] = [
 ];
 
 interface Props {
-    getActivity: (firstDay: Date, lastDay: Date) => Promise<Workout[]>,
+    getActivity: (firstDay: Date, lastDay: Date) => Promise<Map<string, Workout>>,
 }
 
 interface Day {
     date: Date,
     isToday: boolean,
     isSelectedMonth: boolean,
-    workouts: Workout[],
+    workouts: Map<string, Workout>,
 }
 
 interface Workout {
@@ -78,7 +78,7 @@ const Calendar = ({ getActivity } : Props) => {
                     date: currentDay,
                     isToday: currentDay.getTime() === new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime(),
                     isSelectedMonth: currentDay.getMonth() === selectedMonth.getMonth(),
-                    workouts: [],
+                    workouts: new Map<string, Workout>(),
                 }
             )
         }
@@ -86,25 +86,26 @@ const Calendar = ({ getActivity } : Props) => {
         return days;
     }
 
-    const fillCalendar = (days: Map<number, Day>, workouts: Workout[]) => {
+    const fillCalendar = (days: Map<number, Day>, workouts: Map<string, Workout>) => {
 
-        workouts.forEach(workout => {
-            days.get(workout.date.getTime())?.workouts.push(workout);
+        workouts.forEach((workout, key) => {
+            days.get(workout.date.getTime())?.workouts.set(key, workout);
         });
-
+        
         return days;
     }
 
     useEffect(() => {
         const calendar = createCalendar();
+        const completedCalendar = createCalendar();
         const firstDay = getFirstCalendarDay();
         const lastDay = getLastCalendarDay();
 
         setDays(calendar);
 
         getActivity(firstDay, lastDay).then((workouts) => {
-            if (workouts.length !== 0){
-                setDays(fillCalendar(calendar, workouts));
+            if (workouts.size !== 0){
+                setDays(fillCalendar(completedCalendar, workouts));
             }
         });
     }, [selectedMonth]);
@@ -136,12 +137,12 @@ const Calendar = ({ getActivity } : Props) => {
                     
                     {Array.from(days).map(([key, day], index) => {
                         return (
-                            <DonutChart key={index} className={styles.dayContainer} parts={day.workouts.map(workout => ({value: workout.duration, color: `var(--${workout.kind})`}))}>
+                            <DonutChart key={index} className={styles.dayContainer} parts={Array.from(day.workouts).map(([key, workout]) => ({value: workout.duration, color: `var(--${workout.kind})`}))}>
                                 <div
                                     key={index}
                                     className={`${styles.day} ` +
                                     `${day.isToday ? styles.today : ""} ` +
-                                    `${day.isToday && day.workouts.length > 0 ? styles.trained : ""} ` +
+                                    `${day.isToday && day.workouts.size > 0 ? styles.trained : ""} ` +
                                     `${day.isSelectedMonth ? "" : styles.dayOutside}`}
                                 >
                                     {day.date.getDate()}
