@@ -204,17 +204,17 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
             maxDuration = maxDuration <= currentDuration ? currentDuration : maxDuration;
         })
 
-        if (maxDuration <= 1440) {
+        if (maxDuration <= 120) {
             let timeMax = Math.ceil(maxDuration / 120) * 120;
 
-            const time1 = `${String(Math.floor((timeMax / 4 * 1) / 60)).padStart(2, '0')}:${String((timeMax / 4 * 1) % 60).padStart(2, '0')}`
-            const time2 = `${String(Math.floor((timeMax / 4 * 2) / 60)).padStart(2, '0')}:${String((timeMax / 4 * 2) % 60).padStart(2, '0')}`
-            const time3 = `${String(Math.floor((timeMax / 4 * 3) / 60)).padStart(2, '0')}:${String((timeMax / 4 * 3) % 60).padStart(2, '0')}`
+            const time1 = `${timeMax / 4 * 1}m`
+            const time2 = `${timeMax / 4 * 2}m`
+            const time3 = `${timeMax / 4 * 3}m`
 
             setTimeScale({ time1, time2, time3, timeMax});
         }
         else {
-            let timeMax = Math.ceil(maxDuration / 1440) * 1440;
+            let timeMax = Math.ceil(maxDuration / 240) * 240;
 
             const time1 = `${(timeMax / 4 * 1) / 60}h`
             const time2 = `${(timeMax / 4 * 2) / 60}h`
@@ -249,8 +249,9 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
 
     useEffect(() => {
         if (togglePosition === 0) setTimeDesignations(["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]);
-        else if (togglePosition === 1) setTimeDesignations(["1", "7", "14", "21", "28"]);
-        else if (togglePosition === 2) setTimeDesignations(["Jan", "Mar", "May", "Jul", "Sep", "Nov"]);
+        else if (togglePosition === 1) setTimeDesignations(["1", "", "", "", "", "",  "7", "", "", "", "", "", "", "14", "", "", "", "", "", "", "21", "", "", "", "", "", "","28", "", "", ""]);
+        else if (togglePosition === 2) setTimeDesignations(["Jan", "", "Mar", "", "May", "", "Jul", "", "Sep", "", "Nov", ""]);
+        else setTimeDesignations(Array.from({ length: getLastCalendarDay().getFullYear() - getFirstCalendarDay().getFullYear() + 1}, (_, i) => getFirstCalendarDay().getFullYear() + i * 2).map(num => num.toString()))
     }, [togglePosition])
 
     useEffect(() => {
@@ -286,49 +287,38 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
 
             <div className={styles.body}>
                 <div className={styles.graph}>
-                    <div className={styles.bars}>
-                        {Array.from(bars).map(([key, bar], index) => {
-                            return (
+                    {Array.from(bars).map(([key, bar], index) => {
+                        return (
+                            <div key={index} className={styles.bar}>
                                 <div
                                     key={index}
-                                    className={styles.barContainer}
+                                    className={styles.barPartsContainer}
                                 >
                                     {Array.from(bar.workouts).map(([key, workout], index) => {
                                         return (
                                             <div
                                                 key={index}
                                                 style={{ height: `${workout.duration / timeScale.timeMax * 100}%`, backgroundColor: `var(--${workout.kind})`}}
-                                                className={`${styles.bar} ${index !== 0 && styles.extraBar}`}
+                                                className={`${styles.barPart} ${index !== 0 && styles.extraBarPart}`}
                                             />
                                         )
                                     })}
                                 </div>
-                            )
-                        })}
-                    </div>
-                    
-                    <div className={styles.time} style={{ bottom: "84px" }}>{timeScale.time3}</div>
-                    <div className={styles.time} style={{ bottom: "54px" }}>{timeScale.time2}</div>
-                    <div className={styles.time} style={{ bottom: "24px" }}>{timeScale.time1}</div>
-                    <hr className={styles.backgroundLine} style={{ bottom: "90px" }}/>
-                    <hr className={styles.backgroundLine} style={{ bottom: "60px" }}/>
-                    <hr className={styles.backgroundLine} style={{ bottom: "30px" }}/>
-                    <hr className={styles.bottomLine}/>
-                </div>
-
-
-                <div className={styles.timeDesignations}>
-                    {timeDesignations.map((weekDay, index) => {
-                        return (
-                            <div
-                                key={index}
-                                className={styles.weekDays}
-                            >
-                                {weekDay}
+                                <div className={styles.barTitle}>
+                                    {timeDesignations[index]}
+                                </div>
                             </div>
                         )
                     })}
                 </div>
+                
+                <div className={styles.time} style={{ bottom: "114px" }}>{timeScale.time3}</div>
+                <div className={styles.time} style={{ bottom: "84px" }}>{timeScale.time2}</div>
+                <div className={styles.time} style={{ bottom: "54px" }}>{timeScale.time1}</div>
+                <hr className={styles.backgroundLine} style={{ bottom: "120px" }}/>
+                <hr className={styles.backgroundLine} style={{ bottom: "90px" }}/>
+                <hr className={styles.backgroundLine} style={{ bottom: "60px" }}/>
+                <hr className={styles.bottomLine}/>
             </div>
 
             <div className={styles.footer}>
