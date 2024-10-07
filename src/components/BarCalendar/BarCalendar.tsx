@@ -46,6 +46,7 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
     const [selectedWeek, setSelectedWeek] = useState<Date>(new Date(today.getFullYear(), today.getMonth(), today.getDate() + ((today.getDay() === 0) ? -6 : 1 - today.getDay())));
     const [selectedMonth, setSelectedMonth] = useState<Date>(new Date(today.getFullYear(), today.getMonth()));
     const [selectedYear, setSelectedYear] = useState<Date>(new Date(today.getFullYear(), 0));
+    const [selectedFiveYears, setSelectedFiveYears] = useState<Date>(new Date(getCreatedAt().getFullYear(), 0));
 
     const [timeScale, setTimeScale] = useState({ time1: "30m", time2: "60m", time3: "90m", timeMax: 120});
     const [timeDesignations, setTimeDesignations] = useState<string[]>(["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]);
@@ -60,7 +61,7 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
             case 0: firstDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate()); break;
             case 1: firstDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth()); break;
             case 2: firstDay = new Date(selectedYear.getFullYear(), 0); break;
-            default: firstDay = new Date(getCreatedAt().getFullYear(), 0); break;
+            default: firstDay = new Date(selectedFiveYears.getFullYear(), 0); break;
         }
 
         return firstDay;
@@ -73,7 +74,12 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
             case 0: lastDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate() + 6); break;
             case 1: lastDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0); break;
             case 2: lastDay = new Date(selectedYear.getFullYear() + 1, 0, 0); break;
-            default: lastDay = new Date(today.getFullYear() + 1, 0, 0); break;
+            default: 
+                if ((new Date(today.getFullYear() + 1, 0, 0)).getTime() < (new Date(selectedFiveYears.getFullYear() + 5, 0, 0)).getTime()) 
+                    lastDay = new Date(today.getFullYear() + 1, 0, 0);
+                else 
+                    lastDay = new Date(selectedFiveYears.getFullYear() + 5, 0, 0);
+                break;
         }
 
         return lastDay;
@@ -213,12 +219,14 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
         if (selection === 0) setSelectedWeek(new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate() - 7));
         else if (selection === 1) setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() - 1));
         else if (selection === 2) setSelectedYear(new Date(selectedYear.getFullYear() - 1, 0));
+        else setSelectedFiveYears(new Date(selectedFiveYears.getFullYear() - 5, 0));
     }
 
     const setNextDateInterval = () => {
         if (selection === 0) setSelectedWeek(new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(),  selectedWeek.getDate() + 7));
         else if (selection === 1) setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1));
         else if (selection === 2) setSelectedYear(new Date(selectedYear.getFullYear() + 1, 0));
+        else setSelectedFiveYears(new Date(selectedFiveYears.getFullYear() + 5, 0));
     }
 
     useEffect(() => {
@@ -226,7 +234,7 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
         else if (selection === 1) setTimeDesignations(["1", "", "", "", "", "",  "7", "", "", "", "", "", "", "14", "", "", "", "", "", "", "21", "", "", "", "", "", "","28", "", "", ""]);
         else if (selection === 2) setTimeDesignations(["Jan", "", "Mar", "", "May", "", "Jul", "", "Sep", "", "Nov", ""]);
         else setTimeDesignations(Array.from({ length: getLastCalendarDay().getFullYear() - getFirstCalendarDay().getFullYear() + 1}, (_, i) => (getFirstCalendarDay().getFullYear() + i).toString()));
-    }, [selection])
+    }, [selectedFiveYears, selection])
 
     useEffect(() => {
         const calendar = createCalendar();
@@ -241,7 +249,7 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
                 setBars(fillCalendar(completedCalendar, workouts));
             }
         });
-    }, [selectedWeek, selectedMonth, selectedYear, selection]);
+    }, [selectedWeek, selectedMonth, selectedYear, selectedFiveYears, selection]);
 
     const [bars, setBars] = useState<Map<number, Bar>>(createCalendar());
 
@@ -250,15 +258,20 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
             <div className={styles.header}>
                 <div className={styles.dateInterval}>{getDateInterval()}</div>
                 
-                {selection !== 3 && 
                 <div className={styles.dateButtons}>
-                    <button className={styles.dateButton} onClick={setPreviousDateInterval}>
-                        <LeftArrow className={styles.arrow}/>
-                    </button>
-                    <button className={styles.dateButton} onClick={setNextDateInterval}>
-                        <RightArrow className={styles.arrow}/>
-                    </button>
-                </div>}
+                    <div className={styles.dateButtonContainers}>
+                        {!(selection === 3 && bars.get((new Date(getCreatedAt().getFullYear(), 0)).getTime())) && 
+                        <button className={styles.dateButton} onClick={setPreviousDateInterval}>
+                            <LeftArrow className={styles.arrow}/>
+                        </button>}
+                    </div>
+                        <div className={styles.dateButtonContainers}>
+                        {!(selection === 3 && bars.size < 5) && 
+                        <button className={styles.dateButton} onClick={setNextDateInterval}>
+                            <RightArrow className={styles.arrow}/>
+                        </button>}
+                    </div>
+                </div>
             </div>
 
             <div className={styles.body}>
@@ -274,13 +287,15 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
                                         return (
                                             <div
                                                 key={index}
-                                                style={{ height: `${workout.duration / timeScale.timeMax * 100}%`, backgroundColor: `var(--${workout.kind})`}}
+                                                style={{
+                                                    height: `${workout.duration / timeScale.timeMax * 100}%`, 
+                                                    backgroundColor: `var(--${(selection === 0 || selection === 1) && bar.isCurrent ? "white" : workout.kind})`}}
                                                 className={`${styles.barPart} ${index !== 0 && styles.extraBarPart}`}
                                             />
                                         )
                                     })}
                                 </div>
-                                <div className={styles.barTitle}>
+                                <div className={selection === 0 && bar.isCurrent ? styles.barTitleToday : styles.barTitle}>
                                     {timeDesignations[index]}
                                 </div>
                             </div>
