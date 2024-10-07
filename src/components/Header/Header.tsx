@@ -33,7 +33,7 @@ const Header = () => {
         <>
             <div className={styles.header}>
                 <div className={styles.inner}>
-                    <div className={styles.logo}>dreik</div>
+                    <div className={styles.logo} onClick={() => router.push("/")}>dreik</div>
                     {
                         !(isLoading || pathname === "/auth") ? <>
                             <div className={isAuthorized ? styles.buttonsAuthorized : styles.buttons}>
