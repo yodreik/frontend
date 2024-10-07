@@ -13,10 +13,10 @@ import styles from "./page.module.css";
 const AuthPage = () => {
     const [isSignIn, setIsSignIn] = useState<boolean>(true);
 
-    const [emailLogin, setEmailLogin] = useState<string>("");
+    const [emailOrUsernameLogin, setEmailOrUsernameLogin] = useState<string>("");
     const [passwordLogin, setPasswordLogin] = useState<string>("");
 
-    const [emailLoginStatus, setEmailLoginStatus] = useState<"default" | "error">("default");
+    const [emailOrUsernameLoginStatus, setEmailOrUsernameLoginStatus] = useState<"default" | "error">("default");
     const [passwordLoginStatus, setPasswordLoginStatus] = useState<"default" | "error">("default");
 
     const [infoLogin, setInfoLogin] = useState<string>("No info");
@@ -52,7 +52,7 @@ const AuthPage = () => {
 
     const handleLogin = async () => {
         const result = await Api.auth.login({
-            login: emailLogin,
+            login: emailOrUsernameLogin,
             password: passwordLogin,
         });
 
@@ -112,19 +112,19 @@ const AuthPage = () => {
         }
     };
 
-    const onChangeEmailLogin = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeEmailOrUsernameLogin = (e: ChangeEvent<HTMLInputElement>) => {
         const input = e.target.value;
 
         if (input.length > 254 || input.length < 5) {
-            setEmailLoginStatus("error");
+            setEmailOrUsernameLoginStatus("error");
             displayLoginMessage("Email or username should be from 5 to 254 characters long");
         }
         else {
-            setEmailLoginStatus("default");
+            setEmailOrUsernameLoginStatus("default");
             hideLoginMessage();
         }
 
-        setEmailLogin(input);
+        setEmailOrUsernameLogin(input);
     };
 
     const onChangePasswordLogin = (e: ChangeEvent<HTMLInputElement>) => {
@@ -228,9 +228,9 @@ const AuthPage = () => {
 
     useEffect(() => {
         if (
-            emailLoginStatus === "error" ||
+            emailOrUsernameLoginStatus === "error" ||
             passwordLoginStatus === "error" ||
-            emailLogin === "" ||
+            emailOrUsernameLogin === "" ||
             passwordLogin === ""
         ) {
             setButtonLoginIsDisabled(true);
@@ -238,7 +238,7 @@ const AuthPage = () => {
         else {
             setButtonLoginIsDisabled(false);
         }
-    }, [emailLogin, passwordLogin]);
+    }, [emailOrUsernameLogin, passwordLogin]);
 
     useEffect(() => {
         if (
@@ -307,10 +307,10 @@ const AuthPage = () => {
                 <div className={`${styles.form_box} ${isSignIn ? "" : styles.active}`}>
                     <Form className={styles.form_signin} title="Log In" info={infoLogin} infoStatus={infoLoginStatus}>
                         <Input
-                            value={emailLogin}
-                            onChange={onChangeEmailLogin}
+                            value={emailOrUsernameLogin}
+                            onChange={onChangeEmailOrUsernameLogin}
                             type="text"
-                            status={emailLoginStatus}
+                            status={emailOrUsernameLoginStatus}
                             placeholder="Email or username"
                         />
                         <Input
