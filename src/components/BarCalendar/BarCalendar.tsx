@@ -295,7 +295,7 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
                                         )
                                     })}
                                 </div>
-                                <div className={selection === 0 && bar.isCurrent ? styles.barTitleToday : styles.barTitle}>
+                                <div className={selection === 0 && bar.isCurrent ? (bar.workouts.size === 0 ? styles.barTitleTodayWithoutTraining : styles.barTitleToday) : styles.barTitle}>
                                     {timeDesignations[index]}
                                 </div>
                             </div>

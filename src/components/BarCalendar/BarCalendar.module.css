@@ -138,6 +138,25 @@
     padding-top: 4px;
 }
 
+.barTitleTodayWithoutTraining {
+    z-index: 10;
+
+    color: var(--black);
+    font-size: 14px;
+    font-weight: 700;
+
+    width: 50%;
+    height: 23px;
+
+    background-color: var(--white);
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4px;
+}
+
 .barPartsContainer {
     z-index: 10;
 
