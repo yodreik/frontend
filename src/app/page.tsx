@@ -1,29 +1,19 @@
-import styles from "./page.module.css";
-import DonutChart from "@/components/DonutChart/DonutChart";
+"use client"
 
-interface Part {
-    value: number;
-    color: string;
-}
+import styles from "./page.module.css";
+import { useState } from 'react';
+import SegmentedControl from "@/components/SegmentedControl/SegmentedControl";
 
 export default function Home() {
-    const Parts: Part[] = [
-        {value: 10, color: "var(--accent)"},
-        {value: 10, color: "var(--accent)"},
-        {value: 10, color: "var(--accent)"}
-    ]
+    const [togglePosition, setTogglePosition] = useState<number>(0);
+    const selections = ["Week", "Month", "Year", "All time", "Хуй"];
+
     return (
         <main>
             <div className={styles.temporaryStatistics}>
                 <div className={styles.container}>
-                    <div className={styles.day}>15</div>
-                    <div className={styles.pie} style={{ '--r': '0', '--p': '10', '--c': 'var(--accent)'} as React.CSSProperties}/>
-                    <div className={styles.pie} style={{ '--r': '15', '--p': '50', '--c': 'var(--sexy-blue)'} as React.CSSProperties}/>
-                    <div className={styles.pie} style={{ '--r': '70', '--p': '25', '--c': 'var(--red)'} as React.CSSProperties}/>
+                    <SegmentedControl size={styles.width} selections={selections} getSelection={togglePosition} setSelection={setTogglePosition} />
                 </div>
-                <DonutChart className={styles.container} parts={Parts}>
-                    <div className={styles.day}>15</div>
-                </DonutChart>
                 <div>empty for now</div>
             </div>
         </main>

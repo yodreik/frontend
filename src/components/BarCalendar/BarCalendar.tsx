@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react';
+import SegmentedControl from '@/components/SegmentedControl/SegmentedControl';
 import LeftArrow from '@/icons/leftArrow';
 import RightArrow from '@/icons/rightArrow';
 import styles from "./BarCalendar.module.css";
@@ -46,15 +47,16 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
     const [selectedMonth, setSelectedMonth] = useState<Date>(new Date(today.getFullYear(), today.getMonth()));
     const [selectedYear, setSelectedYear] = useState<Date>(new Date(today.getFullYear(), 0));
 
-    const [timeScale, setTimeScale] = useState({ time1: "00:30", time2: "01:00", time3: "01:30", timeMax: 120});
+    const [timeScale, setTimeScale] = useState({ time1: "30m", time2: "60m", time3: "90m", timeMax: 120});
     const [timeDesignations, setTimeDesignations] = useState<string[]>(["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]);
 
-    const [togglePosition, setTogglePosition] = useState<0 | 1 | 2 | 3>(0);
+    const [selection, setSelection] = useState<number>(0);
+    const selections = ["Week", "Month", "Year", "All time"];
 
     const getFirstCalendarDay = () => {
         let firstDay: Date;
         
-        switch (togglePosition) {
+        switch (selection) {
             case 0: firstDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate()); break;
             case 1: firstDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth()); break;
             case 2: firstDay = new Date(selectedYear.getFullYear(), 0); break;
@@ -67,11 +69,11 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
     const getLastCalendarDay = () => {
         let lastDay: Date;
 
-        switch (togglePosition) {
+        switch (selection) {
             case 0: lastDay = new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate() + 6); break;
             case 1: lastDay = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0); break;
             case 2: lastDay = new Date(selectedYear.getFullYear() + 1, 0, 0); break;
-            default: lastDay = new Date(today.getFullYear() + 3, 0, 0); break;
+            default: lastDay = new Date(today.getFullYear() + 1, 0, 0); break;
         }
 
         return lastDay;
@@ -83,13 +85,13 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
         const lastDate = getLastCalendarDay();
         let bar = firstDate
 
-        if (togglePosition === 1){
+        if (selection === 1){
             lastDate.setDate(31);
         }
 
         const nextDate = () => {
-            if (togglePosition === 0 || togglePosition === 1) bar.setDate(bar.getDate() + 1);
-            else if (togglePosition === 2) bar.setMonth(bar.getMonth() + 1);
+            if (selection === 0 || selection === 1) bar.setDate(bar.getDate() + 1);
+            else if (selection === 2) bar.setMonth(bar.getMonth() + 1);
             else bar.setFullYear(bar.getFullYear() + 1);
         }
 
@@ -109,12 +111,12 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
 
     const fillCalendar = (bars: Map<number, Bar>, workouts: Map<string, Workout>) => {
 
-        if (togglePosition === 0 || togglePosition === 1) {
+        if (selection === 0 || selection === 1) {
             workouts.forEach((workout, key) => {
                 bars.get(workout.date.getTime())?.workouts.set(key, workout);
             });
         }
-        else if (togglePosition === 2) {
+        else if (selection === 2) {
             let isAdded;
             
             workouts.forEach((workout, key) => {
@@ -136,7 +138,7 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
                 }
             })
         }
-        else if (togglePosition === 3) {
+        else if (selection === 3) {
             let isAdded;
 
             workouts.forEach((workout, key) => {
@@ -208,23 +210,23 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
     }
 
     const setPreviousDateInterval = () => {
-        if (togglePosition === 0) setSelectedWeek(new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate() - 7));
-        else if (togglePosition === 1) setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() - 1));
-        else if (togglePosition === 2) setSelectedYear(new Date(selectedYear.getFullYear() - 1, 0));
+        if (selection === 0) setSelectedWeek(new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(), selectedWeek.getDate() - 7));
+        else if (selection === 1) setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() - 1));
+        else if (selection === 2) setSelectedYear(new Date(selectedYear.getFullYear() - 1, 0));
     }
 
     const setNextDateInterval = () => {
-        if (togglePosition === 0) setSelectedWeek(new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(),  selectedWeek.getDate() + 7));
-        else if (togglePosition === 1) setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1));
-        else if (togglePosition === 2) setSelectedYear(new Date(selectedYear.getFullYear() + 1, 0));
+        if (selection === 0) setSelectedWeek(new Date(selectedWeek.getFullYear(), selectedWeek.getMonth(),  selectedWeek.getDate() + 7));
+        else if (selection === 1) setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1));
+        else if (selection === 2) setSelectedYear(new Date(selectedYear.getFullYear() + 1, 0));
     }
 
     useEffect(() => {
-        if (togglePosition === 0) setTimeDesignations(["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]);
-        else if (togglePosition === 1) setTimeDesignations(["1", "", "", "", "", "",  "7", "", "", "", "", "", "", "14", "", "", "", "", "", "", "21", "", "", "", "", "", "","28", "", "", ""]);
-        else if (togglePosition === 2) setTimeDesignations(["Jan", "", "Mar", "", "May", "", "Jul", "", "Sep", "", "Nov", ""]);
-        else setTimeDesignations(Array.from({ length: getLastCalendarDay().getFullYear() - getFirstCalendarDay().getFullYear() + 3}, (_, i) => (getFirstCalendarDay().getFullYear() + i).toString()));
-    }, [togglePosition])
+        if (selection === 0) setTimeDesignations(["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]);
+        else if (selection === 1) setTimeDesignations(["1", "", "", "", "", "",  "7", "", "", "", "", "", "", "14", "", "", "", "", "", "", "21", "", "", "", "", "", "","28", "", "", ""]);
+        else if (selection === 2) setTimeDesignations(["Jan", "", "Mar", "", "May", "", "Jul", "", "Sep", "", "Nov", ""]);
+        else setTimeDesignations(Array.from({ length: getLastCalendarDay().getFullYear() - getFirstCalendarDay().getFullYear() + 1}, (_, i) => (getFirstCalendarDay().getFullYear() + i).toString()));
+    }, [selection])
 
     useEffect(() => {
         const calendar = createCalendar();
@@ -239,7 +241,7 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
                 setBars(fillCalendar(completedCalendar, workouts));
             }
         });
-    }, [selectedWeek, selectedMonth, selectedYear, togglePosition]);
+    }, [selectedWeek, selectedMonth, selectedYear, selection]);
 
     const [bars, setBars] = useState<Map<number, Bar>>(createCalendar());
 
@@ -248,7 +250,7 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
             <div className={styles.header}>
                 <div className={styles.dateInterval}>{getDateInterval()}</div>
                 
-                {togglePosition !== 3 && 
+                {selection !== 3 && 
                 <div className={styles.dateButtons}>
                     <button className={styles.dateButton} onClick={setPreviousDateInterval}>
                         <LeftArrow className={styles.arrow}/>
@@ -296,21 +298,7 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
             </div>
 
             <div className={styles.footer}>
-                <div className={styles.toggle_container}>
-                    <div className={styles.toggle_button} onClick={() => {setTogglePosition(0)}}>Week</div>
-                    <div className={styles.toggle_button} onClick={() => {setTogglePosition(1)}}>Month</div>
-                    <div className={styles.toggle_button} onClick={() => {setTogglePosition(2)}}>Year</div>
-                    <div className={styles.toggle_button} onClick={() => {setTogglePosition(3)}}>All time</div>
-                    
-                    <div className={`${styles.active_toggle_button} ${togglePosition === 1 && styles.position1} ${togglePosition === 2 && styles.position2} ${togglePosition === 3 && styles.position3}`}>
-                        <div className={`${styles.active_titles_container} ${togglePosition === 1 && styles.position1} ${togglePosition === 2 && styles.position2} ${togglePosition === 3 && styles.position3}`}>
-                            <div className={styles.active_toggle_title}>Week</div>
-                            <div className={styles.active_toggle_title}>Month</div>
-                            <div className={styles.active_toggle_title}>Year</div>
-                            <div className={styles.active_toggle_title}>All time</div>
-                        </div>
-                    </div>
-                </div>
+                <SegmentedControl size={styles.segmentedControlSize} selections={selections} getSelection={selection} setSelection={setSelection}/>
             </div>
         </div>
     )
