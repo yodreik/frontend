@@ -8,13 +8,15 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+
+    position: relative;
 }
 
 .header {
     height: 17%;
     width: 100%;
     
-    padding-left: 27px;
+    padding-left: 45px;
 
     display: flex;
     align-items: end;
@@ -27,11 +29,22 @@
     font-weight: bold;
 }
 
+.dateButtons {
+    cursor: pointer;
+
+    position: absolute;
+    right: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .dateButton {
     cursor: pointer;
 
-    height: 22px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
 
     background: none;
     border: none;
@@ -66,17 +79,6 @@
     position: relative;
 }
 
-/* .graph {
-    position: absolute;
-
-    height: 133px;
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: end;
-} */
-
 .graph {
     position: absolute;
     bottom: 1px;
@@ -86,18 +88,16 @@
     width: 370px;
 
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: end;
-    gap: 6px;
 }
+
 
 .bar {
     height: 150px;
-    min-width: 6px;
-    max-width: 26px;
 
     display: flex;
-    flex: 1 1 auto;
+    flex: 1 1;
     flex-direction: column;
     align-items: center;
 }
@@ -117,10 +117,11 @@
     z-index: 10;
 
     height: 120px;
-    width: 100%;
+    width: 50%;
+    min-width: 6px;
+    max-width: 27px;
 
     display: flex;
-    flex: 1 1 auto;
     flex-direction: column-reverse;
     align-items: center;
 }
@@ -128,9 +129,6 @@
 @keyframes fadeIn {
     from {
         height: 0px;
-    }
-    to {
-        /* height: 0px; */
     }
 }
 
