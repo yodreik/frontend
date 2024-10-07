@@ -33,7 +33,7 @@ const DashboardPage = () => {
             range = {...range, end: `${lastDateDay}-${lastDateMonth}-${lastDay.getFullYear()}`};
         }
         
-		const result  = await Workout.workout.activity(range);
+		const result = await Workout.workout.activity(range);
 
 		if (!("message" in result)){
             const workouts = new Map<string, Workout>()
@@ -55,7 +55,12 @@ const DashboardPage = () => {
  	};
 
     const handleCreatedAt = () => {
-        return new Date(userdata?.created_at);
+        if (userdata){
+            return new Date(userdata.created_at);
+        }
+        else {
+            return new Date();
+        }
     }
 
     const parseDate = (dateString: string) => {
