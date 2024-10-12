@@ -49,17 +49,17 @@ const SideMenu = (props: Props) => {
                 <hr className={styles.separator}/>
 
                 <div className={styles.itemsContainer}>
-                    <button className={styles.item} onClick={() => {router.push("/")}}>
+                    <button className={styles.item} onClick={() => {props.setInactive(); router.push("/")}}>
                         <Profile/>
                         <div className={styles.item_title}>Profile</div>
                     </button>
 
-                    <button className={styles.item} onClick={() => {router.push("/dashboard")}}>
+                    <button className={styles.item} onClick={() => {props.setInactive(); router.push("/dashboard")}}>
                         <Dashboard/>
                         <div className={styles.item_title}>Dashboard</div>
                     </button>
 
-                    <button className={styles.item} onClick={() => {router.push("/")}}>
+                    <button className={styles.item} onClick={() => {props.setInactive(); router.push("/")}}>
                         <Settings/>
                         <div className={styles.item_title}>Settings</div>
                     </button>
