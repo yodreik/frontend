@@ -86,7 +86,7 @@ const SideMenu = (props: Props) => {
                     <hr className={styles.separator} />
 
                     <div className={styles.itemsContainer}>
-                        <button className={styles.item} onClick={() => {window.open("https://github.com/yodreik/frontend/issues/new", "_blank")}}>
+                        <button className={styles.item} onClick={() => {window.open("https://github.com/yodreik/frontend/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=", "_blank")}}>
                             <Bug/>
                             <div className={styles.item_title}>Report a Bug</div>
                         </button>
