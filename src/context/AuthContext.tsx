@@ -16,7 +16,7 @@ interface AuthContextType {
     isAuthorized: boolean;
     setIsAuthorized: React.Dispatch<React.SetStateAction<boolean>>;
     isLoading: boolean;
-    userdata: Userdata;
+    userdata?: Userdata;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
