@@ -23,10 +23,10 @@ const Header = () => {
     const pathname = usePathname();
 
     const user: User = {
-        id: userdata?.id || "69",
-        username: userdata?.username || "Donald M. Russel",
-        email: userdata?.email || "donaldrussell@gmail.com",
-        avatarURL: "https://img.freepik.com/free-photo/left-sideways-american-black-person_23-2148749585.jpg",
+        id: userdata?.id,
+        username: userdata?.username,
+        email: userdata?.email,
+        avatarURL: userdata?.avatar_url,
     }
 
     return (
@@ -49,7 +49,11 @@ const Header = () => {
                                                 {user.username}
                                             </div>
                                             <button className={styles.avatarButton}>
-                                                <img src={user.avatarURL} className={styles.avatar} />
+                                                <img
+                                                    src={user.avatarURL}
+                                                    alt="Avatar"
+                                                    className={styles.avatar}
+                                                />
                                             </button>
                                         </div>
 
