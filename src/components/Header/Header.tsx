@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import SideMenu from "@/components/SideMenu/SideMenu"
 import Button from "@/components/Button/Button";
+import Image from "next/image";
 import styles from "./Header.module.css";
 
 interface User {
@@ -49,10 +50,12 @@ const Header = () => {
                                                 {user.username}
                                             </div>
                                             <button className={styles.avatarButton}>
-                                                <img
+                                                <Image
                                                     src={user.avatarURL}
                                                     alt="Avatar"
                                                     className={styles.avatar}
+                                                    width={45}
+                                                    height={45} 
                                                 />
                                             </button>
                                         </div>

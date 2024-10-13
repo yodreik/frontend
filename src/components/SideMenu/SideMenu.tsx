@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useAuth } from '@/context/AuthContext';
+import Image from "next/image";
 import Close from "@/icons/close";
 import Profile from "@/icons/profile";
 import Dashboard from "@/icons/dashboard";
@@ -39,7 +40,13 @@ const SideMenu = (props: Props) => {
                 </button>
 
                 <div className={styles.miniProfile}>
-                    <img src={props.avatarURL} className={styles.avatar}/>
+                    <Image
+                        src={props.avatarURL}
+                        alt="Avatar"
+                        className={styles.avatar}
+                        width={45}
+                        height={45} 
+                    />
                     <div className={styles.userInfo}>
                         <div className={styles.userName}>{props.username}</div>
                         <div className={styles.userEmail}>{props.email}</div>
