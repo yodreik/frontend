@@ -1,16 +1,18 @@
 export interface workoutRequestDTO {
     date: string,
     duration: number,
-    kind: string,
-    status: number
+    kind: string
 }
 
 export interface workoutResponseDTO {
     id: string,
     date: string,
     duration: number,
-    kind: string
+    kind: string,
+    status: number
 }
+
+
 
 export interface activityRequestDTO {
     begin?: string,
@@ -26,5 +28,14 @@ export interface activityResponseDTO {
         duration: number,
         kind: string
     }[],
+    status: number
+}
+
+
+
+export interface statisticsResponseDTO {
+    user_id: string,
+    minutes_spent: number,
+    longest_activity: number,
     status: number
 }
