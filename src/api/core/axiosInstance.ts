@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:6969/api"
+    baseURL: "https://dreik.d.qarwe.online/api"
 })
 
 axiosInstance.interceptors.request.use((config) => {
