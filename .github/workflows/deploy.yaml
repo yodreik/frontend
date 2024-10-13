@@ -4,6 +4,7 @@ on:
     push:
         branches:
             - master
+            - develop
 
 jobs:
     deploy:
@@ -13,13 +14,13 @@ jobs:
             - name: Run on remote server
               uses: D3rHase/ssh-command-action@latest
               with:
-                host: ${{ secrets.SSH_HOST }}
-                port: ${{ secrets.SSH_PORT }}
-                user: ${{ secrets.SSH_USER }}
-                private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-                command: |
-                    cd ${ secrets.PROJECT_DIR }};
-                    git checkout master;
-                    git pull;
-                    npm run build;
-                    sudo cp -r ./out/* /var/www/yodreik/out/;
+                  host: ${{ secrets.SSH_HOST }}
+                  port: ${{ secrets.SSH_PORT }}
+                  user: ${{ secrets.SSH_USER }}
+                  private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  command: |
+                      cd ${ secrets.PROJECT_DIR }};
+                      git checkout master;
+                      git pull;
+                      npm run build;
+                      sudo cp -r ./out/* /var/www/yodreik/out/;
