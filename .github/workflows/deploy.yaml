@@ -20,7 +20,5 @@ jobs:
                 private_key: ${{ secrets.SSH_PRIVATE_KEY }}
                 command: |
                     screen -S dreik-frontend -p 0 -X stuff $'\\003';
-                    screen -S dreik-frontend -p 0 -X stuff 'npm run build\n';
-                    sleep 2;
-                    screen -S dreik-frontend -p 0 -X stuff 'npm run start\n';
+                    screen -S dreik-frontend -p 0 -X stuff 'git pull && npm run build && npm run start\n';
                     screen -S dreik-frontend -p 0 -X detach;
