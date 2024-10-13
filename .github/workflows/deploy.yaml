@@ -1,0 +1,25 @@
+name: Deploy
+
+on:
+	push:
+		branches:
+			- master
+			- develop
+
+jobs:
+	deploy:
+		runs-on: ubuntu-latest
+
+		steps:
+			- name: Run on remote server
+			  uses: D3rHase/ssh-command-action@latest
+			  with:
+					host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          user: ${{ secrets.SSH_USER }}
+          private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command: |
+            screen -S dreik-frontend -p 0 -X stuff $'\\003';
+            screen -S dreik-frontend -p 0 -X stuff 'npm run build\n'
+            screen -S dreik-frontend -p 0 -X stuff 'npm run start\n'
+            screen -S dreik-frontend -p 0 -X detach;
