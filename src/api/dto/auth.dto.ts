@@ -10,6 +10,19 @@ export interface UserDTO {
     status: number
 }
 
+
+
+export interface UpdateUserDTO {
+    username: string,
+    display_name: string, 
+    email: string,
+    avatar_url: string,
+    is_private: boolean,
+    status: number
+}
+
+
+
 export interface LoginRequestDTO {
     login: string,
     password: string
@@ -19,6 +32,8 @@ export interface LoginResponseDTO {
     token: string,
     status: number
 }
+
+
 
 export interface RegisterRequestDTO {
     username: string,
@@ -31,10 +46,14 @@ export interface RegisterResponseDTO {
     username: string,
     display_name: string, 
     email: string,
+    avatar_url: string,
+    created_at: string,
     is_confirmed: boolean,
     is_private: boolean,
     status: number
 }
+
+
 
 export interface ConfirmRegistrationRequestDTO {
     token: string | null
@@ -44,6 +63,8 @@ export interface ConfirmRegistrationResponseDTO {
     status: number
 }
 
+
+
 export interface ForgotPasswordRequestDTO {
     email: string
 }
@@ -51,6 +72,8 @@ export interface ForgotPasswordRequestDTO {
 export interface ForgotPasswordResponseDTO {
     status: number
 }
+
+
 
 export interface ResetPasswordRequestDTO {
     password: string,

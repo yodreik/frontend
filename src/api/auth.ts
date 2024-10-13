@@ -1,11 +1,26 @@
 import { isAxiosError } from "axios";
 import axiosInstance from "./core/axiosInstance";
-import { UserDTO, LoginRequestDTO, LoginResponseDTO, RegisterRequestDTO, RegisterResponseDTO,  ConfirmRegistrationRequestDTO, ConfirmRegistrationResponseDTO, ForgotPasswordRequestDTO, ForgotPasswordResponseDTO, ResetPasswordRequestDTO, ResetPasswordResponseDTO } from "./dto/auth.dto";
+import { UserDTO, LoginRequestDTO, LoginResponseDTO, RegisterRequestDTO, RegisterResponseDTO,  ConfirmRegistrationRequestDTO, ConfirmRegistrationResponseDTO, ForgotPasswordRequestDTO, ForgotPasswordResponseDTO, ResetPasswordRequestDTO, ResetPasswordResponseDTO, UpdateUserDTO } from "./dto/auth.dto";
 import { Error } from "./dto/error";
 
 export const user = async (): Promise<UserDTO | Error> => {
     try {
         const { data, status } = await axiosInstance.get("/auth/account");
+        return {
+            ...data,
+            status: status,
+        }
+    }
+    catch (error) {
+        return isAxiosError(error) && error.response ? 
+            { message: error.response.data, status: error.response.status } :
+            { message: "An unknown error occurred", status: 500 };
+    }
+}
+
+export const updateUser = async (): Promise<UpdateUserDTO | Error> => {
+    try {
+        const { data, status } = await axiosInstance.patch("/auth/account");
         return {
             ...data,
             status: status,
