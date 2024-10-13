@@ -20,7 +20,6 @@ jobs:
                   private_key: ${{ secrets.SSH_PRIVATE_KEY }}
                   command: |
                       cd ${{ secrets.PROJECT_DIR }};
-                      git checkout master;
                       git pull;
                       npm run build;
                       sudo cp -r ./out/* /var/www/yodreik/out/;
