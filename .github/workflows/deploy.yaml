@@ -19,13 +19,8 @@ jobs:
                 user: ${{ secrets.SSH_USER }}
                 private_key: ${{ secrets.SSH_PRIVATE_KEY }}
                 command: |
-                    screen -S dreik-frontend -p 0 -X stuff $'\\003'; # Sends CTRL+C
-                    sleep 2; # Wait for the process to stop
-
+                    screen -S dreik-frontend -p 0 -X stuff $'\\003';
                     screen -S dreik-frontend -p 0 -X stuff 'npm run build\n';
-                    sleep 2; # Wait for the build to complete
-
+                    sleep 2;
                     screen -S dreik-frontend -p 0 -X stuff 'npm run start\n';
-                    sleep 2; # Wait for the application to start
-
                     screen -S dreik-frontend -p 0 -X detach;
