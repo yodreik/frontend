@@ -84,7 +84,7 @@ const SideMenu = (props: Props) => {
                 
                 <div className={styles.bottom}>
                     <div className={styles.itemsContainer}>
-                        <button className={styles.item} onClick={() => {window.open("https://github.com/dreik", "_blank")}}>
+                        <button className={styles.item} onClick={() => {window.open("https://github.com/yodreik", "_blank")}}>
                             <GitHub/>
                             <div className={styles.item_title}>Project on GitHub</div>
                         </button>
