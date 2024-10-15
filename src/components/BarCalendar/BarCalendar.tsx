@@ -42,11 +42,12 @@ interface Workout {
 
 const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
     const today = new Date();
+    const createdAt = getCreatedAt();
 
     const [selectedWeek, setSelectedWeek] = useState<Date>(new Date(today.getFullYear(), today.getMonth(), today.getDate() + ((today.getDay() === 0) ? -6 : 1 - today.getDay())));
     const [selectedMonth, setSelectedMonth] = useState<Date>(new Date(today.getFullYear(), today.getMonth()));
     const [selectedYear, setSelectedYear] = useState<Date>(new Date(today.getFullYear(), 0));
-    const [selectedFiveYears, setSelectedFiveYears] = useState<Date>(new Date(getCreatedAt().getFullYear(), 0));
+    const [selectedFiveYears, setSelectedFiveYears] = useState<Date>(new Date(createdAt.getFullYear(), 0));
 
     const [timeScale, setTimeScale] = useState({ time1: "30m", time2: "60m", time3: "90m", timeMax: 120});
     const [timeDesignations, setTimeDesignations] = useState<string[]>(["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]);
@@ -89,7 +90,7 @@ const BarCalendar = ({ getActivity, getCreatedAt}: Props) => {
         const bars = new Map<number, Bar>();
         const firstDate = getFirstCalendarDay();
         const lastDate = getLastCalendarDay();
-        let bar = firstDate
+        let bar = firstDate;
 
         if (selection === 1){
             lastDate.setDate(31);
