@@ -16,7 +16,6 @@ interface Workout {
 const DashboardPage = () => {
     const { userdata } = useAuth();
 
-    // const [workouts, setWorkouts] = useState<Workout[]>([]);
     const workouts = new Map<string, Workout>();
 
     const handleActivity = async (firstDay: Date | null, lastDay: Date | null) => {

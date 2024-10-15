@@ -1,29 +1,35 @@
 "use client";
 
+import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
 
-const Avatar = () => {
-    const { isAuthorized, isLoading, userdata } = useAuth();
+interface Props {
+    className?: string;
+    height: number;
+    width: number;
+}
 
-    // const user: User = {
-    //     id: userdata?.id,
-    //     username: userdata?.username,
-    //     email: userdata?.email,
-    //     avatarURL: userdata?.avatar_url,
-    // }
+const Avatar = (props: Props) => {
+    const { isLoading, userdata } = useAuth();
+    const [hasError, setHasError] = useState(false);
 
-    // return (
-    //     <>
-    //         <Image
-    //             src={user.avatarURL}
-    //             alt="Avatar"
-    //             className={styles.avatar}
-    //             width={45}
-    //             height={45} 
-    //         />
-    //     </>
-    // );
+    return (
+        <>
+            {
+                !(isLoading) && <>
+                    <Image
+                        src={hasError ? '/images/emptyAvatarWhite.png' : userdata.avatar_url}
+                        alt="Avatar"
+                        className={props.className}
+                        height={props.height} 
+                        width={props.width}
+                        onError={() => setHasError(true)}
+                    />
+                </> 
+            }
+        </>
+    );
 };
 
 export default Avatar;

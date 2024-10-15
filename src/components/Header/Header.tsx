@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import SideMenu from "@/components/SideMenu/SideMenu"
 import Button from "@/components/Button/Button";
-import Image from "next/image";
+import Avatar from "@/components/Avatar/Avatar";
 import styles from "./Header.module.css";
 
 interface User {
@@ -49,15 +49,10 @@ const Header = () => {
                                             <div className={styles.name}>
                                                 {user.username}
                                             </div>
-                                            <button className={styles.avatarButton}>
-                                                <Image
-                                                    src={user.avatarURL}
-                                                    alt="Avatar"
-                                                    className={styles.avatar}
-                                                    width={45}
-                                                    height={45} 
-                                                />
-                                            </button>
+                                            
+                                            <div className={styles.avatarButton}>
+                                                <Avatar className={styles.avatar} height={45} width={45}/>
+                                            </div>
                                         </div>
 
                                         <SideMenu 
