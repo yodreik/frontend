@@ -96,8 +96,8 @@
 }
 
 .avatar {
-    width: 45px;
     height: 45px;
+    width: 45px;
 
     object-fit: cover;
     border: 1px solid var(--gray);
@@ -114,4 +114,6 @@
     border: none;
     border-radius: 50%;
     padding: 0;
+
+    display: flex;
 }
