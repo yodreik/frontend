@@ -16,7 +16,7 @@ const ForgotPasswordPage = () => {
     const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
 
     const handleForgotPassword = async () => {
-		const result  = await Api.auth.forgotPassword({
+		const result  = await Api.account.forgotPassword({
 			email: email,
 		});
 
