@@ -35,7 +35,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     useEffect(() => {
         const checkToken = async () => {  
-            const result = await Api.auth.user();
+            const result = await Api.account.user();
             
             if (!("message" in result)){
                 setIsAuthorized(true);

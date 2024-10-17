@@ -26,7 +26,7 @@ const ResetPasswordPage = () => {
 		const url: URL = new URL(currentUrl);
 		const token: string | null = url.searchParams.get("token");
 
-		const result  = await Api.auth.resetPassword({
+		const result  = await Api.account.resetPassword({
 			password: password,
 			token: token,
 		});

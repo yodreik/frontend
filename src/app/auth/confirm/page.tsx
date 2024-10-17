@@ -19,7 +19,7 @@ const ConfirmPage = () => {
 	    const token: string | null = url.searchParams.get("token");
 
         const handleConfirm = async () => {
-            const result  = await Api.auth.confirmRegistration({
+            const result  = await Api.account.confirmRegistration({
                 token: token,
             });
 
