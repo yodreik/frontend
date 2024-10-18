@@ -1,6 +1,7 @@
 "use client";
 
 import { useToast } from "@/context/ToastContext";
+import styles from "./page.module.css"
 import Button from "@/components/Button/Button";
 import React from "react";
 
@@ -8,7 +9,7 @@ const AuthenticatePage = () => {
     const { success } = useToast();
 
     return (
-        <>
+        <div className={styles.test}>
             <Button
                 label="Success1"
                 onClick={
@@ -39,7 +40,7 @@ const AuthenticatePage = () => {
                     () => success("HUI5", "hui2")
                 }
             />
-        </>
+        </div>
     );
 };
 
