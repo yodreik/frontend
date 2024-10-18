@@ -22,6 +22,7 @@ const Test: React.FC = () => {
         const input = e.target.value;
 
         setDateValue(input);
+        setDateValue(e.target.value);
     };
 
     const onChangeDuration = (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +71,7 @@ const Test: React.FC = () => {
                         <div className={styles.formElement}>
                             <Input
                                 value={dateValue}
-                                onChange={onChangeDate}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setDateValue(e.target.value)}
                                 type="date"
                                 status={"default"}
                                 placeholder="Date"
@@ -80,7 +81,7 @@ const Test: React.FC = () => {
                         <div className={styles.formElement}>
                             <Input
                                 value={durationValue}
-                                onChange={onChangeDuration}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setDurationValue(e.target.value)}
                                 type="number"
                                 status={"default"}
                                 placeholder="Duration"
@@ -90,7 +91,7 @@ const Test: React.FC = () => {
                         <div className={styles.formElement}>
                             <Input
                                 value={kindValue}
-                                onChange={onChangeKind}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setKindValue(e.target.value)}
                                 type="text"
                                 status={"default"}
                                 placeholder="Kind"
