@@ -6,14 +6,13 @@ import Modal from "@/components/Modal/Modal";
 import * as Api from "@/api";
 import styles from "./page.module.css";
 import Input from "@/components/Input/Input";
+import { useToast } from "@/context/ToastContext";
 
 const Test: React.FC = () => {
+
+    const { success } = useToast();
+
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [formData, setFormData] = useState({
-        date: "",
-        duration: 0,
-        kind: "",
-    });
 
     const [dateValue, setDateValue] = useState("");
     const [durationValue, setDurationValue] = useState("");
@@ -45,17 +44,14 @@ const Test: React.FC = () => {
         setIsModalOpen(false);
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
-
     const handleSubmit = async () => {
-        let result = await Api.workout.create({ date: formData.date.split("-").reverse().join("-"), duration: Number(formData.duration), kind: formData.kind });
+        let result = await Api.workout.create({ date: dateValue.split("-").reverse().join("-"), duration: Number(durationValue), kind: kindValue });
+
+        if (result.status === 201) {
+            success("Created", "2");
+        } else {
+            success("Failed to create workout", "big");
+        }
 
         setIsModalOpen(false);
     };
