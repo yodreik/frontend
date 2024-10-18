@@ -1,6 +1,6 @@
 .screen {
     width: 100vw;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,4 +65,19 @@
     height: 300px;
     width: 500px;
     border-radius: 25px;
+}
+
+
+.modalTitle {
+    color: var(--white);
+}
+
+.modalInnerContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.formElement {
+    margin-bottom: 30px;
 }
