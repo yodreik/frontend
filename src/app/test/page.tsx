@@ -23,22 +23,16 @@ const Test: React.FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+
         setFormData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        let result = await Api.workout.create({ date: formData.date, duration: formData.duration, kind: formData.kind })
+    const handleSubmit = async () => {
+        let result = await Api.workout.create({ date: formData.date.split("-").reverse().join("-"), duration: Number(formData.duration), kind: formData.kind });
 
-
-
-        console.log(result);
-
-
-        console.log(`Date: ${formData.date}, duration: ${formData.duration}, kind: ${formData.kind}`)
-        e.preventDefault();
         setIsModalOpen(false);
     };
 
@@ -50,10 +44,9 @@ const Test: React.FC = () => {
             />
 
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                <h2>Form Inside Modal</h2>
-                <form onSubmit={handleSubmit}>
+                <h2>Create a workout</h2>
+                <div>
                     <div>
-                        <label htmlFor="date">Date: </label>
                         <input
                             type="date"
                             id="date"
@@ -61,12 +54,10 @@ const Test: React.FC = () => {
                             required
                             value={formData.date}
                             onChange={handleChange}
-                            pattern="\d{2}-\d{2}-\d{4}"
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="duration">Duration: </label>
                         <input
                             type="number"
                             id="duration"
@@ -80,7 +71,6 @@ const Test: React.FC = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="kind">Kind: </label>
                         <input
                             type="text"
                             id="kind"
@@ -92,8 +82,11 @@ const Test: React.FC = () => {
                         />
                     </div>
 
-                    <button type="submit">Submit</button>
-                </form>
+                    <Button
+                        label="Submit"
+                        onClick={handleSubmit}
+                    />
+                </div>
             </Modal>
 
             <style jsx>{`
