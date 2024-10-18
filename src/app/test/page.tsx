@@ -1,9 +1,11 @@
 "use client"
 
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Button from "@/components/Button/Button";
 import Modal from "@/components/Modal/Modal";
 import * as Api from "@/api";
+import styles from "./page.module.css";
+import Input from "@/components/Input/Input";
 
 const Test: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -12,6 +14,28 @@ const Test: React.FC = () => {
         duration: 0,
         kind: "",
     });
+
+    const [dateValue, setDateValue] = useState("");
+    const [durationValue, setDurationValue] = useState("");
+    const [kindValue, setKindValue] = useState("");
+
+    const onChangeDate = (e: ChangeEvent<HTMLInputElement>) => {
+        const input = e.target.value;
+
+        setDateValue(input);
+    };
+
+    const onChangeDuration = (e: ChangeEvent<HTMLInputElement>) => {
+        const input = e.target.value;
+
+        setDurationValue(input);
+    };
+
+    const onChangeKind = (e: ChangeEvent<HTMLInputElement>) => {
+        const input = e.target.value;
+
+        setKindValue(input);
+    };
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -44,48 +68,46 @@ const Test: React.FC = () => {
             />
 
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                <h2>Create a workout</h2>
                 <div>
-                    <div>
-                        <input
-                            type="date"
-                            id="date"
-                            name="date"
-                            required
-                            value={formData.date}
-                            onChange={handleChange}
-                        />
-                    </div>
+                    <div className={styles.modalInnerContainer}>
+                        <h2 className={styles.modalTitle}>Create a workout</h2>
+                        <div className={styles.formElement}>
+                            <Input
+                                value={dateValue}
+                                onChange={onChangeDate}
+                                type="date"
+                                status={"default"}
+                                placeholder="Date"
+                            />
+                        </div>
 
-                    <div>
-                        <input
-                            type="number"
-                            id="duration"
-                            name="duration"
-                            required
-                            min="1"
-                            value={formData.duration}
-                            onChange={handleChange}
-                            placeholder="Enter positive numbers"
-                        />
-                    </div>
+                        <div className={styles.formElement}>
+                            <Input
+                                value={durationValue}
+                                onChange={onChangeDuration}
+                                type="number"
+                                status={"default"}
+                                placeholder="Duration"
+                            />
+                        </div>
 
-                    <div>
-                        <input
-                            type="text"
-                            id="kind"
-                            name="kind"
-                            required
-                            value={formData.kind}
-                            onChange={handleChange}
-                            placeholder="Enter the type"
-                        />
-                    </div>
+                        <div className={styles.formElement}>
+                            <Input
+                                value={kindValue}
+                                onChange={onChangeKind}
+                                type="text"
+                                status={"default"}
+                                placeholder="Kind"
+                            />
+                        </div>
 
-                    <Button
-                        label="Submit"
-                        onClick={handleSubmit}
-                    />
+                        <div className={styles.formElement}>
+                            <Button
+                                label="Submit"
+                                onClick={handleSubmit}
+                            />
+                        </div>
+                    </div>
                 </div>
             </Modal>
 
