@@ -10,29 +10,34 @@
     align-items: center;
 }
 
+.modalContent {
+    margin-top: 5px;
+}
+
 .modalContainer {
     background-color: var(--dark-gray);
     border: 1px solid var(--light-gray);
     width: 500px;
     border-radius: 25px;
-
     display: flex;
     justify-content: center;
-
     overflow: hidden;
-
     padding: 0px 7px 0px 7px;
+    position: relative;
 }
 
 .modalCloseButton {
-    background: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
     cursor: pointer;
-    float: right;
+    z-index: 1;
 }
 
-.modalContent {
-    margin-top: 5px;
+.modalCloseButton .close {
+    fill: var(--light-gray);
+}
+
+.modalCloseButton:hover .close {
+    fill: var(--white);
 }
