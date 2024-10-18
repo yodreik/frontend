@@ -3,12 +3,6 @@
 import Toast from "../Toast/Toast";
 import styles from "./ToastContainer.module.css";
 
-interface toast {
-    type: "success" | "error";
-    title: string;
-    message: string;
-}
-
 interface ToastProps {
     id: number;
     type: "success" | "error";
@@ -20,7 +14,7 @@ interface ToastContainerProps {
     toasts: ToastProps[];
 }
 
-const ToastContainer = ( toasts: ToastContainerProps ) => {
+const ToastContainer = (toasts: ToastContainerProps) => {
     return (
         <div className={styles.container}>
             {toasts.toasts.map((toast, index) => (
