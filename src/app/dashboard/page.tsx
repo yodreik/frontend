@@ -84,25 +84,6 @@ const DashboardPage = () => {
     const [durationValue, setDurationValue] = useState("");
     const [kindValue, setKindValue] = useState("");
 
-    const onChangeDate = (e: ChangeEvent<HTMLInputElement>) => {
-        const input = e.target.value;
-
-        setDateValue(input);
-        setDateValue(e.target.value);
-    };
-
-    const onChangeDuration = (e: ChangeEvent<HTMLInputElement>) => {
-        const input = e.target.value;
-
-        setDurationValue(input);
-    };
-
-    const onChangeKind = (e: ChangeEvent<HTMLInputElement>) => {
-        const input = e.target.value;
-
-        setKindValue(input);
-    };
-
     const handleOpenModal = () => {
         setIsModalOpen(true);
     };
@@ -180,16 +161,18 @@ const DashboardPage = () => {
                     <div className={styles.chapter}>
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
                             <div className={styles.title}>Statistics</div>
-                            <Button
-                                label="Add"
-                                onClick={handleOpenModal}
-                            />
                         </div>
                         <div className={styles.temporaryStatistics} />
                     </div>
                     <div className={styles.chapter}>
                         <div className={styles.title}>Weight change</div>
                         <div className={styles.temporaryWeight} />
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <Button
+                            label="Add workout"
+                            onClick={handleOpenModal}
+                        />
                     </div>
                 </div>
             </div>
