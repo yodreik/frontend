@@ -178,7 +178,7 @@ const DashboardPage = () => {
                 </div>
                 <div className={styles.column}>
                     <div className={styles.chapter}>
-                        <div style={{ display: "flex", justifyContent: "space-between", backgroundColor: "red" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
                             <div className={styles.title}>Statistics</div>
                             <Button
                                 label="Add"
