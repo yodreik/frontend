@@ -5,6 +5,7 @@
 .test {
     margin-top: 10px;
     display: flex;
+    gap: 400px;
     flex-direction: column;
 }
 

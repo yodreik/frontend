@@ -22,7 +22,9 @@ export default function RootLayout({ children }: Readonly<{
                 <ToastProvider>
                     <AuthProvider>
                         <Header />
-                        {children}
+                        <div className="content">
+                            {children}
+                        </div>
                     </AuthProvider>
                 </ToastProvider>
             </body>
