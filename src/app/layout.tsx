@@ -21,10 +21,11 @@ export default function RootLayout({ children }: Readonly<{
             <body className={inter.className}>
                 <ToastProvider>
                     <AuthProvider>
-                        <Header />
+                        <Header/>
                         <div className="content">
                             {children}
                         </div>
+                        {/* <Footer/> */}
                     </AuthProvider>
                 </ToastProvider>
             </body>

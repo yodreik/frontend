@@ -1,11 +1,4 @@
-.screen {
-    width: 100vw;
-}
-
 .container {
-    margin-top: 10%;
-    height: 90%;
-
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -123,32 +123,30 @@ const ResetPasswordPage = () => {
 	};
 
     return (
-        <div className={styles.screen}>
-            <div className={styles.form_box}>
-                <Form className={styles.form} title="New password" info={info} infoStatus={infoStatus}>
-                    <Input 
-                        value={password} 
-                        onChange={onChangePassword} 
-                        type="password" 
-                        status={passwordStatus} 
-                        placeholder="Password"
-                    />
-					<Input 
-                        value={retypedPassword} 
-                        onChange={onChangeRetypedPassword} 
-                        type="password" 
-                        status={retypedPasswordStatus} 
-                        placeholder="Retype password"
-                    />
+		<div className={styles.form_box}>
+			<Form className={styles.form} title="New password" info={info} infoStatus={infoStatus}>
+				<Input 
+					value={password} 
+					onChange={onChangePassword} 
+					type="password" 
+					status={passwordStatus} 
+					placeholder="Password"
+				/>
+				<Input 
+					value={retypedPassword} 
+					onChange={onChangeRetypedPassword} 
+					type="password" 
+					status={retypedPasswordStatus} 
+					placeholder="Retype password"
+				/>
 
-                    <Button
-                        label="Reset"
-                        onClick={handleResetPassword}
-                        disabled={buttonIsDisabled}
-                    />
-                </Form>
-            </div>
-        </div>
+				<Button
+					label="Reset"
+					onClick={handleResetPassword}
+					disabled={buttonIsDisabled}
+				/>
+			</Form>
+		</div>
     );
 }
 

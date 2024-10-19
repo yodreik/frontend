@@ -81,25 +81,23 @@ const ForgotPasswordPage = () => {
 	};
 
     return (
-        <div className={styles.screen}>
-            <div className={styles.form_box}>
-                <Form className={styles.form} title="Password reset" info={info} infoStatus={infoStatus}>
-                    <Input 
-                        value={email} 
-                        onChange={onChangeEmail} 
-                        type="text" 
-                        status={emailStatus} 
-                        placeholder="Email"
-                    />
+		<div className={styles.form_box}>
+			<Form className={styles.form} title="Password reset" info={info} infoStatus={infoStatus}>
+				<Input 
+					value={email} 
+					onChange={onChangeEmail} 
+					type="text" 
+					status={emailStatus} 
+					placeholder="Email"
+				/>
 
-                    <Button
-                        label="Request"
-                        onClick={handleForgotPassword}
-                        disabled={buttonIsDisabled}
-                    />
-                </Form>
-            </div>
-        </div>
+				<Button
+					label="Request"
+					onClick={handleForgotPassword}
+					disabled={buttonIsDisabled}
+				/>
+			</Form>
+		</div>
     );
 }
 
