@@ -1,13 +1,4 @@
-.screen {
-    width: 100vw;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .form_box {
-    margin-top: 15%;
     background-color: var(--dark-gray);
     border: 1px solid var(--light-gray);
     height: 270px;

@@ -72,26 +72,24 @@ const DashboardPage = () => {
     }
 
     return (
-        <div className={styles.screen}>
-            <div className={styles.container}>
-                <div className={styles.column}>
-                    <div className={styles.chapter}>
-                        <div className={styles.title}>Activity history</div>
-                        <Calendar getActivity={handleActivity}/>
-                    </div>
-                    <div className={styles.chapter}>
-                        <BarCalendar getActivity={handleActivity} getCreatedAt={handleCreatedAt}/>
-                    </div>
+        <div className={styles.container}>
+            <div className={styles.column}>
+                <div className={styles.chapter}>
+                    <div className={styles.title}>Activity history</div>
+                    <Calendar getActivity={handleActivity}/>
                 </div>
-                <div className={styles.column}>
-                    <div className={styles.chapter}>
-                        <div className={styles.title}>Statistics</div>
-                        <div className={styles.temporaryStatistics}/>
-                    </div>
-                    <div className={styles.chapter}>
-                        <div className={styles.title}>Weight change</div>
-                        <div className={styles.temporaryWeight}/>
-                    </div>
+                <div className={styles.chapter}>
+                    <BarCalendar getActivity={handleActivity} getCreatedAt={handleCreatedAt}/>
+                </div>
+            </div>
+            <div className={styles.column}>
+                <div className={styles.chapter}>
+                    <div className={styles.title}>Statistics</div>
+                    <div className={styles.temporaryStatistics}/>
+                </div>
+                <div className={styles.chapter}>
+                    <div className={styles.title}>Weight change</div>
+                    <div className={styles.temporaryWeight}/>
                 </div>
             </div>
         </div>

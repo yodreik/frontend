@@ -281,97 +281,95 @@ const AuthPage = () => {
     };
 
     return (
-        <div className={styles.screen}>
-            <article className={styles.container}>
-                <div className={styles.block}>
-                    <section className={styles.block_item}>
-                        <h2 className={styles.block_item__title}>
-                            Already have an account?
-                        </h2>
-                        <Button
-                            label="Log In"
-                            onClick={() => (setIsSignIn(true))}
-                            disabled={false}
-                        />
-                    </section>
-                    <section className={styles.block_item}>
-                        <h2 className={styles.block_item__title}>{"Don't have an account?"}</h2>
-                        <Button
-                            label="Create"
-                            onClick={() => (setIsSignIn(false))}
-                            disabled={false}
-                        />
-                    </section>
-                </div>
+        <article className={styles.container}>
+            <div className={styles.block}>
+                <section className={styles.block_item}>
+                    <h2 className={styles.block_item__title}>
+                        Already have an account?
+                    </h2>
+                    <Button
+                        label="Log In"
+                        onClick={() => (setIsSignIn(true))}
+                        disabled={false}
+                    />
+                </section>
+                <section className={styles.block_item}>
+                    <h2 className={styles.block_item__title}>{"Don't have an account?"}</h2>
+                    <Button
+                        label="Create"
+                        onClick={() => (setIsSignIn(false))}
+                        disabled={false}
+                    />
+                </section>
+            </div>
 
-                <div className={`${styles.form_box} ${isSignIn ? "" : styles.active}`}>
-                    <Form className={styles.form_signin} title="Log In" info={infoLogin} infoStatus={infoLoginStatus}>
-                        <Input
-                            value={emailOrUsernameLogin}
-                            onChange={onChangeEmailOrUsernameLogin}
-                            type="text"
-                            status={emailOrUsernameLoginStatus}
-                            placeholder="Email or username"
-                        />
-                        <Input
-                            value={passwordLogin}
-                            onChange={onChangePasswordLogin}
-                            type="password"
-                            status={passwordLoginStatus}
-                            placeholder="Password"
-                        />
+            <div className={`${styles.form_box} ${isSignIn ? "" : styles.active}`}>
+                <Form className={styles.form_signin} title="Log In" info={infoLogin} infoStatus={infoLoginStatus}>
+                    <Input
+                        value={emailOrUsernameLogin}
+                        onChange={onChangeEmailOrUsernameLogin}
+                        type="text"
+                        status={emailOrUsernameLoginStatus}
+                        placeholder="Email or username"
+                    />
+                    <Input
+                        value={passwordLogin}
+                        onChange={onChangePasswordLogin}
+                        type="password"
+                        status={passwordLoginStatus}
+                        placeholder="Password"
+                    />
 
-                        <Button
-                            label="Sign In"
-                            onClick={handleLogin}
-                            disabled={buttonLoginIsDisabled}
-                        />
-                        <p>
-                            <a href="/auth/password/forgot" className={styles.form__forgot}>
-                                Forgot Password?
-                            </a>
-                        </p>
-                    </Form>
+                    <Button
+                        label="Sign In"
+                        onClick={handleLogin}
+                        disabled={buttonLoginIsDisabled}
+                    />
+                    <p>
+                        <a href="/auth/password/forgot" className={styles.form__forgot}>
+                            Forgot Password?
+                        </a>
+                    </p>
+                </Form>
 
-                    <Form className={styles.form_signup} title="Create an account" info={infoRegister} infoStatus={infoRegisterStatus}>
-                        <Input
-                            value={usernameRegister}
-                            onChange={onChangeUsernameRegister}
-                            type="text"
-                            status={usernameRegisterStatus}
-                            placeholder="Username"
-                        />
-                        <Input
-                            value={emailRegister}
-                            onChange={onChangeEmailRegister}
-                            type="text"
-                            status={emailRegisterStatus}
-                            placeholder="Email"
-                        />
-                        <Input
-                            value={passwordRegister}
-                            onChange={onChangePasswordRegister}
-                            type="password"
-                            status={passwordRegisterStatus}
-                            placeholder="Password"
-                        />
-                        <Input
-                            value={retypedPasswordRegister}
-                            onChange={onChangeRetypedPasswordRegister}
-                            type="password"
-                            status={retypedPasswordRegisterStatus}
-                            placeholder="Retype password"
-                        />
+                <Form className={styles.form_signup} title="Create an account" info={infoRegister} infoStatus={infoRegisterStatus}>
+                    <Input
+                        value={usernameRegister}
+                        onChange={onChangeUsernameRegister}
+                        type="text"
+                        status={usernameRegisterStatus}
+                        placeholder="Username"
+                    />
+                    <Input
+                        value={emailRegister}
+                        onChange={onChangeEmailRegister}
+                        type="text"
+                        status={emailRegisterStatus}
+                        placeholder="Email"
+                    />
+                    <Input
+                        value={passwordRegister}
+                        onChange={onChangePasswordRegister}
+                        type="password"
+                        status={passwordRegisterStatus}
+                        placeholder="Password"
+                    />
+                    <Input
+                        value={retypedPasswordRegister}
+                        onChange={onChangeRetypedPasswordRegister}
+                        type="password"
+                        status={retypedPasswordRegisterStatus}
+                        placeholder="Retype password"
+                    />
 
-                        <Button
-                            label="Create"
-                            onClick={handleRegister}
-                            disabled={buttonRegisterIsDisabled}
-                        />
-                    </Form>
-                </div>
-            </article>
-        </div>
+                    <Button
+                        label="Create"
+                        onClick={handleRegister}
+                        disabled={buttonRegisterIsDisabled}
+                    />
+                </Form>
+            </div>
+        </article>
     );
 };
 
