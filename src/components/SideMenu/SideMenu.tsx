@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useAuth } from '@/context/AuthContext';
+import Cookies from 'js-cookie';
 import Avatar from "@/components/Avatar/Avatar";
 import Close from "@/icons/close";
 import Profile from "@/icons/profile";
@@ -11,7 +12,6 @@ import Exit from "@/icons/exit";
 import Bug from "@/icons/bug";
 import GitHub from "@/icons/gitHub";
 import styles from "./SideMenu.module.css";
-
 
 interface Props {
     isActive: boolean;
@@ -28,7 +28,7 @@ const SideMenu = (props: Props) => {
 
     const handleLogout = () => {
         props.setInactive();
-        localStorage.removeItem("token");
+        Cookies.remove("token");
         setIsAuthorized(false);
         router.push("/");
     }

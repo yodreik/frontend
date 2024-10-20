@@ -3,6 +3,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from '@/context/AuthContext';
+import Cookies from 'js-cookie';
 import * as Api from "@/api";
 import Form from "@/components/Form/Form";
 import Input from "@/components/Input/Input";
@@ -57,7 +58,7 @@ const AuthPage = () => {
         });
 
         if (!("message" in result)) {
-            localStorage.setItem("token", result.token);
+            Cookies.set("token", result.token, { expires: 365 });
             setIsAuthorized(true);
 
             displayLoginMessage("Successfully logged in", true);
