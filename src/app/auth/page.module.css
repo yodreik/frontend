@@ -1,15 +1,4 @@
-.screen {
-    width: 100vw;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    overflow: hidden;
-}
-
 .container {
-    margin-top: 10%;
     width: 800px;
     height: 500px;
     padding: 40px 0;

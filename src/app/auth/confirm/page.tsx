@@ -38,22 +38,20 @@ const ConfirmPage = () => {
     }, []);
 
     return (
-        <div className={styles.screen}>
-            <div className={styles.container}>
-                {
-                    status !== "default" && (<>
-                        {
-                            status === "success" ? <>
-                                <Fire/>
-                                <div className={styles.title}>Your email successfully confirmed</div>
-                            </> : <>
-                                <Error/>
-                                <div className={styles.title}>Invalid confirmation link</div>
-                            </>
-                        }
-                    </>
-                )}
-            </div>
+        <div className={styles.container}>
+            {
+                status !== "default" && (<>
+                    {
+                        status === "success" ? <>
+                            <Fire/>
+                            <div className={styles.title}>Your email successfully confirmed</div>
+                        </> : <>
+                            <Error/>
+                            <div className={styles.title}>Invalid confirmation link</div>
+                        </>
+                    }
+                </>
+            )}
         </div>
     )
 }

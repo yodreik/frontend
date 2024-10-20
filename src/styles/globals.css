@@ -33,7 +33,17 @@
 }
 
 body {
-    margin: 0;
-
+    display: block;
+    
     background-color: var(--black);
+
+    margin: 0;
+}
+
+.content {
+    min-height: calc(100vh - 140px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
