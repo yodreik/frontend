@@ -1,11 +1,4 @@
-.screen {
-    width: 100vw;
-}
-
 .container {
-    margin-top: 7%;
-    height: 90%;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,10 +11,11 @@
 .title_container {
     font-size: 350px;
 
-    width: 80%;
+    width: 90%;
 
     display: flex;
     justify-content: space-around;
+    gap: 40px;
 }
 
 .title {

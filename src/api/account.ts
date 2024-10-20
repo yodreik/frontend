@@ -50,7 +50,7 @@ export const confirmRegistration = async (values: ConfirmRegistrationRequestDTO)
 
 export const forgotPassword = async (values: ForgotPasswordRequestDTO): Promise<ForgotPasswordResponseDTO | Error> => {
     try {
-        const { data, status } = await axiosInstance.post("/account/reset-password", values);
+        const { data, status } = await axiosInstance.post("/account/reset-password/request", values);
         return {
             ...data,
             status: status,
@@ -65,7 +65,7 @@ export const forgotPassword = async (values: ForgotPasswordRequestDTO): Promise<
 
 export const resetPassword = async (values: ResetPasswordRequestDTO): Promise<ResetPasswordResponseDTO | Error> => {
     try {
-        const { data, status } = await axiosInstance.patch("/auth/account/reset-password/request", values);
+        const { data, status } = await axiosInstance.patch("/account/reset-password", values);
         return {
             ...data,
             status: status,
