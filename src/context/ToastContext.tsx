@@ -22,12 +22,13 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const [toasts, setToasts] = useState<Toast[]>([]);
 
     const success = (title: string, message: string) => {
-        setToasts((items) => [...items, { id: counter, type: "success", title, message }]);
+        setToasts((items) => [...items, { id: counter, type: "success", title: title, message: message }]);
         const curIndex = counter;
-        console.log("counter" + counter);
+
         setTimeout(() => {
             removeToast(curIndex);
         }, 5000)
+
         setCounter(counter + 1);
     };
 
