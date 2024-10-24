@@ -6,6 +6,8 @@ import Header from "@/components/Header/Header";
 import "@/styles/globals.css";
 import "@/styles/fonts.css";
 
+import Success from "@/icons/success";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -28,7 +30,7 @@ export default function RootLayout({ children }: Readonly<{
                             style: {
                                 // Blurred transparent styles
                                 // border: "1px solid var(--light-gray)",
-                                // borderRadius: "15px",
+                                borderRadius: "15px",
                                 // fontSize: "16px",
                                 // backdropFilter: "blur(15px)",
                                 // backgroundColor: "rgba(24, 24, 27, 60%)",
