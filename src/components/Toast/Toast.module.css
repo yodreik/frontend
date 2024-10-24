@@ -28,14 +28,20 @@
     display: none;
 }
 
-.close {
+.closeButton {
     right: 10px;
     top: 10px;
     position: fixed;
 }
 
-.close:hover {
+.closeButton:hover {
     cursor: pointer;
+}
+
+.close {
+    height: 24px;
+    width: 24px;
+    fill: var(--white);
 }
 
 .content {

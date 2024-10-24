@@ -5,6 +5,7 @@ import { ChangeEvent } from "react";
 import styles from "./Input.module.css";
 
 interface Props {
+    className?: string;
     value: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
     type?: string;
@@ -18,8 +19,8 @@ const Input = (props: Props) => {
         <input
             className={
                 props.status === "error"
-                ? `${styles.input} ${styles.inputError}`
-                : `${styles.input}`
+                ? `${styles.input} ${props.className} ${styles.inputError}`
+                : `${styles.input} ${props.className}`
             }
             type={props.type}
             placeholder={props.placeholder}
