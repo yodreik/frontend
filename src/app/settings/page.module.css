@@ -1,0 +1,84 @@
+.container {
+    height: auto;
+    min-height: 770px;
+    width: 700px;
+
+    display: block;
+}
+
+.section {
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.sectionTitle {
+    color: var(--white);
+    font-size: 32px;
+    font-weight: 700;
+
+    margin: 15px 30px 10px 40px;
+}
+
+.sectionSeparator {
+    height: 1px;
+    width: 100%;
+
+    margin: 0;
+    border: none;
+
+    background-color: var(--gray);
+}
+
+.sectionContent {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+
+    padding: 25px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sectionInputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    width: auto;
+}
+
+.label {
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 500;
+
+    margin: 0px 10px 0px 10px;
+}
+
+.input {
+    width: 425px;
+}
+
+.avatar {
+    object-fit: cover;
+    border: 1px solid var(--gray);
+    border-radius: 50%;
+}
+
+.tick {
+    height: 11px;
+    width: 12px;
+    fill: var(--green);
+}
+
+.cross {
+    height: 11px;
+    width: 11px;
+    fill: var(--red);
+}
