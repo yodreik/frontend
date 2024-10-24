@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useToast } from "@/context/ToastContext";
 import Success from "@/icons/success";
 import Failure from "@/icons/failure";
-import Close from "@/icons/close";
+import Close from "@/icons/cross";
 import styles from "./Toast.module.css";
 
 interface Props {
@@ -30,8 +30,8 @@ const Toast = (props: Props) => {
 
     return (
         <div className={`${styles.toast} ${isVisible ? "" : styles.active}`}>
-            <div className={styles.close} onClick={handleClose}>
-                <Close/>
+            <div className={styles.closeButton} onClick={handleClose}>
+                <Close className={styles.close}/>
             </div>
 
             <div className={styles.icon}>

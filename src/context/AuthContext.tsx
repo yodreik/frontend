@@ -9,7 +9,9 @@ interface Userdata {
     display_name: string,
     email: string,
     avatar_url: string,
-    created_at: string
+    created_at: string,
+    is_confirmed: boolean,
+    is_private: boolean
 }
 
 interface AuthContextType {
@@ -30,7 +32,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         display_name: "", 
         email: "",
         avatar_url: "",
-        created_at: ""
+        created_at: "",
+        is_confirmed: false,
+        is_private: false
     });
 
     useEffect(() => {
@@ -45,8 +49,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                     display_name: result.display_name, 
                     email: result.email,
                     avatar_url: result.avatar_url,
-                    created_at: result.created_at
+                    created_at: result.created_at,
+                    is_confirmed: result.is_confirmed,
+                    is_private: result.is_private
                 });
+                localStorage.setItem('userdata', JSON.stringify(userdata));
             }
             else {
                 setIsAuthorized(false);

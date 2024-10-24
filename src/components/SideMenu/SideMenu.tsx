@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from '@/context/AuthContext';
 import Cookies from 'js-cookie';
 import Avatar from "@/components/Avatar/Avatar";
-import Close from "@/icons/close";
+import Cross from "@/icons/cross";
 import Profile from "@/icons/profile";
 import Dashboard from "@/icons/dashboard";
 import Settings from "@/icons/settings";
@@ -37,7 +37,7 @@ const SideMenu = (props: Props) => {
         <div className={styles.container}>
             <div className={`${styles.menu} ${props.isActive ? styles.active : ""}`}>
                 <button className={styles.closeButton} onClick={props.setInactive}>
-                    <Close/>
+                    <Cross className={styles.close}/>
                 </button>
 
                 <div className={styles.miniProfile}>
@@ -62,7 +62,7 @@ const SideMenu = (props: Props) => {
                         <div className={styles.item_title}>Dashboard</div>
                     </button>
 
-                    <button className={styles.item} onClick={() => {props.setInactive(); router.push("/")}}>
+                    <button className={styles.item} onClick={() => {props.setInactive(); router.push("/settings")}}>
                         <Settings/>
                         <div className={styles.item_title}>Settings</div>
                     </button>

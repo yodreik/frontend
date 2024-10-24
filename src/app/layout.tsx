@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { AuthProvider } from '../context/AuthContext';
 import { ToastProvider } from "@/context/ToastContext";
 import Header from "@/components/Header/Header";
 import "@/styles/globals.css";
 import "@/styles/fonts.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
     title: "dreik",
@@ -18,7 +18,7 @@ export default function RootLayout({ children }: Readonly<{
 }>) {
     return (
         <html lang="en">
-            <body className={inter.className}>
+            <body className={montserrat.className}>
                 <ToastProvider>
                     <AuthProvider>
                         <Header/>

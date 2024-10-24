@@ -80,6 +80,12 @@
     border-radius: 10px;
 }
 
+.close {
+    height: 24px;
+    width: 24px;
+    fill: var(--white);
+}
+
 .miniProfile {
     margin: 22px;
 

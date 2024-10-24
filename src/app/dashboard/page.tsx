@@ -105,7 +105,7 @@ const DashboardPage = () => {
     };
 
     return (
-        <div className={styles.screen}>
+        <div>
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 <div className={styles.modalInnerContainer}>
                     <h2 className={styles.modalTitle}>Create a workout</h2>
