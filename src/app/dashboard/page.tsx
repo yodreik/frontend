@@ -1,5 +1,6 @@
 "use client"
 
+import { toast } from 'sonner';
 import BarCalendar from "@/components/BarCalendar/BarCalendar";
 import Calendar from "@/components/Calendar/Calendar";
 import { useAuth } from "@/context/AuthContext";
@@ -10,7 +11,6 @@ import * as Api from "@/api";
 import { ChangeEvent, useState } from "react";
 import Modal from "@/components/Modal/Modal";
 import Input from "@/components/Input/Input";
-import { useToast } from "@/context/ToastContext";
 
 interface Workout {
     date: Date,
@@ -76,8 +76,6 @@ const DashboardPage = () => {
         return new Date(year, month, day);
     }
 
-    const { success } = useToast();
-
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const [dateValue, setDateValue] = useState("");
@@ -96,9 +94,9 @@ const DashboardPage = () => {
         let result = await Api.workout.create({ date: dateValue.split("-").reverse().join("-"), duration: Number(durationValue), kind: kindValue });
 
         if (result.status === 201) {
-            success("Created", "2");
+            toast.success("Successfully created a workout record");
         } else {
-            success("Failed to create workout", "big");
+            toast.error("Failed to create workout");
         }
 
         setIsModalOpen(false);

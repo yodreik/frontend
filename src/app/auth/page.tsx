@@ -9,6 +9,7 @@ import Form from "@/components/Form/Form";
 import Input from "@/components/Input/Input";
 import Button from "@/components/Button/Button";
 import styles from "./page.module.css";
+import { toast } from "sonner";
 
 
 const AuthPage = () => {
@@ -63,6 +64,7 @@ const AuthPage = () => {
 
             displayLoginMessage("Successfully logged in", true);
             router.push("/dashboard");
+            toast.success("Successfully logged in!")
         }
         else {
             handleLoginError(result.status);
@@ -72,12 +74,15 @@ const AuthPage = () => {
     const handleLoginError = (status: number) => {
         switch (status) {
             case 401:
+                toast.error("Incorrect login or password");
                 displayLoginMessage("Email or password is incorrect");
                 break;
             case 403:
+                toast.info("Confirm your email");
                 displayLoginMessage("Confirm your email", true);
                 break;
             case 500:
+                toast.error("Something went wrong. Try again later");
                 displayLoginMessage("Server error. Try later");
                 break;
             default:
@@ -93,6 +98,7 @@ const AuthPage = () => {
         });
 
         if (!("message" in result)) {
+            toast.success("Registered successfully. Check your email to verify account")
             displayRegisterMessage("Successfully registered. Check your email to confirm", true);
         }
         else {
@@ -103,9 +109,11 @@ const AuthPage = () => {
     const handleRegisterError = (status: number) => {
         switch (status) {
             case 409:
+                toast.error("This email or username already taken")
                 displayRegisterMessage("This email or username already taken");
                 break;
             case 500:
+                toast.error("Something went wrong. Try again later")
                 displayRegisterMessage("Server error. Try later");
                 break;
             default:
