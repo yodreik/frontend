@@ -25,7 +25,7 @@ export default function RootLayout({ children }: Readonly<{
                     <Header />
                     <div className="content">
                         {children}
-                        <Toaster richColors theme="dark" position="bottom-center" toastOptions={{
+                        <Toaster closeButton richColors theme="dark" position="bottom-center" toastOptions={{
                             duration: 3000,
                             style: {
                                 // Blurred transparent styles
