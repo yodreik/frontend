@@ -102,10 +102,20 @@
     flex-direction: column;
 }
 
-.userName {
+.names {
+    display: flex;
+}
+
+.displayName {
     color: var(--white);
     font-size: 18;
     font-weight: bold;
+    margin-right: 10px;
+}
+
+.userName {
+    color: var(--dark-white);
+    font-size: 18;
 }
 
 .userEmail {

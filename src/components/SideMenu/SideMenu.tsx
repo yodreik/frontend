@@ -18,6 +18,7 @@ interface Props {
     isActive: boolean;
     setInactive: () => void;
     username: string;
+    displayName: string;
     email: string;
     avatarURL: string;
 }
@@ -47,7 +48,15 @@ const SideMenu = (props: Props) => {
                     <Avatar className={styles.avatar} height={38} width={38} />
 
                     <div className={styles.userInfo}>
-                        <div className={styles.userName}>{props.username}</div>
+                        {
+                            props.displayName !== "" ?
+                                <div className={styles.names}>
+                                    <div className={styles.displayName}>{props.displayName}</div>
+                                    <div className={styles.userName}>{`(${props.username})`}</div>
+                                </div>
+                                :
+                                <div className={styles.displayName}>{`@${props.username}`}</div>
+                        }
                         <div className={styles.userEmail}>{props.email}</div>
                     </div>
                 </div>
@@ -100,7 +109,7 @@ const SideMenu = (props: Props) => {
                 </div>
             </div>
             <div className={`${styles.blind} ${props.isActive ? styles.active : ""}`} onClick={props.setInactive} />
-        </div>
+        </div >
     );
 }
 

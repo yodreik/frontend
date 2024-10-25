@@ -61,6 +61,7 @@ const Header = () => {
                                             isActive={isSideMenuActive}
                                             setInactive={() => { setIsSideMenuActive(false) }}
                                             username={user.username}
+                                            displayName={user.displayName}
                                             email={user.email}
                                             avatarURL={user.avatarURL}
                                         />
