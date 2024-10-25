@@ -8,11 +8,11 @@
     --dark-gray: #18181b;
     --gray: #27272a;
     --light-gray: #434343;
-    --dark-white: #b1b1b1;
+    --dark-white: #9198a1;
     --white: #fafafa;
 
-    
-   
+
+
     --lime: #bdf500;
     --green: #7bff78;
     --dark-green: #315a31;
@@ -34,7 +34,7 @@
 
 body {
     display: block;
-    
+
     background-color: var(--black);
 
     margin: 0;
