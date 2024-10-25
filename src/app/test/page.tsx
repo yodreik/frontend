@@ -1,3 +1,5 @@
+'use client';
+
 import Button from "@/components/Button/Button";
 
 const Test: React.FC = () => {
