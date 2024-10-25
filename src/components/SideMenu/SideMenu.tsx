@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useAuth } from '@/context/AuthContext';
-import Cookies from 'js-cookie';
 import Avatar from "@/components/Avatar/Avatar";
 import Cross from "@/icons/cross";
 import Profile from "@/icons/profile";
@@ -22,16 +21,9 @@ interface Props {
 }
 
 const SideMenu = (props: Props) => {
-    const { setIsAuthorized } = useAuth();
+    const { logout } = useAuth();
 
     const router = useRouter();
-
-    const handleLogout = () => {
-        props.setInactive();
-        Cookies.remove("token");
-        setIsAuthorized(false);
-        router.push("/");
-    }
 
     return (
         <div className={styles.container}>
@@ -71,7 +63,7 @@ const SideMenu = (props: Props) => {
                 <hr className={styles.separator} />
 
                 <div className={styles.itemsContainer}>
-                    <button className={styles.item} onClick={handleLogout}>
+                    <button className={styles.item} onClick={logout}>
                         <Exit/>
                         <div className={styles.item_titleRed}>Sign Out</div>
                     </button>
