@@ -9,7 +9,8 @@
     color: var(--black);
 
     height: 40px;
-    width: 160px;
+    padding: 0 17px;
+    min-width: 160px;
 
     border: none;
     border-radius: 15px;

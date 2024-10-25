@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const nextConfig = { 
+const nextConfig = {
     images: {
         remotePatterns: [
             {
@@ -10,7 +10,7 @@ const nextConfig = {
                 pathname: '/api/avatar/**',
             },
         ],
-    },
+    }
 };
 
 export default nextConfig;

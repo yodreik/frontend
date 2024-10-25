@@ -9,6 +9,7 @@ import Form from "@/components/Form/Form";
 import Input from "@/components/Input/Input";
 import Button from "@/components/Button/Button";
 import styles from "./page.module.css";
+import { toast } from "sonner";
 
 
 const AuthPage = () => {
@@ -61,8 +62,8 @@ const AuthPage = () => {
             Cookies.set("token", result.token, { expires: 365 });
             refreshUserData();
 
-            displayLoginMessage("Successfully logged in", true);
             router.replace("/dashboard");
+            toast.success("Successfully logged in")
         }
         else {
             handleLoginError(result.status);
@@ -72,16 +73,16 @@ const AuthPage = () => {
     const handleLoginError = (status: number) => {
         switch (status) {
             case 401:
-                displayLoginMessage("Email or password is incorrect");
+                toast.error("Incorrect login or password");
                 break;
             case 403:
-                displayLoginMessage("Confirm your email", true);
+                toast.info("Confirm your email");
                 break;
             case 500:
-                displayLoginMessage("Server error. Try later");
+                toast.error("Something went wrong. Try again later");
                 break;
             default:
-                displayLoginMessage("An unknown error occurred");
+                toast.error("Unknown error occurred")
         }
     };
 
@@ -93,7 +94,7 @@ const AuthPage = () => {
         });
 
         if (!("message" in result)) {
-            displayRegisterMessage("Successfully registered. Check your email to confirm", true);
+            toast.success("Registered successfully. Check your email to verify account")
         }
         else {
             handleRegisterError(result.status);
@@ -103,13 +104,13 @@ const AuthPage = () => {
     const handleRegisterError = (status: number) => {
         switch (status) {
             case 409:
-                displayRegisterMessage("This email or username already taken");
+                toast.error("This email or username already taken")
                 break;
             case 500:
-                displayRegisterMessage("Server error. Try later");
+                toast.error("Something went wrong. Try again later")
                 break;
             default:
-                displayRegisterMessage("An unknown error occurred");
+                toast.error("An unknown error occurred");
         }
     };
 
