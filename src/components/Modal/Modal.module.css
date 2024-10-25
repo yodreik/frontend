@@ -8,7 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 200;
 }
 
 .modalContent {
@@ -32,13 +32,22 @@
     top: 15px;
     right: 15px;
     cursor: pointer;
-    z-index: 1;
+
+    height: 30px;
+    width: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.modalCloseButton .close {
-    fill: var(--light-gray);
-}
-
-.modalCloseButton:hover .close {
+.close {
+    height: 14px;
+    width: 14px;
     fill: var(--white);
+}
+
+.modalCloseButton:hover {
+    background-color: var(--gray);
+    border-radius: 7px;
 }

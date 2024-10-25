@@ -34,7 +34,7 @@ const ResetPasswordPage = () => {
 		if (!("message" in result)){
 			displayMessage("Password successfully reseted", true);
 			setTimeout(() => {
-                router.push("/auth");
+                router.replace("/auth");
             }, 1000);
 		}
 		else {

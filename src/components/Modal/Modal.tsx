@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import styles from "./Modal.module.css";
-import Close from "@/icons/close";
+import Cross from "@/icons/cross";
 
 interface ModalProps {
     isOpen: boolean;
@@ -15,7 +15,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
         <div className={styles.modalOverlay}>
             <div className={styles.modalContainer}>
                 <div className={styles.modalCloseButton} onClick={onClose}>
-                    <Close />
+                    <Cross className={styles.close}/>
                 </div>
                 <div className={styles.modalContent}>{children}</div>
             </div>
