@@ -3,9 +3,8 @@
 import { toast } from 'sonner';
 import { useRouter } from "next/navigation";
 import { useAuth } from '@/context/AuthContext';
-import Cookies from 'js-cookie';
 import Avatar from "@/components/Avatar/Avatar";
-import Close from "@/icons/close";
+import Cross from "@/icons/cross";
 import Profile from "@/icons/profile";
 import Dashboard from "@/icons/dashboard";
 import Settings from "@/icons/settings";
@@ -24,16 +23,12 @@ interface Props {
 }
 
 const SideMenu = (props: Props) => {
-    const { setIsAuthorized } = useAuth();
+    const { logout } = useAuth();
 
     const router = useRouter();
 
     const handleLogout = () => {
-        props.setInactive();
-        Cookies.remove("token");
-        setIsAuthorized(false);
-        router.push("/");
-
+        logout();
         toast.success("Logged out");
     }
 
@@ -41,8 +36,8 @@ const SideMenu = (props: Props) => {
         <div className={styles.container}>
             <div className={`${styles.menu} ${props.isActive ? styles.active : ""}`}>
                 <button className={styles.closeButton} onClick={props.setInactive}>
-                    <Close />
-                </button>
+                    <Cross className={styles.close} />
+                </button >
 
                 <div className={styles.miniProfile}>
                     <Avatar className={styles.avatar} height={38} width={38} />
@@ -74,7 +69,7 @@ const SideMenu = (props: Props) => {
                         <div className={styles.item_title}>Dashboard</div>
                     </button>
 
-                    <button className={styles.item} onClick={() => { props.setInactive(); router.push("/") }}>
+                    <button className={styles.item} onClick={() => { props.setInactive(); router.push("/settings") }}>
                         <Settings />
                         <div className={styles.item_title}>Settings</div>
                     </button>
@@ -107,7 +102,7 @@ const SideMenu = (props: Props) => {
                         </button>
                     </div>
                 </div>
-            </div>
+            </div >
             <div className={`${styles.blind} ${props.isActive ? styles.active : ""}`} onClick={props.setInactive} />
         </div >
     );

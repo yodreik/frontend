@@ -39,7 +39,7 @@ const AuthPage = () => {
     const [infoRegisterStatus, setInfoRegisterStatus] = useState<"error" | "success" | "default">("default");
     const [buttonRegisterIsDisabled, setButtonRegisterIsDisabled] = useState<boolean>(false);
 
-    const { setIsAuthorized } = useAuth();
+    const { refreshUserData } = useAuth();
 
     const router = useRouter();
 
@@ -60,9 +60,9 @@ const AuthPage = () => {
 
         if (!("message" in result)) {
             Cookies.set("token", result.token, { expires: 365 });
-            setIsAuthorized(true);
+            refreshUserData();
 
-            router.push("/dashboard");
+            router.replace("/dashboard");
             toast.success("Successfully logged in")
         }
         else {
