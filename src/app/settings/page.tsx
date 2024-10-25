@@ -1,7 +1,6 @@
 "use client"
 
 import { ChangeEvent, useEffect, useState } from "react";
-import { useToast } from "@/context/ToastContext";
 import Avatar from "@/components/Avatar/Avatar";
 import Input from "@/components/Input/Input";
 import Pencil from "@/icons/pencil";
@@ -22,7 +21,6 @@ interface Userdata {
 }
 
 const SettingsPage = () => {
-    const { success } = useToast();
     const { userdata } = useAuth();
 
     const [newDisplayName, setNewDisplayName] = useState<string>("");
@@ -91,15 +89,15 @@ const SettingsPage = () => {
             <div className={styles.container}>
                 <div className={styles.section}>
                     <div className={styles.sectionTitle}>Settings</div>
-                    <div className={styles.sectionSeparator}/>
-                    
+                    <div className={styles.sectionSeparator} />
+
                     <div className={styles.sectionContent}>
                         <div className={styles.column}>
                             <div className={styles.sectionInputContainer}>
                                 <div className={styles.label}>Display Name</div>
-                                <Input 
+                                <Input
                                     className={styles.input}
-                                    value={newDisplayName} 
+                                    value={newDisplayName}
                                     onChange={onChangeNewDisplayName}
                                     type="text"
                                     status={newDisplayNameStatus}
@@ -109,54 +107,54 @@ const SettingsPage = () => {
 
                             <div className={styles.sectionInputContainer}>
                                 <div className={styles.label}>Username</div>
-                                <Input 
+                                <Input
                                     className={styles.input}
-                                    value={newUsername} 
+                                    value={newUsername}
                                     onChange={onChangeNewUsername}
                                     type="text"
                                     status={newUsernameStatus}
                                     placeholder={userdata.username}
                                 />
                             </div>
-                            
+
                             <div className={styles.sectionInputContainer}>
                                 <div className={styles.label}>Email</div>
                                 {
-                                    isEditingEmail ? 
-                                    <Input 
-                                        className={styles.input}
-                                        value={newEmail} 
-                                        onChange={onChangeNewEmail}
-                                        type="text"
-                                        status={newEmailStatus}
-                                        placeholder={userdata.email}
-                                    /> :
-                                    <div style={{ display: "flex", alignItems: "center", flexDirection: "row", gap: "10px", height: "40px", padding: "10px"}}>
-                                        <div style={{ color: "var(--dark-white)" }}>{maskEmail(userdata.email)}</div>
-                                        <div style={{ cursor: "pointer", display: "flex", alignItems: "center" }} onClick={() => (setIsEditingEmail(true))}>
-                                            <Pencil/>
+                                    isEditingEmail ?
+                                        <Input
+                                            className={styles.input}
+                                            value={newEmail}
+                                            onChange={onChangeNewEmail}
+                                            type="text"
+                                            status={newEmailStatus}
+                                            placeholder={userdata.email}
+                                        /> :
+                                        <div style={{ display: "flex", alignItems: "center", flexDirection: "row", gap: "10px", height: "40px", padding: "10px" }}>
+                                            <div style={{ color: "var(--dark-white)" }}>{maskEmail(userdata.email)}</div>
+                                            <div style={{ cursor: "pointer", display: "flex", alignItems: "center" }} onClick={() => (setIsEditingEmail(true))}>
+                                                <Pencil />
+                                            </div>
+                                            {
+                                                userdata.is_confirmed ?
+                                                    <div style={{ display: "flex", alignItems: "center", color: "var(--green)", marginLeft: "auto", gap: "7px" }}><Tick className={styles.tick} />Confirmed</div> :
+                                                    <div style={{ display: "flex", alignItems: "center", color: "var(--red)", marginLeft: "auto", gap: "7px" }}><Cross className={styles.cross} />Not Confirmed</div>
+                                            }
                                         </div>
-                                        {
-                                            userdata.is_confirmed ?
-                                            <div style={{ display: "flex", alignItems: "center", color: "var(--green)", marginLeft: "auto", gap: "7px" }}><Tick className={styles.tick}/>Confirmed</div> :
-                                            <div style={{ display: "flex", alignItems: "center", color: "var(--red)", marginLeft: "auto", gap: "7px" }}><Cross className={styles.cross}/>Not Confirmed</div>
-                                        }
-                                    </div>
                                 }
                             </div>
                         </div>
 
                         <div className={styles.column}>
-                            <Avatar className={styles.avatar} height={190} width={190}/>
+                            <Avatar className={styles.avatar} height={190} width={190} />
                         </div>
                     </div>
                 </div>
-            
+
 
 
                 <div className={styles.section}>
                     <div className={styles.sectionTitle}>Privacy</div>
-                    <div className={styles.sectionSeparator}/>
+                    <div className={styles.sectionSeparator} />
                 </div>
             </div>
         </>
