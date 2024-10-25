@@ -1,6 +1,7 @@
 'use client';
 
 import Button from "@/components/Button/Button";
+import { toast } from "sonner";
 
 const Test: React.FC = () => {
 
@@ -11,8 +12,12 @@ const Test: React.FC = () => {
     return (
         <div>
             <Button
-                label="Add"
-                onClick={clicked}
+                label="ok"
+                onClick={() => toast.success("let it be")}
+            />
+            <Button
+                label="fail"
+                onClick={() => toast.error("S-O-S")}
             />
         </div>
     );
