@@ -63,7 +63,7 @@ const AuthPage = () => {
             setIsAuthorized(true);
 
             router.push("/dashboard");
-            toast.success("Successfully logged in!")
+            toast.success("Successfully logged in")
         }
         else {
             handleLoginError(result.status);
