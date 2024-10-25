@@ -11,6 +11,7 @@ import styles from "./Header.module.css";
 interface User {
     id: string;
     username: string;
+    displayName: string;
     email: string;
     avatarURL: string;
 }
@@ -26,6 +27,7 @@ const Header = () => {
     const user: User = {
         id: userdata?.id,
         username: userdata?.username,
+        displayName: userdata?.display_name,
         email: userdata?.email,
         avatarURL: userdata?.avatar_url,
     }
@@ -47,17 +49,17 @@ const Header = () => {
                                         />
                                         <div className={styles.userInfo} onClick={() => setIsSideMenuActive(true)}>
                                             <div className={styles.name}>
-                                                {user.username}
+                                                {user.displayName !== "" ? user.displayName : `@${user.username}`}
                                             </div>
-                                            
+
                                             <div className={styles.avatarButton}>
-                                                <Avatar className={styles.avatar} height={45} width={45}/>
+                                                <Avatar className={styles.avatar} height={45} width={45} />
                                             </div>
                                         </div>
 
-                                        <SideMenu 
-                                            isActive={isSideMenuActive} 
-                                            setInactive={() => {setIsSideMenuActive(false)}}
+                                        <SideMenu
+                                            isActive={isSideMenuActive}
+                                            setInactive={() => { setIsSideMenuActive(false) }}
                                             username={user.username}
                                             email={user.email}
                                             avatarURL={user.avatarURL}
