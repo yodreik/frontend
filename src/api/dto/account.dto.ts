@@ -12,13 +12,11 @@ export interface UserDTO {
 
 
 
-export interface UpdateUserDTO {
-    username: string,
-    display_name: string, 
-    email: string,
-    avatar_url: string,
-    is_private: boolean,
-    status: number
+export interface UpdateUserRequestDTO {
+    username?: string,
+    display_name?: string, 
+    email?: string,
+    is_private?: boolean,
 }
 
 

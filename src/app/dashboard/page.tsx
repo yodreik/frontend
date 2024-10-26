@@ -109,6 +109,7 @@ const DashboardPage = () => {
                     <h2 className={styles.modalTitle}>Create a workout</h2>
                     <div className={styles.formElement}>
                         <Input
+                            className={styles.input}
                             value={dateValue}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => setDateValue(e.target.value)}
                             type="date"
@@ -119,6 +120,7 @@ const DashboardPage = () => {
 
                     <div className={styles.formElement}>
                         <Input
+                            className={styles.input}
                             value={durationValue}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => setDurationValue(e.target.value)}
                             type="number"
@@ -129,6 +131,7 @@ const DashboardPage = () => {
 
                     <div className={styles.formElement}>
                         <Input
+                            className={styles.input}
                             value={kindValue}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => setKindValue(e.target.value)}
                             type="text"

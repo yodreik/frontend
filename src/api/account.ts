@@ -1,6 +1,6 @@
 import { isAxiosError } from "axios";
 import axiosInstance from "./core/axiosInstance";
-import { UserDTO, ConfirmRegistrationRequestDTO, ConfirmRegistrationResponseDTO, ForgotPasswordRequestDTO, ForgotPasswordResponseDTO, ResetPasswordRequestDTO, ResetPasswordResponseDTO, UpdateUserDTO } from "./dto/account.dto";
+import { UserDTO, ConfirmRegistrationRequestDTO, ConfirmRegistrationResponseDTO, ForgotPasswordRequestDTO, ForgotPasswordResponseDTO, ResetPasswordRequestDTO, ResetPasswordResponseDTO, UpdateUserRequestDTO } from "./dto/account.dto";
 import { Error } from "./dto/error";
 
 export const user = async (): Promise<UserDTO | Error> => {
@@ -18,9 +18,9 @@ export const user = async (): Promise<UserDTO | Error> => {
     }
 }
 
-export const updateUser = async (): Promise<UpdateUserDTO | Error> => {
+export const updateUser = async (values: UpdateUserRequestDTO): Promise<Error> => {
     try {
-        const { data, status } = await axiosInstance.patch("/account");
+        const { data, status } = await axiosInstance.patch("/account", values);
         return {
             ...data,
             status: status,

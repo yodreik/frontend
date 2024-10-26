@@ -28,6 +28,7 @@ const SideMenu = (props: Props) => {
     const router = useRouter();
 
     const handleLogout = () => {
+        props.setInactive();
         logout();
         toast.success("Logged out");
     }

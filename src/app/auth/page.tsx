@@ -308,6 +308,7 @@ const AuthPage = () => {
             <div className={`${styles.form_box} ${isSignIn ? "" : styles.active}`}>
                 <Form className={styles.form_signin} title="Log In" info={infoLogin} infoStatus={infoLoginStatus}>
                     <Input
+                        className={styles.input}
                         value={emailOrUsernameLogin}
                         onChange={onChangeEmailOrUsernameLogin}
                         type="text"
@@ -315,6 +316,7 @@ const AuthPage = () => {
                         placeholder="Email or username"
                     />
                     <Input
+                        className={styles.input}
                         value={passwordLogin}
                         onChange={onChangePasswordLogin}
                         type="password"
@@ -336,6 +338,7 @@ const AuthPage = () => {
 
                 <Form className={styles.form_signup} title="Create an account" info={infoRegister} infoStatus={infoRegisterStatus}>
                     <Input
+                        className={styles.input}
                         value={usernameRegister}
                         onChange={onChangeUsernameRegister}
                         type="text"
@@ -343,6 +346,7 @@ const AuthPage = () => {
                         placeholder="Username"
                     />
                     <Input
+                        className={styles.input}
                         value={emailRegister}
                         onChange={onChangeEmailRegister}
                         type="text"
@@ -350,6 +354,7 @@ const AuthPage = () => {
                         placeholder="Email"
                     />
                     <Input
+                        className={styles.input}
                         value={passwordRegister}
                         onChange={onChangePasswordRegister}
                         type="password"
@@ -357,6 +362,7 @@ const AuthPage = () => {
                         placeholder="Password"
                     />
                     <Input
+                        className={styles.input}
                         value={retypedPasswordRegister}
                         onChange={onChangeRetypedPasswordRegister}
                         type="password"
