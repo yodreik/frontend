@@ -16,6 +16,20 @@
     color: var(--white);
 }
 
+.title {
+    margin-bottom: 5px;
+    color: var(--white);
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+.titleError {
+    margin-bottom: 5px;
+    color: var(--red);
+    font-size: 16px;
+    padding-left: 10px;
+}
+
 .input:focus {
     border-color: var(--blue);
     outline: none;
@@ -41,4 +55,16 @@
 
 .input::placeholder {
     color: var(--light-gray);
+}
+
+.tick {
+    height: 11px;
+    width: 12px;
+    fill: var(--green);
+}
+
+.cross {
+    height: 11px;
+    width: 11px;
+    fill: var(--red);
 }
