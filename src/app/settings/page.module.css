@@ -82,3 +82,9 @@
     width: 11px;
     fill: var(--red);
 }
+
+.saveButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
+}
