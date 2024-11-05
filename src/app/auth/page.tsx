@@ -63,7 +63,7 @@ const AuthPage = () => {
             refreshUserData();
 
             router.replace("/dashboard");
-            toast.success("Successfully logged in")
+            toast.success("Successfully logged in");
         }
         else {
             handleLoginError(result.status);
@@ -82,7 +82,7 @@ const AuthPage = () => {
                 toast.error("Something went wrong. Try again later");
                 break;
             default:
-                toast.error("Unknown error occurred")
+                toast.error("Unknown error occurred");
         }
     };
 
@@ -94,7 +94,7 @@ const AuthPage = () => {
         });
 
         if (!("message" in result)) {
-            toast.success("Registered successfully. Check your email to verify account")
+            toast.success("Registered successfully. Check your email to verify account");
         }
         else {
             handleRegisterError(result.status);
@@ -104,10 +104,10 @@ const AuthPage = () => {
     const handleRegisterError = (status: number) => {
         switch (status) {
             case 409:
-                toast.error("This email or username already taken")
+                toast.error("This email or username already taken");
                 break;
             case 500:
-                toast.error("Something went wrong. Try again later")
+                toast.error("Something went wrong. Try again later");
                 break;
             default:
                 toast.error("An unknown error occurred");

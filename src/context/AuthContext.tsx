@@ -4,6 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import * as Api from "@/api";
+import { toast } from 'sonner';
 
 interface Userdata {
     id: string,
@@ -29,8 +30,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const router = useRouter();
     
-    const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isAuthorized, setIsAuthorized] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [userdata, setUserdata] = useState<Userdata>({
         id: "", 
         username: "", 
@@ -41,6 +42,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         is_confirmed: false,
         is_private: false
     });
+
+    const extractSavedData = () => {
+        const savedUserData = localStorage.getItem("userData");
+        if (savedUserData) {
+            setUserdata(JSON.parse(savedUserData));
+        }
+    }
 
     const refreshUserData = async () => {
         setIsLoading(true);
@@ -57,6 +65,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                     is_confirmed: result.is_confirmed,
                     is_private: result.is_private
                 };
+
+                localStorage.setItem("userData", JSON.stringify(userData));
                 
                 setIsAuthorized(true);
                 setUserdata(userData);
@@ -64,13 +74,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 setIsAuthorized(false);
             }
         } catch (error) {
-            // TODO: toast
+            toast.error("Unknown error occurred");
         } finally {
             setIsLoading(false);
         }
     };
 
     useEffect(() => {
+        console.log(isAuthorized);
+        extractSavedData();
+        console.log(userdata);
         refreshUserData();
     }, []);
 
@@ -87,7 +100,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             is_private: false
         });
         Cookies.remove("token");
-        router.push("/");
+        router.replace("/");
     };
 
     return (

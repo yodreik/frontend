@@ -14,7 +14,7 @@
     color: var(--white);
 }
 
-input:-webkit-autofill {
+.input:-webkit-autofill {
     transition: background-color 5000000s ease-in-out 0s;
     -webkit-text-fill-color: var(--white);
     -webkit-box-shadow: 0 0 0 1000px var(--dark-gray) inset !important;

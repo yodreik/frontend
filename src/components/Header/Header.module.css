@@ -97,14 +97,9 @@
 }
 
 .avatar {
-    height: 45px;
-    width: 45px;
-
     object-fit: cover;
     border: 1px solid var(--gray);
     border-radius: 50%;
-
-    cursor: pointer;
 }
 
 .avatarButton {
