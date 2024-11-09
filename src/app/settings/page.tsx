@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import Avatar from "@/components/Avatar/Avatar";
 import Input from "@/components/Input/Input";
 import Button from "@/components/Button/Button";
+import Checkbox from "@/components/Checkbox/Checkbox";
 import Pencil from "@/icons/pencil";
 import Tick from "@/icons/tick";
 import Cross from "@/icons/cross";
@@ -25,11 +26,14 @@ const SettingsPage = () => {
     const [newEmailStatus, setNewEmailStatus] = useState<"default" | "error">("default");
     const [isEditingEmail, setIsEditingEmail] = useState<boolean>(false);
 
+    const [isPrivate, setIsPrivate] = useState<boolean>(userdata.is_private);
+
     useEffect(() => {
         setNewDisplayName(userdata.display_name);
         setNewUsername(userdata.username);
         setNewEmail(userdata.email);
-    }, [userdata.display_name, userdata.username, userdata.email])
+        setIsPrivate(userdata.is_private);
+    }, [userdata.display_name, userdata.username, userdata.email, userdata.is_private])
 
     const onChangeNewDisplayName = (e: ChangeEvent<HTMLInputElement>) => {
         const input = e.target.value;
@@ -94,7 +98,9 @@ const SettingsPage = () => {
         if (newEmail !== userdata.email) {
             newData = { ...newData, email: newEmail}
         }
-        /// TODO: if (is_private)
+        if (isPrivate !== userdata.is_private) {
+            newData = { ...newData, is_private: isPrivate}
+        }
 
         const result = await Api.account.updateUser(newData);
 
@@ -175,7 +181,18 @@ const SettingsPage = () => {
                 <div className={styles.section}>
                     <div className={styles.sectionTitle}>Privacy</div>
                     <div className={styles.sectionSeparator} />
+
+                    <div className={styles.sectionContent}>
+                        <div className={styles.column}>
+                            <Checkbox
+                                label={"Public profile"}
+                                onClick={() => (setIsPrivate(!isPrivate))}
+                                isChecked={isPrivate}
+                            />
+                        </div>
+                    </div>
                 </div>
+
                 <div className={styles.section}>
                     <div className={styles.saveButtonContainer}>
                         <Button
