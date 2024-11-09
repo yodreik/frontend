@@ -1,5 +1,6 @@
 "use client";
 
+import EnabledCheckbox from "@/icons/enabledCheckbox";
 import styles from "./Checkbox.module.css";
 
 interface Props {
@@ -11,12 +12,18 @@ interface Props {
 
 const Checkbox = (props: Props) => {
     return (
-        <button
-            className={`${props.isChecked ? styles.checkedOn : styles.checkedOff} ${props.className}`}
-            onClick={props.onClick}
-        >
-            {props.label}
-        </button>
+        <div className={styles.container}>
+            <div className={styles.button} onClick={props.onClick}>
+                { 
+                    props.isChecked ? 
+                    <EnabledCheckbox/>:
+                    <div className={styles.disabledCheckbox}/> 
+                }
+            </div>
+            <div className={styles.label}>
+                {props.label}
+            </div>
+        </div>
     );
 };
 
