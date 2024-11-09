@@ -26,6 +26,8 @@ const SettingsPage = () => {
     const [newEmailStatus, setNewEmailStatus] = useState<"default" | "error">("default");
     const [isEditingEmail, setIsEditingEmail] = useState<boolean>(false);
 
+    const [avatar, setAvatar] = useState<File | null>(null);
+
     const [isPrivate, setIsPrivate] = useState<boolean>(userdata.is_private);
 
     useEffect(() => {
@@ -34,6 +36,53 @@ const SettingsPage = () => {
         setNewEmail(userdata.email);
         setIsPrivate(userdata.is_private);
     }, [userdata.display_name, userdata.username, userdata.email, userdata.is_private])
+
+
+    const handleSaveInfo = async () => {
+        let newData = {};
+
+        if (newDisplayName !== userdata.display_name) {
+            newData = { display_name: newDisplayName };
+        }
+        if (newUsername !== userdata.username) {
+            newData = { ...newData, username: newUsername}
+        }
+        if (newEmail !== userdata.email) {
+            newData = { ...newData, email: newEmail}
+        }
+        if (isPrivate !== userdata.is_private) {
+            newData = { ...newData, is_private: isPrivate}
+        }
+
+        const result = await Api.account.updateUser(newData);
+
+        if (!("message" in result)) {
+            toast.success("Success")
+            refreshUserData();
+        }
+        else {
+            toast.error(result.message);
+        }
+    }
+
+    const handleSaveAvatar = async () => {
+        if (avatar) {
+            const result = await Api.account.updateAvatar({ avatar });
+
+            if (!("message" in result)) {
+                toast.success("Success upload avatar")
+                refreshUserData();
+            }
+            else {
+                toast.error(result.message);
+            }
+        }
+    }
+
+    const handleSaveChanges = () => {
+        handleSaveInfo();
+        handleSaveAvatar();
+    }
 
     const onChangeNewDisplayName = (e: ChangeEvent<HTMLInputElement>) => {
         const input = e.target.value;
@@ -74,6 +123,19 @@ const SettingsPage = () => {
         setNewEmail(input);
     };
 
+    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        const droppedFile = event.dataTransfer.files[0];
+        if (droppedFile) {
+            setAvatar(droppedFile);
+        }
+        console.log(avatar)
+    };
+
+    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault();
+    };
+
     const maskEmail = (email: string) => {
         const [localPart, domain] = email.split('@');
 
@@ -84,33 +146,6 @@ const SettingsPage = () => {
         const maskedLocalPart = localPart.slice(0, 2) + '****' + localPart.slice(-2);
 
         return `${maskedLocalPart}@${domain}`;
-    }
-
-    const handleSaveChanges = async () => {
-        let newData = {};
-
-        if (newDisplayName !== userdata.display_name) {
-            newData = { display_name: newDisplayName };
-        }
-        if (newUsername !== userdata.username) {
-            newData = { ...newData, username: newUsername}
-        }
-        if (newEmail !== userdata.email) {
-            newData = { ...newData, email: newEmail}
-        }
-        if (isPrivate !== userdata.is_private) {
-            newData = { ...newData, is_private: isPrivate}
-        }
-
-        const result = await Api.account.updateUser(newData);
-
-        if (!("message" in result)) {
-            toast.success("Success")
-            refreshUserData();
-        }
-        else {
-            toast.error(result.message);
-        }
     }
 
     return (
@@ -158,7 +193,7 @@ const SettingsPage = () => {
                                         <div style={{ display: "flex", alignItems: "center", flexDirection: "row", gap: "10px", height: "40px", padding: "10px" }}>
                                             <div style={{ color: "var(--dark-white)" }}>{maskEmail(userdata.email)}</div>
                                             <div style={{ cursor: "pointer", display: "flex", alignItems: "center" }} onClick={() => (setIsEditingEmail(true))}>
-                                                <Pencil />
+                                                <Pencil className={styles.pencil}/>
                                             </div>
                                             {
                                                 userdata.is_confirmed ?
@@ -169,9 +204,16 @@ const SettingsPage = () => {
                                 }
                             </div>
                         </div>
-
+                        
                         <div className={styles.column}>
-                            <Avatar className={styles.avatar} height={190} width={190} />
+                            <div className={styles.avatar}>
+                                <Avatar height={190} width={190}/>
+                                {
+                                    <div className={styles.blind} onDrop={handleDrop} onDragOver={handleDragOver}> 
+                                        <Pencil className={styles.bigPencil}/>
+                                    </div>
+                                }
+                            </div> 
                         </div>
                     </div>
                 </div>

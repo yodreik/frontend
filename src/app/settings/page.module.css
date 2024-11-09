@@ -66,9 +66,56 @@
 }
 
 .avatar {
-    object-fit: cover;
+    position: relative;
     border: 1px solid var(--gray);
     border-radius: 50%;
+
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blind {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0);
+    transition: 0.3s;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blind:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: 0.3s;
+}
+
+.bigPencil {
+    opacity: 0;
+    transition: 0.3s;
+
+    height: 70px;
+    width: 70px;
+    fill: var(--white);
+}
+
+.blind:hover .bigPencil {
+    opacity: 1;
+    transition: 0.3s;
+
+    height: 70px;
+    width: 70px;
+    fill: var(--white);
 }
 
 .tick {
@@ -81,6 +128,12 @@
     height: 11px;
     width: 11px;
     fill: var(--red);
+}
+
+.pencil {
+    height: 15px;
+    width: 15px;
+    fill: var(--white);
 }
 
 .saveButtonContainer {

@@ -19,6 +19,10 @@ export interface UpdateUserRequestDTO {
     is_private?: boolean,
 }
 
+export interface UpdateAvatarRequestDTO {
+    avatar: File;
+}
+
 
 
 export interface ConfirmRegistrationRequestDTO {

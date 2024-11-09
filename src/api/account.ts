@@ -1,6 +1,6 @@
 import { isAxiosError } from "axios";
 import axiosInstance from "./core/axiosInstance";
-import { UserDTO, ConfirmRegistrationRequestDTO, ConfirmRegistrationResponseDTO, ForgotPasswordRequestDTO, ForgotPasswordResponseDTO, ResetPasswordRequestDTO, ResetPasswordResponseDTO, UpdateUserRequestDTO } from "./dto/account.dto";
+import { UserDTO, UpdateUserRequestDTO, UpdateAvatarRequestDTO, ConfirmRegistrationRequestDTO, ConfirmRegistrationResponseDTO, ForgotPasswordRequestDTO, ForgotPasswordResponseDTO, ResetPasswordRequestDTO, ResetPasswordResponseDTO } from "./dto/account.dto";
 import { Error } from "./dto/error";
 
 export const user = async (): Promise<UserDTO | Error> => {
@@ -21,6 +21,36 @@ export const user = async (): Promise<UserDTO | Error> => {
 export const updateUser = async (values: UpdateUserRequestDTO): Promise<Error> => {
     try {
         const { data, status } = await axiosInstance.patch("/account", values);
+        return {
+            ...data,
+            status: status,
+        }
+    }
+    catch (error) {
+        return isAxiosError(error) && error.response ? 
+            { message: error.response.data, status: error.response.status } :
+            { message: "An unknown error occurred", status: 500 };
+    }
+}
+
+export const updateAvatar = async (values: UpdateAvatarRequestDTO): Promise<Error> => {
+    try {
+        const { data, status } = await axiosInstance.patch("/account/avatar", values);
+        return {
+            ...data,
+            status: status,
+        }
+    }
+    catch (error) {
+        return isAxiosError(error) && error.response ? 
+            { message: error.response.data, status: error.response.status } :
+            { message: "An unknown error occurred", status: 500 };
+    }
+}
+
+export const deleteAvatar = async (): Promise<Error> => {
+    try {
+        const { data, status } = await axiosInstance.delete("/account/avatar");
         return {
             ...data,
             status: status,
