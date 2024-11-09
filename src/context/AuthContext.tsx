@@ -81,9 +81,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     useEffect(() => {
-        console.log(isAuthorized);
         extractSavedData();
-        console.log(userdata);
         refreshUserData();
     }, []);
 
