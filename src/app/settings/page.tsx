@@ -1,6 +1,6 @@
 "use client"
 
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import * as Api from "@/api";
 import { toast } from "sonner";
@@ -11,6 +11,7 @@ import Checkbox from "@/components/Checkbox/Checkbox";
 import Pencil from "@/icons/pencil";
 import Tick from "@/icons/tick";
 import Cross from "@/icons/cross";
+import Bin from "@/icons/bin";
 import styles from "./page.module.css";
 
 const SettingsPage = () => {
@@ -26,7 +27,9 @@ const SettingsPage = () => {
     const [newEmailStatus, setNewEmailStatus] = useState<"default" | "error">("default");
     const [isEditingEmail, setIsEditingEmail] = useState<boolean>(false);
 
-    const [avatar, setAvatar] = useState<File | null>(null);
+    const [avatar, setAvatar] = useState<File | null | undefined>(undefined);
+    const [temporaryURL, setTemporaryURL] = useState<string | null | undefined>(undefined);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const [isPrivate, setIsPrivate] = useState<boolean>(userdata.is_private);
 
@@ -54,24 +57,41 @@ const SettingsPage = () => {
             newData = { ...newData, is_private: isPrivate}
         }
 
-        const result = await Api.account.updateUser(newData);
+        if (Object.keys(newData).length !== 0) {
+            const result = await Api.account.updateUser(newData);
 
-        if (!("message" in result)) {
-            toast.success("Success")
-            refreshUserData();
-        }
-        else {
-            toast.error(result.message);
+            if (!("message" in result)) {
+                toast.success("Success change info")
+                refreshUserData();
+            }
+            else {
+                toast.error(result.message);
+            }
         }
     }
 
     const handleSaveAvatar = async () => {
         if (avatar) {
-            const result = await Api.account.updateAvatar({ avatar });
+            const result = await Api.account.updateAvatar({ avatar: avatar });
 
             if (!("message" in result)) {
                 toast.success("Success upload avatar")
                 refreshUserData();
+                setAvatar(undefined);
+                setTemporaryURL(undefined);
+            }
+            else {
+                toast.error(result.message);
+            }
+        }
+        if (avatar === null) {
+            const result = await Api.account.deleteAvatar();
+
+            if (!("message" in result)) {
+                toast.success("Success delete avatar")
+                refreshUserData();
+                setAvatar(undefined);
+                setTemporaryURL(undefined);
             }
             else {
                 toast.error(result.message);
@@ -123,18 +143,41 @@ const SettingsPage = () => {
         setNewEmail(input);
     };
 
+    const handlePencilClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const droppedFile = event.target.files?.[0];
+        if (droppedFile) {
+            setAvatar(droppedFile);
+
+            const url = URL.createObjectURL(droppedFile);
+            setTemporaryURL(url);
+        }
+    };
+
     const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
         const droppedFile = event.dataTransfer.files[0];
         if (droppedFile) {
             setAvatar(droppedFile);
+
+            const url = URL.createObjectURL(droppedFile);
+            setTemporaryURL(url);
         }
-        console.log(avatar)
     };
 
     const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
     };
+
+    const hadnleDeleteAvatar = () => {
+        setAvatar(null);
+        setTemporaryURL(null);
+    }
 
     const maskEmail = (email: string) => {
         const [localPart, domain] = email.split('@');
@@ -206,13 +249,25 @@ const SettingsPage = () => {
                         </div>
                         
                         <div className={styles.column}>
-                            <div className={styles.avatar}>
-                                <Avatar height={190} width={190}/>
+                            <div className={styles.avatarContariner}>
+                                <Avatar className={styles.avatar} height={190} width={190} temporaryURL={temporaryURL !== undefined ? temporaryURL : ""}/>
                                 {
-                                    <div className={styles.blind} onDrop={handleDrop} onDragOver={handleDragOver}> 
-                                        <Pencil className={styles.bigPencil}/>
-                                    </div>
+                                    <>
+                                        <div className={styles.blind} onClick={handlePencilClick} onDrop={handleDrop} onDragOver={handleDragOver}> 
+                                            <input
+                                                type="file"
+                                                ref={fileInputRef}
+                                                style={{ display: 'none' }}
+                                                onChange={handleFileChange}
+                                            />
+                                            <Pencil className={styles.bigPencil}/>
+                                        </div>
+                                        
+                                    </>
                                 }
+                                <div className={styles.deleteAvatar} onClick={hadnleDeleteAvatar}>
+                                    <Bin className={styles.bin}/>
+                                </div>
                             </div> 
                         </div>
                     </div>

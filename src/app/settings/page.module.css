@@ -65,28 +65,35 @@
     width: 425px;
 }
 
-.avatar {
-    position: relative;
-    border: 1px solid var(--gray);
-    border-radius: 50%;
+.avatarContariner {
+    height: 190px;
+    width: 190px;
 
-    overflow: hidden;
+    position: relative;
 
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.avatar {
+    border: 1px solid var(--gray);
+    border-radius: 50%;
+
+    overflow: hidden;
+}
+
 .blind {
+    height: 100%;
+    width: 100%;
+
     position: absolute;
     top: 0px;
     right: 0px;
 
-    width: 100%;
-    height: 100%;
-
     background-color: rgba(0, 0, 0, 0);
     transition: 0.3s;
+    border-radius: 50%;
 
     cursor: pointer;
 
@@ -118,6 +125,25 @@
     fill: var(--white);
 }
 
+.deleteAvatar {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+
+    height: 35px;
+    width: 35px;
+
+    background-color: var(--dark-gray);
+    border: 1px solid var(--red);
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .tick {
     height: 11px;
     width: 12px;
@@ -134,6 +160,12 @@
     height: 15px;
     width: 15px;
     fill: var(--white);
+}
+
+.bin {
+    height: 18px;
+    width: 20px;
+    fill: var(--red);
 }
 
 .saveButtonContainer {

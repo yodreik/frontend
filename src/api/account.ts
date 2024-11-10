@@ -35,11 +35,19 @@ export const updateUser = async (values: UpdateUserRequestDTO): Promise<Error> =
 
 export const updateAvatar = async (values: UpdateAvatarRequestDTO): Promise<Error> => {
     try {
-        const { data, status } = await axiosInstance.patch("/account/avatar", values);
+        const formData = new FormData();
+        formData.append('avatar', values.avatar);
+
+        const { data, status } = await axiosInstance.patch("/account/avatar", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
         return {
             ...data,
             status: status,
-        }
+        };
     }
     catch (error) {
         return isAxiosError(error) && error.response ? 
