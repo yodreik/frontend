@@ -3,8 +3,8 @@
     flex-direction: row;
     align-items: center;
 
-    width: 500px;
     height: 400px;
+    width: 500px;
     padding: 0px 7px 0px 7px;
 
     background-color: var(--dark-gray);
@@ -19,8 +19,8 @@
     justify-content: center;
     align-items: center;
 
-    width: 8%;
     height: 100%;
+    width: 8%;
     padding-top: 43px;
 
     background: none;
@@ -30,8 +30,8 @@
 }
 
 .calendar__main {
-    width: 84%;
     height: 100%;
+    width: 84%;
 }
 
 .calendar__header {
@@ -39,8 +39,8 @@
     justify-content: center;
     align-items: center;
 
-    width: 100%;
     height: 15%;
+    width: 100%;
     padding-top: 10px;
 
     font-size: 22px;
@@ -54,8 +54,8 @@
     justify-content: center;
     align-items: center;
 
-    width: 100%;
     height: 85%;
+    width: 100%;
     padding-bottom: 20px;
     gap: 1px 1px;
 
@@ -69,8 +69,8 @@
     align-self: center;
     justify-self: center;
 
-    width: 45px;
     height: 45px;
+    width: 45px;
 
     font-weight: 700;
 
@@ -98,8 +98,8 @@
     align-self: center;
     justify-self: center;
 
-    width: 41px;
     height: 41px;
+    width: 41px;
 
     color: var(--white);
     border-radius: 50%;
@@ -118,8 +118,8 @@
 }
 
 .today {
-    width: 41px;
     height: 41px;
+    width: 41px;
 
     font-weight: 700;
 
@@ -128,8 +128,8 @@
 }
 
 .today.trained {
-    width: 29px;
     height: 29px;
+    width: 29px;
 }
 
 .dayContainer:hover .today {
@@ -137,8 +137,8 @@
 }
 
 .arrow {
-    width: 19px;
     height: 31px;
+    width: 19px;
 
     fill: var(--light-gray);
 }

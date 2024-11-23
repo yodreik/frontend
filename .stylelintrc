@@ -1,8 +1,15 @@
 {
-    "plugins": ["stylelint-order"],
-    "extends": ["stylelint-prettier"],
+    "plugins": [
+        "stylelint-order"
+    ],
+    "extends": [
+        "stylelint-prettier"
+    ],
     "rules": {
-        "order/order": ["custom-properties", "declarations"],
+        "order/order": [
+            "custom-properties",
+            "declarations"
+        ],
         "order/properties-order": [
             [
                 {
@@ -27,6 +34,8 @@
                         "flex-wrap",
                         "justify-content",
                         "align-items",
+                        "align-content",
+                        "text-align",
                         "align-self",
                         "justify-self"
                     ]
@@ -35,13 +44,17 @@
                     "emptyLineBefore": "always",
                     "noEmptyLineBetween": true,
                     "properties": [
-                        "width",
-                        "max-width",
                         "height",
+                        "min-height",
                         "max-height",
+                        "width",
+                        "min-width",
+                        "max-width",
                         "margin",
-                        "margin-left",
+                        "margin-top",
                         "margin-right",
+                        "margin-bottom",
+                        "margin-left",
                         "padding",
                         "padding-top",
                         "padding-right",
@@ -77,10 +90,16 @@
                     "emptyLineBefore": "always",
                     "noEmptyLineBetween": true,
                     "properties": [
+                        "cursor",
                         "opacity",
                         "visibility",
-                        "cursor",
-                        "filter",
+                        "filter"
+                    ]
+                },
+                {
+                    "emptyLineBefore": "always",
+                    "noEmptyLineBetween": true,
+                    "properties": [
                         "transition",
                         "transition-delay",
                         "transform",
@@ -90,7 +109,11 @@
                 {
                     "emptyLineBefore": "always",
                     "noEmptyLineBetween": true,
-                    "properties": ["object-fit", "fill", "caret-color"]
+                    "properties": [
+                        "object-fit",
+                        "fill",
+                        "caret-color"
+                    ]
                 }
             ],
             {

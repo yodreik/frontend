@@ -1,5 +1,6 @@
 .button {
     height: 40px;
+    min-width: 160px;
     padding: 0 17px;
 
     font-size: inherit;
@@ -12,14 +13,14 @@
     border-radius: 15px;
 
     cursor: pointer;
-    transition: 0.3s;
 
-    min-width: 160px;
+    transition: 0.3s;
 }
 
 .button:disabled {
     cursor: default;
     filter: brightness(0.5);
+
     transition: 0.3s;
 }
 

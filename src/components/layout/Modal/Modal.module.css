@@ -42,15 +42,15 @@
     justify-content: center;
     align-items: center;
 
-    width: 30px;
     height: 30px;
+    width: 30px;
 
     cursor: pointer;
 }
 
 .close {
-    width: 14px;
     height: 14px;
+    width: 14px;
 
     fill: var(--white);
 }

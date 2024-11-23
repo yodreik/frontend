@@ -9,9 +9,9 @@
 }
 
 .title {
+    margin-top: 20px;
+
     font-size: 44px;
 
     color: var(--white);
-
-    margin-top: 20px;
 }

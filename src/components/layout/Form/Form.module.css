@@ -15,11 +15,11 @@
 }
 
 .form__info {
+    margin-top: 20px;
+
     font-weight: 500;
 
     visibility: hidden;
-
-    margin-top: 20px;
 }
 
 .error {

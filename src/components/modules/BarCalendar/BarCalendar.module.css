@@ -5,8 +5,8 @@
     flex-direction: column;
     align-items: center;
 
-    width: 500px;
     height: 245px;
+    width: 500px;
 
     background-color: var(--dark-gray);
     border: 1px solid var(--light-gray);
@@ -18,8 +18,8 @@
     flex-direction: row;
     align-items: end;
 
-    width: 100%;
     height: 17%;
+    width: 100%;
     padding-left: 45px;
 }
 
@@ -44,8 +44,8 @@
     justify-content: center;
     align-items: center;
 
-    width: 25px;
     height: 25px;
+    width: 25px;
 }
 
 .dateButton {
@@ -53,8 +53,8 @@
     justify-content: center;
     align-items: center;
 
-    width: 25px;
     height: 25px;
+    width: 25px;
 
     background: none;
     border: none;
@@ -63,8 +63,8 @@
 }
 
 .arrow {
-    width: 7px;
     height: 12px;
+    width: 7px;
 
     fill: var(--light-gray);
 }
@@ -80,8 +80,8 @@
     flex-direction: column;
     align-items: center;
 
-    width: 100%;
     height: 68%;
+    width: 100%;
 }
 
 .graph {
@@ -93,8 +93,8 @@
     justify-content: space-evenly;
     align-items: end;
 
-    width: 370px;
     height: 150px;
+    width: 370px;
 }
 
 .bar {
@@ -111,8 +111,8 @@
     justify-content: center;
     align-items: center;
 
-    width: 50%;
     height: 30px;
+    width: 50%;
 
     font-size: 14px;
     font-weight: 700;
@@ -127,8 +127,8 @@
     justify-content: center;
     align-items: center;
 
-    width: 50%;
     height: 27px;
+    width: 50%;
     padding-top: 4px;
 
     font-size: 14px;
@@ -146,8 +146,9 @@
     justify-content: center;
     align-items: center;
 
-    width: 50%;
     height: 23px;
+    width: 50%;
+    margin-top: 4px;
 
     font-size: 14px;
     font-weight: 700;
@@ -155,8 +156,6 @@
     color: var(--black);
     background-color: var(--white);
     border-radius: 10px;
-
-    margin-top: 4px;
 }
 
 .barPartsContainer {
@@ -166,11 +165,10 @@
     flex-direction: column-reverse;
     align-items: center;
 
-    width: 50%;
-    max-width: 27px;
     height: 120px;
-
+    width: 50%;
     min-width: 6px;
+    max-width: 27px;
 }
 
 @keyframes fadeIn {
@@ -213,8 +211,8 @@
 .backgroundLine {
     position: absolute;
 
-    width: 380px;
     height: 0px;
+    width: 380px;
     margin: 0px 25px 0px 0px;
 
     border: none;
@@ -226,8 +224,8 @@
     position: absolute;
     bottom: 30px;
 
-    width: 405px;
     height: 1px;
+    width: 405px;
     margin: 0;
 
     background-color: var(--light-gray);
@@ -239,12 +237,12 @@
     flex-direction: column;
     align-items: center;
 
-    width: 100%;
     height: 15%;
+    width: 100%;
     padding-top: 1px;
 }
 
 .segmentedControlSize {
-    width: 355px;
     height: 24px;
+    width: 355px;
 }

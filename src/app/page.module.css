@@ -1,6 +1,6 @@
 .temporaryStatistics {
-    width: 900px;
     height: 300px;
+    width: 900px;
 
     background-color: var(--dark-gray);
     border: 1px solid var(--light-gray);
@@ -20,6 +20,6 @@
 }
 
 .width {
-    width: 500px;
     height: 26px;
+    width: 500px;
 }
