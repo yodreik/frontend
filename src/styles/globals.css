@@ -40,6 +40,16 @@ body {
     margin: 0;
 }
 
+body.light {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+body.dark {
+    background-color: var(--black);
+    color: var(--white);
+}
+
 .content {
     min-height: calc(100vh - 140px);
 

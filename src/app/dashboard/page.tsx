@@ -1,16 +1,16 @@
 "use client"
 
 import { toast } from 'sonner';
-import BarCalendar from "@/components/BarCalendar/BarCalendar";
-import Calendar from "@/components/Calendar/Calendar";
+import BarCalendar from "@/components/modules/BarCalendar/BarCalendar";
+import Calendar from "@/components/modules/Calendar/Calendar";
 import { useAuth } from "@/context/AuthContext";
-import Button from "@/components/Button/Button";
+import Button from "@/components/ui/Button/Button";
 import styles from "./page.module.css";
 import * as Api from "@/api";
 
 import { ChangeEvent, useState } from "react";
-import Modal from "@/components/Modal/Modal";
-import Input from "@/components/Input/Input";
+import Modal from "@/components/layout/Modal/Modal";
+import Input from "@/components/ui/Input/Input";
 
 interface Workout {
     date: Date,

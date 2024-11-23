@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import DonutChart from "@/components/DonutChart/DonutChart";
+import DonutChart from "@/components/ui/DonutChart/DonutChart";
 import LeftArrow from '@/icons/leftArrow';
 import RightArrow from '@/icons/rightArrow';
 import styles from "./Calendar.module.css";

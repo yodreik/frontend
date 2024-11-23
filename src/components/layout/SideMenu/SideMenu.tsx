@@ -3,7 +3,7 @@
 import { toast } from 'sonner';
 import { useRouter } from "next/navigation";
 import { useAuth } from '@/context/AuthContext';
-import Avatar from "@/components/Avatar/Avatar";
+import Avatar from "@/components/modules/Avatar/Avatar";
 import Cross from "@/icons/cross";
 import Profile from "@/icons/profile";
 import Dashboard from "@/icons/dashboard";

@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import SideMenu from "@/components/SideMenu/SideMenu"
-import Button from "@/components/Button/Button";
-import Avatar from "@/components/Avatar/Avatar";
+import SideMenu from "@/components/layout/SideMenu/SideMenu"
+import Button from "@/components/ui/Button/Button";
+import Avatar from "@/components/modules/Avatar/Avatar";
 import styles from "./Header.module.css";
 
 interface User {

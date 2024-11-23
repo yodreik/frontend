@@ -1,6 +1,5 @@
 "use client";
 
-import "../../styles/fonts.css";
 import { ChangeEvent } from "react";
 import styles from "./Input.module.css";
 

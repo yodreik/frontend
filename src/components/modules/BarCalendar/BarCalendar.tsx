@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import SegmentedControl from '@/components/SegmentedControl/SegmentedControl';
+import SegmentedControl from '@/components/ui/SegmentedControl/SegmentedControl';
 import LeftArrow from '@/icons/leftArrow';
 import RightArrow from '@/icons/rightArrow';
 import styles from "./BarCalendar.module.css";

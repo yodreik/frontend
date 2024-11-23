@@ -2,9 +2,9 @@
 
 import { ChangeEvent, useEffect, useState } from "react";
 import * as Api from "@/api";
-import Form from "@/components/Form/Form";
-import Input from "@/components/Input/Input";
-import Button from "@/components/Button/Button"
+import Form from "@/components/layout/Form/Form";
+import Input from "@/components/ui/Input/Input";
+import Button from "@/components/ui/Button/Button"
 import styles from "./page.module.css";
 
 const ForgotPasswordPage = () => {

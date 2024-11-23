@@ -2,7 +2,7 @@
 
 import styles from "./page.module.css";
 import { useState } from 'react';
-import SegmentedControl from "@/components/SegmentedControl/SegmentedControl";
+import SegmentedControl from "@/components/ui/SegmentedControl/SegmentedControl";
 
 export default function Home() {
     const [togglePosition, setTogglePosition] = useState<number>(0);
