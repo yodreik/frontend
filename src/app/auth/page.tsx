@@ -2,15 +2,15 @@
 
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from '@/context/AuthContext';
-import Cookies from 'js-cookie';
+import { useAuth } from "@/context/AuthContext";
+import Cookies from "js-cookie";
 import * as Api from "@/api";
+import Container from "@/components/layout/Container/Container";
 import Form from "@/components/layout/Form/Form";
 import Input from "@/components/ui/Input/Input";
 import Button from "@/components/ui/Button/Button";
 import styles from "./page.module.css";
 import { toast } from "sonner";
-
 
 const AuthPage = () => {
     const [isSignIn, setIsSignIn] = useState<boolean>(true);
@@ -64,8 +64,7 @@ const AuthPage = () => {
 
             router.replace("/dashboard");
             toast.success("Successfully logged in");
-        }
-        else {
+        } else {
             handleLoginError(result.status);
         }
     };
@@ -95,8 +94,7 @@ const AuthPage = () => {
 
         if (!("message" in result)) {
             toast.success("Registered successfully. Check your email to verify account");
-        }
-        else {
+        } else {
             handleRegisterError(result.status);
         }
     };
@@ -120,8 +118,7 @@ const AuthPage = () => {
         if (input.length > 254 || input.length < 5) {
             setEmailOrUsernameLoginStatus("error");
             displayLoginMessage("Email or username should be from 5 to 254 characters long");
-        }
-        else {
+        } else {
             setEmailOrUsernameLoginStatus("default");
             hideLoginMessage();
         }
@@ -135,12 +132,10 @@ const AuthPage = () => {
         if (input.length < 8) {
             setPasswordLoginStatus("error");
             displayLoginMessage("Password is too short");
-        }
-        else if (input.length > 50) {
+        } else if (input.length > 50) {
             setPasswordLoginStatus("error");
             displayLoginMessage("Password is too long");
-        }
-        else {
+        } else {
             setPasswordLoginStatus("default");
             hideLoginMessage();
         }
@@ -154,12 +149,10 @@ const AuthPage = () => {
         if (input.length < 5) {
             setUsernameRegisterStatus("error");
             displayRegisterMessage("Username is too short");
-        }
-        else if (input.length > 32) {
+        } else if (input.length > 32) {
             setUsernameRegisterStatus("error");
             displayRegisterMessage("Username is too long");
-        }
-        else {
+        } else {
             setUsernameRegisterStatus("default");
             hideRegisterMessage();
         }
@@ -173,12 +166,10 @@ const AuthPage = () => {
         if (input.length > 254) {
             setEmailRegisterStatus("error");
             displayRegisterMessage("Email is too long");
-        }
-        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input)) {
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input)) {
             setEmailRegisterStatus("error");
             displayRegisterMessage("Invalid email");
-        }
-        else {
+        } else {
             setEmailRegisterStatus("default");
             hideRegisterMessage();
         }
@@ -192,17 +183,14 @@ const AuthPage = () => {
         if (input.length < 8) {
             setPasswordRegisterStatus("error");
             displayRegisterMessage("Password is too short");
-        }
-        else if (input.length > 50) {
+        } else if (input.length > 50) {
             setPasswordRegisterStatus("error");
             displayRegisterMessage("Password is too long");
-        }
-        else if (input !== retypedPasswordRegister && retypedPasswordRegister !== "") {
+        } else if (input !== retypedPasswordRegister && retypedPasswordRegister !== "") {
             setPasswordRegisterStatus("error");
             setRetypedPasswordRegisterStatus("error");
             displayRegisterMessage("Passwords don't match");
-        }
-        else {
+        } else {
             setPasswordRegisterStatus("default");
             setRetypedPasswordRegisterStatus("default");
             hideRegisterMessage();
@@ -218,8 +206,7 @@ const AuthPage = () => {
             setPasswordRegisterStatus("error");
             setRetypedPasswordRegisterStatus("error");
             displayRegisterMessage("Passwords don't match");
-        }
-        else {
+        } else {
             if (input.length > 7 && input.length < 51) setPasswordRegisterStatus("default");
             setRetypedPasswordRegisterStatus("default");
             hideRegisterMessage();
@@ -236,8 +223,7 @@ const AuthPage = () => {
             passwordLogin === ""
         ) {
             setButtonLoginIsDisabled(true);
-        }
-        else {
+        } else {
             setButtonLoginIsDisabled(false);
         }
     }, [emailOrUsernameLogin, passwordLogin]);
@@ -254,8 +240,7 @@ const AuthPage = () => {
             retypedPasswordRegister === ""
         ) {
             setButtonRegisterIsDisabled(true);
-        }
-        else {
+        } else {
             setButtonRegisterIsDisabled(false);
         }
     }, [usernameRegister, emailRegister, passwordRegister, retypedPasswordRegister]);
@@ -284,28 +269,18 @@ const AuthPage = () => {
 
     return (
         <article className={styles.container}>
-            <div className={styles.block}>
+            <Container className={styles.block}>
                 <section className={styles.block_item}>
-                    <h2 className={styles.block_item__title}>
-                        Already have an account?
-                    </h2>
-                    <Button
-                        label="Log In"
-                        onClick={() => (setIsSignIn(true))}
-                        disabled={false}
-                    />
+                    <h2 className={styles.block_item__title}>Already have an account?</h2>
+                    <Button label="Log In" onClick={() => setIsSignIn(true)} disabled={false} />
                 </section>
                 <section className={styles.block_item}>
                     <h2 className={styles.block_item__title}>{"Don't have an account?"}</h2>
-                    <Button
-                        label="Create"
-                        onClick={() => (setIsSignIn(false))}
-                        disabled={false}
-                    />
+                    <Button label="Create" onClick={() => setIsSignIn(false)} disabled={false} />
                 </section>
-            </div>
+            </Container>
 
-            <div className={`${styles.form_box} ${isSignIn ? "" : styles.active}`}>
+            <Container className={`${styles.form_box} ${isSignIn ? "" : styles.active}`}>
                 <Form className={styles.form_signin} title="Log In" info={infoLogin} infoStatus={infoLoginStatus}>
                     <Input
                         className={styles.input}
@@ -324,11 +299,7 @@ const AuthPage = () => {
                         placeholder="Password"
                     />
 
-                    <Button
-                        label="Sign In"
-                        onClick={handleLogin}
-                        disabled={buttonLoginIsDisabled}
-                    />
+                    <Button label="Sign In" onClick={handleLogin} disabled={buttonLoginIsDisabled} />
                     <p>
                         <a href="/auth/password/forgot" className={styles.form__forgot}>
                             Forgot Password?
@@ -336,7 +307,12 @@ const AuthPage = () => {
                     </p>
                 </Form>
 
-                <Form className={styles.form_signup} title="Create an account" info={infoRegister} infoStatus={infoRegisterStatus}>
+                <Form
+                    className={styles.form_signup}
+                    title="Create an account"
+                    info={infoRegister}
+                    infoStatus={infoRegisterStatus}
+                >
                     <Input
                         className={styles.input}
                         value={usernameRegister}
@@ -370,13 +346,9 @@ const AuthPage = () => {
                         placeholder="Retype password"
                     />
 
-                    <Button
-                        label="Create"
-                        onClick={handleRegister}
-                        disabled={buttonRegisterIsDisabled}
-                    />
+                    <Button label="Create" onClick={handleRegister} disabled={buttonRegisterIsDisabled} />
                 </Form>
-            </div>
+            </Container>
         </article>
     );
 };

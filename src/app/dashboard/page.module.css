@@ -1,62 +1,56 @@
 .container {
-    height: auto;
-
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+
+    height: auto;
 }
 
 .column {
-
     display: flex;
     flex-direction: column;
-    gap: 30px;
 
     margin: 0px 15px 0px 15px;
+    gap: 30px;
 }
 
 .chapter {
     display: flex;
     flex-direction: column;
+
     gap: 11px;
 }
 
 .title {
-    color: var(--white);
+    margin-left: 15px;
 
     font-size: 28px;
     font-weight: 700;
 
-    margin-left: 15px;
+    color: var(--white);
 }
 
 .input {
     width: 300px;
 }
 
-
-
-
-
-
-
 .temporaryStatistics {
+    width: 500px;
+    height: 300px;
+
     background-color: var(--dark-gray);
     border: 1px solid var(--light-gray);
-    height: 300px;
-    width: 500px;
     border-radius: 25px;
 }
-
 
 .temporaryWeight {
+    width: 500px;
+    height: 300px;
+
     background-color: var(--dark-gray);
     border: 1px solid var(--light-gray);
-    height: 300px;
-    width: 500px;
     border-radius: 25px;
 }
-
 
 .modalTitle {
     color: var(--white);
@@ -64,8 +58,8 @@
 
 .modalInnerContainer {
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
 }
 
 .formElement {

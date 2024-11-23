@@ -1,18 +1,49 @@
 :root {
+    --gray-50: #fff;
+    --gray-100: #f7f9fb;
+    --gray-200: #f0f4f8;
+    --gray-300: #a7aab9;
+    --gray-400: #7b7f95;
+    --gray-500: #60637a;
+    --gray-600: #525468;
+    --gray-700: #383941;
+    --gray-800: #18181b;
+    --gray-900: #121214;
+    --gray-950: #09090b;
+    --gray-300-transparent: #a7aab94c;
+
+    /* --red-50: #FEF2F2;
+    --red-100: #;
+    --red-200: #;
+    --red-300: #;
+    --red-400: #;
+    --red-500: #;
+    --red-600: #;
+    --red-700: #;
+    --red-800: #;
+    --red-900: #;
+    --red-950: #;
+
+    --red-50: #;
+    --red-100: #;
+    --red-200: #;
+    --red-300: #;
+    --red-400: #;
+    --red-500: #;
+    --red-600: #;
+    --red-700: #;
+    --red-800: #;
+    --red-900: #;
+    --red-950: #; */
+
     --accent: var(--sexy-blue);
     --dark-accent: var(--dark-green);
-
-
-
     --black: #09090b;
     --dark-gray: #18181b;
     --gray: #27272a;
     --light-gray: #434343;
     --dark-white: #9198a1;
     --white: #fafafa;
-
-
-
     --lime: #bdf500;
     --green: #7bff78;
     --dark-green: #315a31;
@@ -20,7 +51,6 @@
     --sexy-blue: #58d8c9;
     --dark-sexy-blue: #286a62;
     --red: #ef5d5d;
-
     --string: var(--accent);
     --gym: var(--red);
     --swimming-pool: var(--sexy-blue);
@@ -28,32 +58,38 @@
 }
 
 * {
+    font-family: Montserrat, sans-serif;
+
     box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
 }
 
 body {
     display: block;
 
-    background-color: var(--black);
-
     margin: 0;
 }
 
 body.light {
-    background-color: var(--white);
-    color: var(--black);
+    --container-background-color: var(--gray-100);
+    --container-border-color: var(--gray-200);
+    --container-shawdow-color: var(--gray-300-transparent);
+    --input-background-color: var(--gray-200);
+    --input-color: var(--gray-400);
+
+    background-color: var(--gray-50);
 }
 
 body.dark {
-    background-color: var(--black);
+    --container-background-color: var(--dark-gray);
+    --container-border-color: var(--light-gray);
     color: var(--white);
+    background-color: var(--black);
 }
 
 .content {
-    min-height: calc(100vh - 140px);
-
     display: flex;
     justify-content: center;
     align-items: center;
+
+    min-height: calc(100vh - 140px);
 }

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -7,7 +7,6 @@ import Fire from "@/icons/fire";
 import Error from "@/icons/error";
 import styles from "./page.module.css";
 
-
 const ConfirmPage = () => {
     const [status, setStatus] = useState<"error" | "success" | "default">("default");
 
@@ -15,21 +14,20 @@ const ConfirmPage = () => {
 
     useEffect(() => {
         const currentUrl: string = window.location.href;
-	    const url: URL = new URL(currentUrl);
-	    const token: string | null = url.searchParams.get("token");
+        const url: URL = new URL(currentUrl);
+        const token: string | null = url.searchParams.get("token");
 
         const handleConfirm = async () => {
-            const result  = await Api.account.confirmRegistration({
+            const result = await Api.account.confirmRegistration({
                 token: token,
             });
 
-            if (!("message" in result)){
+            if (!("message" in result)) {
                 setStatus("success");
                 setTimeout(() => {
                     router.push("/auth");
                 }, 1000);
-            }
-            else {
+            } else {
                 setStatus("error");
             }
         };
@@ -39,21 +37,23 @@ const ConfirmPage = () => {
 
     return (
         <div className={styles.container}>
-            {
-                status !== "default" && (<>
-                    {
-                        status === "success" ? <>
-                            <Fire/>
+            {status !== "default" && (
+                <>
+                    {status === "success" ? (
+                        <>
+                            <Fire />
                             <div className={styles.title}>Your email successfully confirmed</div>
-                        </> : <>
-                            <Error/>
+                        </>
+                    ) : (
+                        <>
+                            <Error />
                             <div className={styles.title}>Invalid confirmation link</div>
                         </>
-                    }
+                    )}
                 </>
             )}
         </div>
-    )
-}
+    );
+};
 
 export default ConfirmPage;

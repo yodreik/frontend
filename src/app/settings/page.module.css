@@ -1,64 +1,67 @@
 .container {
-    height: auto;
-    min-height: 770px;
-    width: 700px;
-
     display: block;
+
+    width: 700px;
+    height: auto;
+
+    min-height: 770px;
 }
 
 .section {
-    height: auto;
-
     display: flex;
     flex-direction: column;
+
+    height: auto;
 }
 
 .sectionTitle {
-    color: var(--white);
+    margin: 15px 30px 10px 40px;
+
     font-size: 32px;
     font-weight: 700;
 
-    margin: 15px 30px 10px 40px;
+    color: var(--white);
 }
 
 .sectionSeparator {
-    height: 1px;
     width: 100%;
-
+    height: 1px;
     margin: 0;
-    border: none;
 
     background-color: var(--gray);
+    border: none;
 }
 
 .sectionContent {
     display: flex;
     flex-direction: row;
-    gap: 30px;
 
     padding: 25px;
+    gap: 30px;
 }
 
 .column {
     display: flex;
     flex-direction: column;
+
     gap: 15px;
 }
 
 .sectionInputContainer {
     display: flex;
     flex-direction: column;
-    gap: 3px;
 
     width: auto;
+    gap: 3px;
 }
 
 .label {
-    color: var(--white);
+    margin: 0px 10px 0px 10px;
+
     font-size: 16px;
     font-weight: 500;
 
-    margin: 0px 10px 0px 10px;
+    color: var(--white);
 }
 
 .input {
@@ -66,14 +69,14 @@
 }
 
 .avatarContariner {
-    height: 190px;
-    width: 190px;
-
     position: relative;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    width: 190px;
+    height: 190px;
 }
 
 .avatar {
@@ -82,44 +85,47 @@
 }
 
 .blind {
-    height: 100%;
-    width: 100%;
-
     position: absolute;
     top: 0px;
     right: 0px;
 
-    background-color: rgba(0, 0, 0, 0);
-    transition: 0.3s;
-    border-radius: 50%;
-
-    cursor: pointer;
-
     display: flex;
     justify-content: center;
     align-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .blind:hover {
     background-color: rgba(0, 0, 0, 0.7);
+
     transition: 0.3s;
 }
 
 .bigPencil {
+    width: 70px;
+    height: 70px;
+
     opacity: 0;
     transition: 0.3s;
 
-    height: 70px;
-    width: 70px;
     fill: var(--white);
 }
 
 .blind:hover .bigPencil {
+    width: 70px;
+    height: 70px;
+
     opacity: 1;
     transition: 0.3s;
 
-    height: 70px;
-    width: 70px;
     fill: var(--white);
 }
 
@@ -128,46 +134,51 @@
     right: 5px;
     bottom: 5px;
 
-    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 35px;
+    height: 35px;
 
     background-color: var(--dark-gray);
     border: 1px solid var(--red);
     border-radius: 9px;
 
     cursor: pointer;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .tick {
-    height: 11px;
     width: 12px;
+    height: 11px;
+
     fill: var(--green);
 }
 
 .cross {
-    height: 11px;
     width: 11px;
+    height: 11px;
+
     fill: var(--red);
 }
 
 .pencil {
-    height: 15px;
     width: 15px;
+    height: 15px;
+
     fill: var(--white);
 }
 
 .bin {
-    height: 18px;
     width: 20px;
+    height: 18px;
+
     fill: var(--red);
 }
 
 .saveButtonContainer {
     display: flex;
     justify-content: flex-end;
+
     margin: 20px;
 }

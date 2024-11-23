@@ -1,0 +1,102 @@
+{
+    "plugins": ["stylelint-order"],
+    "extends": ["stylelint-prettier"],
+    "rules": {
+        "order/order": ["custom-properties", "declarations"],
+        "order/properties-order": [
+            [
+                {
+                    "emptyLineBefore": "always",
+                    "noEmptyLineBetween": true,
+                    "properties": [
+                        "position",
+                        "top",
+                        "right",
+                        "bottom",
+                        "left",
+                        "z-index"
+                    ]
+                },
+                {
+                    "emptyLineBefore": "always",
+                    "noEmptyLineBetween": true,
+                    "properties": [
+                        "display",
+                        "flex",
+                        "flex-direction",
+                        "flex-wrap",
+                        "justify-content",
+                        "align-items",
+                        "align-self",
+                        "justify-self"
+                    ]
+                },
+                {
+                    "emptyLineBefore": "always",
+                    "noEmptyLineBetween": true,
+                    "properties": [
+                        "width",
+                        "max-width",
+                        "height",
+                        "max-height",
+                        "margin",
+                        "margin-left",
+                        "margin-right",
+                        "padding",
+                        "padding-top",
+                        "padding-right",
+                        "padding-bottom",
+                        "padding-left",
+                        "gap"
+                    ]
+                },
+                {
+                    "emptyLineBefore": "always",
+                    "noEmptyLineBetween": true,
+                    "properties": [
+                        "font-family",
+                        "font-size",
+                        "font-weight",
+                        "line-height"
+                    ]
+                },
+                {
+                    "emptyLineBefore": "always",
+                    "noEmptyLineBetween": true,
+                    "properties": [
+                        "color",
+                        "background-color",
+                        "background",
+                        "border",
+                        "border-radius",
+                        "box-shadow",
+                        "outline"
+                    ]
+                },
+                {
+                    "emptyLineBefore": "always",
+                    "noEmptyLineBetween": true,
+                    "properties": [
+                        "opacity",
+                        "visibility",
+                        "cursor",
+                        "filter",
+                        "transition",
+                        "transition-delay",
+                        "transform",
+                        "animation"
+                    ]
+                },
+                {
+                    "emptyLineBefore": "always",
+                    "noEmptyLineBetween": true,
+                    "properties": ["object-fit", "fill", "caret-color"]
+                }
+            ],
+            {
+                "unspecified": "bottom",
+                "emptyLineBeforeUnspecified": "always"
+            }
+        ]
+    }
+}

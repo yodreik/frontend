@@ -1,11 +1,12 @@
 .form {
-    display: flex; 
+    display: flex;
     flex-direction: column;
 }
 
 .form__title {
     font-size: 1.5rem;
     font-weight: 700;
+
     color: var(--white);
 }
 
@@ -14,17 +15,21 @@
 }
 
 .form__info {
-    margin-top: 20px;
     font-weight: 500;
+
     visibility: hidden;
+
+    margin-top: 20px;
 }
 
 .error {
     color: var(--red);
+
     visibility: visible;
 }
 
 .success {
     color: var(--green);
+
     visibility: visible;
 }
