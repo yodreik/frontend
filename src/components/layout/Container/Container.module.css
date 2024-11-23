@@ -2,13 +2,13 @@
     background-color: var(--container-background-color);
     border: 1px solid var(--container-border-color);
     border-radius: 25px;
-    box-shadow: 0 0 20px var(--container-shawdow-color);
+    box-shadow: 0 0 20px var(--container-shadow-color);
 }
 
 /* TODO */
 
 .container.dark {
-    background-color: var(--dark-gray);
-    border: 1px solid var(--light-gray);
+    background-color: var(--container-background-color);
+    border: 1px solid var(--container-border-color);
     border-radius: 25px;
 }
