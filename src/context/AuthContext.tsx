@@ -97,6 +97,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             is_confirmed: false,
             is_private: false
         });
+        localStorage.removeItem("userData");
         Cookies.remove("token");
         router.replace("/");
     };

@@ -27,13 +27,13 @@
 }
 
 .input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px var(--dark-gray) inset !important;
+    -webkit-box-shadow: 0 0 0 1000px var(--input-background-color) inset !important;
 
     transition: background-color 5000000s ease-in-out 0s;
 
-    caret-color: var(--white);
+    caret-color: var(--input-color);
 
-    -webkit-text-fill-color: var(--white);
+    -webkit-text-fill-color: var(--input-color);
 }
 
 .input:focus {

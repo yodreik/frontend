@@ -94,8 +94,6 @@ body {
     display: block;
 
     margin: 0;
-
-    background-color: var(--gray-950);
 }
 
 body.light {
@@ -104,6 +102,7 @@ body.light {
     --container-shadow-color: var(--gray-300-transparent);
     --input-background-color: var(--gray-200);
     --input-color: var(--gray-400);
+
     background-color: var(--gray-50);
 }
 
