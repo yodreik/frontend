@@ -7,30 +7,35 @@
     font-size: 18px;
     font-weight: 700;
 
-    color: var(--black);
-    background-color: var(--accent);
+    color: var(--button-color);
+    background-color: var(--button-background-color);
     border: none;
     border-radius: 15px;
 
     cursor: pointer;
 
-    transition: 0.3s;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .button:disabled {
-    cursor: default;
-    filter: brightness(0.5);
+    background-color: var(--button-background-disabled-color);
 
-    transition: 0.3s;
+    cursor: default;
 }
 
 .button:not([disabled]):hover {
-    box-shadow: 0 0 15px var(--accent);
+    box-shadow: 0 0 15px var(--button-background-color);
 
-    transition: 0.3s;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .button:not([disabled]):active {
-    transition: 0.1s;
+    transition:
+        transform 0.1s ease,
+        box-shadow 0.3s ease;
     transform: scale(0.95);
 }

@@ -216,12 +216,7 @@ const AuthPage = () => {
     };
 
     useEffect(() => {
-        if (
-            emailOrUsernameLoginStatus === "error" ||
-            passwordLoginStatus === "error" ||
-            emailOrUsernameLogin === "" ||
-            passwordLogin === ""
-        ) {
+        if (emailOrUsernameLoginStatus === "error" || passwordLoginStatus === "error" || emailOrUsernameLogin === "" || passwordLogin === "") {
             setButtonLoginIsDisabled(true);
         } else {
             setButtonLoginIsDisabled(false);
@@ -307,12 +302,7 @@ const AuthPage = () => {
                     </p>
                 </Form>
 
-                <Form
-                    className={styles.form_signup}
-                    title="Create an account"
-                    info={infoRegister}
-                    infoStatus={infoRegisterStatus}
-                >
+                <Form className={styles.form_signup} title="Create an account" info={infoRegister} infoStatus={infoRegisterStatus}>
                     <Input
                         className={styles.input}
                         value={usernameRegister}
