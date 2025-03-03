@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 
 const axiosInstance = axios.create({
-    baseURL: "https://dreik.d.qarwe.online/api"
+    baseURL: "https://yodreik.ndbtea.tech/api"
 })
 
 axiosInstance.interceptors.request.use((config) => {

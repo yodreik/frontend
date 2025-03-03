@@ -5,7 +5,8 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'dreik.d.qarwe.online',
+				/* hostname: 'dreik.d.qarwe.online', */
+				hostname: 'frontend-zeta-two-39.vercel.app',
                 port: '',
                 pathname: '/api/avatar/**',
             },
