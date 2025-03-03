@@ -1,0 +1,25 @@
+.temporaryStatistics {
+    background-color: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+    height: 300px;
+    width: 900px;
+    border-radius: 25px;
+}
+
+
+.container {
+    margin: 50px;
+
+    position: relative;
+    justify-self: center;
+    align-self: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.width {
+    width: 500px;
+    height: 26px;
+}

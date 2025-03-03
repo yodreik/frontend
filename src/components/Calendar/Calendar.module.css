@@ -1,0 +1,150 @@
+.calendar {
+    background-color: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+    height: 400px;
+    width: 500px;
+    border-radius: 25px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    overflow: hidden;
+
+    padding: 0px 7px 0px 7px;
+}
+
+.calendar__button {
+    cursor: pointer;
+
+    height: 100%;
+    width: 8%;
+
+    background: none;
+    border: none;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 43px;
+}
+
+.calendar__main {
+    height: 100%;
+    width: 84%;
+}
+
+.calendar__header {
+    color: var(--accent);
+    font-size: 22px;
+    font-weight: 700;
+
+    height: 15%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 10px;
+}
+
+.calendar__body {
+    height: 85%;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px 1px;
+
+    justify-content: center;
+    align-items: center;
+    
+    padding-bottom: 20px;
+}
+
+.weekDays {
+    color: var(--white);
+    font-weight: 700;
+
+    height: 45px;
+    width: 45px;
+
+    justify-self: center;
+    align-self: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dayContainer {
+    cursor: pointer;
+
+    position: relative;
+
+    display: flex;
+    justify-self: center;
+    align-self: center;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+}
+
+.day {
+    color: var(--white);
+
+    height: 41px;
+    width: 41px;
+
+    border-radius: 50%;
+
+    justify-self: center;
+    align-self: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dayContainer:hover .day {
+    background-color: var(--gray);
+}
+
+.dayOutside {
+    color: var(--light-gray);
+}
+
+.dayOutside:hover {
+    color: var(--white);
+}
+
+.today {
+    height: 41px;
+    width: 41px;
+    
+    color: var(--black);
+    font-weight: 700;
+    background-color: var(--white);
+}
+
+.today.trained {
+    height: 29px;
+    width: 29px;
+}
+
+.dayContainer:hover .today {
+    background-color: var(--dark-white);
+}
+
+.arrow {
+    height: 31px;
+    width: 19px; 
+    fill: var(--light-gray);
+}
+
+.calendar__button:hover .arrow {
+    fill: var(--white);
+}

@@ -1,0 +1,73 @@
+.container {
+    height: auto;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.column {
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    margin: 0px 15px 0px 15px;
+}
+
+.chapter {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.title {
+    color: var(--white);
+
+    font-size: 28px;
+    font-weight: 700;
+
+    margin-left: 15px;
+}
+
+.input {
+    width: 300px;
+}
+
+
+
+
+
+
+
+.temporaryStatistics {
+    background-color: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+    height: 300px;
+    width: 500px;
+    border-radius: 25px;
+}
+
+
+.temporaryWeight {
+    background-color: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+    height: 300px;
+    width: 500px;
+    border-radius: 25px;
+}
+
+
+.modalTitle {
+    color: var(--white);
+}
+
+.modalInnerContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.formElement {
+    margin-bottom: 30px;
+}

@@ -1,12 +1,21 @@
-import Image from "next/image";
+"use client"
+
+import styles from "./page.module.css";
+import { useState } from 'react';
+import SegmentedControl from "@/components/SegmentedControl/SegmentedControl";
 
 export default function Home() {
-  return (
-    <main>
-      <div>
-        <h1>Welnex</h1>
-        <a href="/auth">Авторизация</a>
-      </div>
-    </main>
-  );
+    const [togglePosition, setTogglePosition] = useState<number>(0);
+    const selections = ["Week", "Month", "Year", "All time", "Хуй"];
+
+    return (
+        <main>
+            <div className={styles.temporaryStatistics}>
+                <div className={styles.container}>
+                    <SegmentedControl size={styles.width} selections={selections} getSelection={togglePosition} setSelection={setTogglePosition} />
+                </div>
+                <div>empty for now</div>
+            </div>
+        </main>
+    );
 }

@@ -1,0 +1,247 @@
+.barCalendar {
+    background-color: var(--dark-gray);
+    border: 1px solid var(--light-gray);
+    height: 245px;
+    width: 500px;
+    border-radius: 25px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    position: relative;
+}
+
+.header {
+    height: 17%;
+    width: 100%;
+    
+    padding-left: 45px;
+
+    display: flex;
+    align-items: end;
+    flex-direction: row;
+}
+
+.dateInterval {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.dateButtons {
+    position: absolute;
+    right: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dateButtonContainers {
+    height: 25px;
+    width: 25px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dateButton {
+    cursor: pointer;
+
+    height: 25px;
+    width: 25px;
+
+    background: none;
+    border: none;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow {
+    height: 12px;
+    width: 7px;
+    fill: var(--light-gray);
+}
+
+.dateButton:hover .arrow {
+    fill: var(--white);
+}
+
+
+
+.body {
+    height: 68%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    position: relative;
+}
+
+.graph {
+    position: absolute;
+    bottom: 1px;
+    left: 55px;
+
+    height: 150px;
+    width: 370px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: end;
+}
+
+.bar {
+    height: 150px;
+
+    display: flex;
+    flex: 1 1;
+    flex-direction: column;
+    align-items: center;
+}
+
+.barTitle {
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 700;
+
+    width: 50%;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.barTitleToday {
+    z-index: 10;
+    
+    color: var(--black);
+    font-size: 14px;
+    font-weight: 700;
+
+    width: 50%;
+    height: 27px;
+
+    background-color: var(--white);
+    border-radius: 0px 0px 10px 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4px;
+}
+
+.barTitleTodayWithoutTraining {
+    z-index: 10;
+
+    color: var(--black);
+    font-size: 14px;
+    font-weight: 700;
+
+    width: 50%;
+    height: 23px;
+
+    background-color: var(--white);
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.barPartsContainer {
+    z-index: 10;
+
+    height: 120px;
+    width: 50%;
+    min-width: 6px;
+    max-width: 27px;
+
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+@keyframes fadeIn {
+    from {
+        height: 0px;
+    }
+}
+
+.barPart {
+    width: 100%;
+
+    border-radius: 10px 10px 0px 0px;
+
+    display: flex;
+    animation: fadeIn 0.5s ease;
+}
+
+.extraBarPart {
+    border-radius: 10px;
+    animation: fadeIn 0.5s ease;
+}
+
+.time {
+    position: absolute;
+    right: 35px;
+
+    color: var(--white);
+    font-size: 12px;
+
+    width: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.backgroundLine {
+    position: absolute;
+
+    height: 0px;
+    width: 380px;
+
+    margin: 0px 25px 0px 0px;
+    border: none;
+
+    border-top: 1px dashed var(--light-gray);
+}
+
+.bottomLine {
+    position: absolute;
+    bottom: 30px;
+
+    height: 1px;
+    width: 405px;
+
+    margin: 0;
+    border: none;
+
+    background-color: var(--light-gray);
+}
+
+
+
+.footer {
+    height: 15%;
+    width: 100%;
+    padding-top: 1px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.segmentedControlSize {
+    width: 355px;
+    height: 24px;
+}

@@ -1,0 +1,27 @@
+/* .color:not([disabled]):hover {
+    box-shadow: 0 0 15px blue;
+    background-color: blue;
+} */
+.test {
+    display: flex;
+    gap: 400px;
+    flex-direction: column;
+}
+
+.testb {
+    margin-top: 1000px;
+}
+
+.modalTitle {
+    color: var(--white);
+}
+
+.modalInnerContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.formElement {
+    margin-bottom: 30px;
+}
